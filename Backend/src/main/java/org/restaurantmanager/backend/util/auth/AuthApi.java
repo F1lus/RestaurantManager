@@ -1,7 +1,9 @@
 package org.restaurantmanager.backend.util.auth;
 
+import jakarta.validation.Valid;
 import org.restaurantmanager.backend.dto.auth.LoginRequest;
 import org.restaurantmanager.backend.dto.auth.RegisterRequest;
+import org.restaurantmanager.backend.dto.auth.TokenResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +19,8 @@ public interface AuthApi {
     String REGISTER_PATH = "/register";
 
     @PostMapping(LOGIN_PATH)
-    ResponseEntity<String> login(@RequestBody final LoginRequest loginRequest);
+    ResponseEntity<TokenResponse> login(@Valid @RequestBody final LoginRequest loginRequest);
 
     @PostMapping(REGISTER_PATH)
-    ResponseEntity<String> register(@RequestBody final RegisterRequest registerRequest);
+    ResponseEntity<String> register(@Valid @RequestBody final RegisterRequest registerRequest);
 }

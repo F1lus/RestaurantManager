@@ -28,34 +28,34 @@ public class AuthService implements IAuthService {
 
     @Override
     public String authenticate(final LoginRequest loginRequest) {
-        log.info("Authenticating user: {}", loginRequest.email());
+        log.info("Authenticating user: {}", loginRequest.getEmail());
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginRequest.email(),
-                loginRequest.password()
+                loginRequest.getEmail(),
+                loginRequest.getEmail()
         ));
 
-        val profileEntity = profileRepository.findByEmail(loginRequest.email())
+        val profileEntity = profileRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(IncorrectCredentialsException::new);
 
-        log.info("Profile found, generating token for: {}", loginRequest.email());
+        log.info("Profile found, generating token for: {}", loginRequest.getEmail());
         return jwtService.generateToken(profileEntity);
     }
 
     @Override
     public void register(final RegisterRequest registerRequest) {
-        log.info("Registration started for user: {}", registerRequest.email());
-        if(!registerRequest.password().equals(registerRequest.confirmPassword())){
+        log.info("Registration started for user: {}", registerRequest.getEmail());
+        if(!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())){
             throw new PasswordConfirmException();
         }
 
         val profileEntity = ProfileEntity.builder()
-                .email(registerRequest.email())
-                .password(passwordEncoder.encode(registerRequest.password()))
-                .fullName(registerRequest.fullName())
-                .phoneNumber(registerRequest.phoneNumber())
+                .email(registerRequest.getEmail())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .fullName(registerRequest.getFullName())
+                .phoneNumber(registerRequest.getPhoneNumber())
                 .build();
 
-        log.info("Registration finished for user: {}", registerRequest.email());
+        log.info("Registration finished for user: {}", registerRequest.getEmail());
         profileRepository.save(profileEntity);
     }
 }
