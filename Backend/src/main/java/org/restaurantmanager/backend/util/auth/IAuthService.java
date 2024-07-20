@@ -6,5 +6,6 @@ import org.restaurantmanager.backend.dto.auth.RegisterRequest;
 public interface IAuthService {
 
     String authenticate(final LoginRequest loginRequest);
+    
     void register(final RegisterRequest registerRequest);
 }

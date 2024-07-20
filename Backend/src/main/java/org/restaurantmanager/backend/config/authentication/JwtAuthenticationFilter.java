@@ -10,6 +10,7 @@ import lombok.val;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -44,19 +45,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             val jwt = authHeader.substring(7);
             val userEmail = jwtService.extractUsername(jwt);
-
             val authentication = SecurityContextHolder.getContext().getAuthentication();
+
             if(userEmail != null && authentication == null) {
                 val userDetails = userDetailsService.loadUserByUsername(userEmail);
 
                 if(jwtService.isTokenValid(jwt, userDetails)) {
-                    val authToken = new UsernamePasswordAuthenticationToken(
-                            userDetails,
-                            null,
-                            userDetails.getAuthorities()
-                    );
-                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                    authorizeRequest(request, userDetails);
                 }
             }
 
@@ -64,5 +59,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception exception) {
             handlerExceptionResolver.resolveException(request, response, null, exception);
         }
+    }
+
+    private void authorizeRequest(HttpServletRequest request, UserDetails userDetails) {
+        val authToken = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                null,
+                userDetails.getAuthorities()
+        );
+        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authToken);
     }
 }

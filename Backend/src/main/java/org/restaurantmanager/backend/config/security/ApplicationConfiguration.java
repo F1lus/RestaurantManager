@@ -1,4 +1,4 @@
-package org.restaurantmanager.backend.config;
+package org.restaurantmanager.backend.config.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
