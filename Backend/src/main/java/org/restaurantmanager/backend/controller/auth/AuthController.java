@@ -27,6 +27,6 @@ public class AuthController implements AuthApi {
     @Override
     public ResponseEntity<String> register(final RegisterRequest registerRequest) {
         authService.register(registerRequest);
-        return ResponseEntity.ok("Registration successful");
+        return ResponseEntity.ok("");
     }
 }

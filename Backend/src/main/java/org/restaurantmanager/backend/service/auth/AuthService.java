@@ -1,5 +1,6 @@
 package org.restaurantmanager.backend.service.auth;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -10,11 +11,14 @@ import org.restaurantmanager.backend.dto.auth.LoginRequest;
 import org.restaurantmanager.backend.dto.auth.RegisterRequest;
 import org.restaurantmanager.backend.exception.auth.IncorrectCredentialsException;
 import org.restaurantmanager.backend.exception.auth.PasswordConfirmException;
+import org.restaurantmanager.backend.exception.profile.ProfileConstraintViolationException;
+import org.restaurantmanager.backend.util.exception.ApplicationError;
 import org.restaurantmanager.backend.util.auth.IAuthService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -42,11 +46,15 @@ public class AuthService implements IAuthService {
     }
 
     @Override
+    @Transactional
     public void register(final RegisterRequest registerRequest) {
         log.info("Registration started for user: {}", registerRequest.getEmail());
         if(!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())){
             throw new PasswordConfirmException();
         }
+
+        checkEmail(registerRequest.getEmail());
+        checkPhoneNumber(registerRequest.getPhoneNumber());
 
         val profileEntity = ProfileEntity.builder()
                 .email(registerRequest.getEmail())
@@ -55,7 +63,25 @@ public class AuthService implements IAuthService {
                 .phoneNumber(registerRequest.getPhoneNumber())
                 .build();
 
-        log.info("Registration finished for user: {}", registerRequest.getEmail());
         profileRepository.save(profileEntity);
+        log.info("Registration finished for user: {}", registerRequest.getEmail());
+    }
+
+    private void checkEmail(final String email) {
+        profileRepository.findByEmail(email)
+                .ifPresent(profileEntity -> {
+                    throw new ProfileConstraintViolationException(ApplicationError.PROFILE_EMAIL_DUPLICATE);
+                });
+    }
+
+    private void checkPhoneNumber(final String phoneNumber) {
+        if(StringUtils.isEmpty(phoneNumber)) {
+            return;
+        }
+
+        profileRepository.findByPhoneNumber(phoneNumber)
+                .ifPresent(profileEntity -> {
+                    throw new ProfileConstraintViolationException(ApplicationError.PROFILE_PHONE_NUMBER_DUPLICATE);
+                });
     }
 }

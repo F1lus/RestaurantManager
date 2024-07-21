@@ -1,12 +1,12 @@
 package org.restaurantmanager.backend.exception.auth;
 
 import org.restaurantmanager.backend.exception.ApplicationException;
-import org.restaurantmanager.backend.exception.ErrorStatus;
+import org.restaurantmanager.backend.util.exception.ApplicationError;
 
 public class IncorrectCredentialsException extends ApplicationException {
 
     public IncorrectCredentialsException() {
-        super(ErrorStatus.INCORRECT_CREDENTIALS);
+        super(ApplicationError.INCORRECT_CREDENTIALS);
     }
 
 }

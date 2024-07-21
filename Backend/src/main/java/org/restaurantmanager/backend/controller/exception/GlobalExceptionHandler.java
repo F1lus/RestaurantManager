@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ApplicationException.class)
     public ResponseEntity<String> handleApplicationException(ApplicationException exception) {
         // No logs needed here since the ApplicationException class handles that already
-        val errorStatus = exception.getErrorStatus();
+        val errorStatus = exception.getApplicationError();
         return ResponseEntity.status(errorStatus.getHttpStatus())
                 .body(errorStatus.name());
     }
