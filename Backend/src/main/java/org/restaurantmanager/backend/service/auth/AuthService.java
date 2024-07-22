@@ -35,7 +35,7 @@ public class AuthService implements IAuthService {
         log.info("Authenticating user: {}", loginRequest.getEmail());
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getEmail(),
-                loginRequest.getEmail()
+                loginRequest.getPassword()
         ));
 
         val profileEntity = profileRepository.findByEmail(loginRequest.getEmail())
