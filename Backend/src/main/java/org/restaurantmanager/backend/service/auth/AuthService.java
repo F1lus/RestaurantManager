@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.restaurantmanager.backend.config.authentication.JwtService;
 import org.restaurantmanager.backend.datamodel.entity.ProfileEntity;
+import org.restaurantmanager.backend.datamodel.fieldtype.ProfileType;
 import org.restaurantmanager.backend.datamodel.repository.ProfileRepository;
 import org.restaurantmanager.backend.dto.auth.LoginRequest;
 import org.restaurantmanager.backend.dto.auth.RegisterRequest;
@@ -61,6 +62,7 @@ public class AuthService implements IAuthService {
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .fullName(registerRequest.getFullName())
                 .phoneNumber(registerRequest.getPhoneNumber())
+                .profileType(ProfileType.USER)
                 .build();
 
         profileRepository.save(profileEntity);
