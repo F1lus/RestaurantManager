@@ -1,4 +1,4 @@
-package org.restaurantmanager.backend.controller.auth;
+package org.restaurantmanager.backend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.backend.dto.auth.LoginRequest;

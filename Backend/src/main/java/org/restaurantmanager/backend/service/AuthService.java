@@ -1,4 +1,4 @@
-package org.restaurantmanager.backend.service.auth;
+package org.restaurantmanager.backend.service;
 
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
