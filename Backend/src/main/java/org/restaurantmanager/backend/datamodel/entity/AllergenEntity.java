@@ -12,10 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,7 +23,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AllergenEntity {
+public class AllergenEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -37,13 +34,5 @@ public class AllergenEntity {
 
     @ManyToMany(mappedBy = "allergens")
     private Set<FoodEntity> foods;
-
-    @CreationTimestamp
-    @Column(updatable = false)
-    private LocalDate createdAt;
-
-    @UpdateTimestamp
-    @Column
-    private LocalDate updatedAt;
 
 }

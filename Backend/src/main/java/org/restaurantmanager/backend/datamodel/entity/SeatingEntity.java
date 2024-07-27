@@ -13,10 +13,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,7 +24,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SeatingEntity {
+public class SeatingEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -42,11 +39,4 @@ public class SeatingEntity {
     @OneToMany(mappedBy = "seatingEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ReservationEntity> reservations;
 
-    @CreationTimestamp
-    @Column(updatable = false)
-    private LocalDate createdAt;
-
-    @UpdateTimestamp
-    @Column
-    private LocalDate updatedAt;
 }

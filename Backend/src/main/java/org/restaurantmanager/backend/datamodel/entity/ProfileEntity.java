@@ -15,13 +15,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.restaurantmanager.backend.datamodel.fieldtype.ProfileType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
@@ -33,7 +30,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProfileEntity implements UserDetails {
+public class ProfileEntity extends BaseEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -57,14 +54,6 @@ public class ProfileEntity implements UserDetails {
 
     @OneToMany(mappedBy = "reservedBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ReservationEntity> reservations;
-
-    @CreationTimestamp
-    @Column(updatable = false)
-    private LocalDate createdAt;
-
-    @UpdateTimestamp
-    @Column
-    private LocalDate updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
