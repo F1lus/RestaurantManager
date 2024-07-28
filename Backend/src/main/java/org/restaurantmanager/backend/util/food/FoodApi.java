@@ -2,7 +2,7 @@ package org.restaurantmanager.backend.util.food;
 
 import jakarta.validation.Valid;
 import org.restaurantmanager.backend.dto.food.CreateFoodRequest;
-import org.restaurantmanager.backend.dto.food.FoodResponse;
+import org.restaurantmanager.backend.dto.food.Food;
 import org.restaurantmanager.backend.dto.food.ModifyFoodRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +23,7 @@ public interface FoodApi {
     String FOOD_PATH = "/api/food";
 
     @GetMapping
-    ResponseEntity<Iterable<FoodResponse>> getFoods();
+    ResponseEntity<Iterable<Food>> getFoods();
 
     @PostMapping
     ResponseEntity<Void> createFood(@Valid @RequestBody final CreateFoodRequest request);

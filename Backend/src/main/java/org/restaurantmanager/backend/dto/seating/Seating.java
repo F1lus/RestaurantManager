@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public final class SeatingResponse {
+public final class Seating {
 
     private final UUID id;
 

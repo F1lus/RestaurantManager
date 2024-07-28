@@ -1,7 +1,7 @@
 package org.restaurantmanager.backend.util.food;
 
 import org.restaurantmanager.backend.dto.food.CreateFoodRequest;
-import org.restaurantmanager.backend.dto.food.FoodResponse;
+import org.restaurantmanager.backend.dto.food.Food;
 import org.restaurantmanager.backend.dto.food.ModifyFoodRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface IFoodService {
 
-    List<FoodResponse> getAllFoods();
+    List<Food> getAllFoods();
 
     @PreAuthorize("hasAuthority('ADMIN')")
     void createFood(final CreateFoodRequest createFoodRequest);

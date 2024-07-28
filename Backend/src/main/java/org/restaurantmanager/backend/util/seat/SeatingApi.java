@@ -3,7 +3,7 @@ package org.restaurantmanager.backend.util.seat;
 import jakarta.validation.Valid;
 import org.restaurantmanager.backend.dto.seating.CreateSeatingRequest;
 import org.restaurantmanager.backend.dto.seating.ModifySeatingRequest;
-import org.restaurantmanager.backend.dto.seating.SeatingResponse;
+import org.restaurantmanager.backend.dto.seating.Seating;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public interface SeatingApi {
     String SEATING_PATH = "/api/seating";
 
     @GetMapping
-    ResponseEntity<Iterable<SeatingResponse>> getSeats();
+    ResponseEntity<Iterable<Seating>> getSeats();
 
     @PostMapping
     ResponseEntity<Void> addSeat(@Valid @RequestBody final CreateSeatingRequest request);

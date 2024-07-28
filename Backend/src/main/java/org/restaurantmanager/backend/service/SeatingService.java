@@ -7,7 +7,7 @@ import org.restaurantmanager.backend.datamodel.entity.SeatingEntity;
 import org.restaurantmanager.backend.datamodel.repository.SeatingRepository;
 import org.restaurantmanager.backend.dto.seating.CreateSeatingRequest;
 import org.restaurantmanager.backend.dto.seating.ModifySeatingRequest;
-import org.restaurantmanager.backend.dto.seating.SeatingResponse;
+import org.restaurantmanager.backend.dto.seating.Seating;
 import org.restaurantmanager.backend.exception.seating.SeatingNameViolationException;
 import org.restaurantmanager.backend.exception.seating.SeatingNotFoundException;
 import org.restaurantmanager.backend.util.seat.ISeatingService;
@@ -26,7 +26,7 @@ public class SeatingService implements ISeatingService {
     private final SeatingRepository seatingRepository;
 
     @Override
-    public List<SeatingResponse> getSeats() {
+    public List<Seating> getSeats() {
         return seatingRepository.findAll()
                 .stream()
                 .map(SeatingConverter::toSeatingRequest)

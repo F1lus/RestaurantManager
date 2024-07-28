@@ -2,7 +2,7 @@ package org.restaurantmanager.backend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.backend.dto.food.CreateFoodRequest;
-import org.restaurantmanager.backend.dto.food.FoodResponse;
+import org.restaurantmanager.backend.dto.food.Food;
 import org.restaurantmanager.backend.dto.food.ModifyFoodRequest;
 import org.restaurantmanager.backend.util.food.FoodApi;
 import org.restaurantmanager.backend.util.food.IFoodService;
@@ -18,7 +18,7 @@ public class FoodController implements FoodApi {
     private final IFoodService foodService;
 
     @Override
-    public ResponseEntity<Iterable<FoodResponse>> getFoods() {
+    public ResponseEntity<Iterable<Food>> getFoods() {
         return ResponseEntity.ok(foodService.getAllFoods());
     }
 

@@ -3,7 +3,7 @@ package org.restaurantmanager.backend.controller;
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.backend.dto.seating.CreateSeatingRequest;
 import org.restaurantmanager.backend.dto.seating.ModifySeatingRequest;
-import org.restaurantmanager.backend.dto.seating.SeatingResponse;
+import org.restaurantmanager.backend.dto.seating.Seating;
 import org.restaurantmanager.backend.util.seat.ISeatingService;
 import org.restaurantmanager.backend.util.seat.SeatingApi;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class SeatingController implements SeatingApi {
     private final ISeatingService seatingService;
 
     @Override
-    public ResponseEntity<Iterable<SeatingResponse>> getSeats() {
+    public ResponseEntity<Iterable<Seating>> getSeats() {
         return ResponseEntity.ok(seatingService.getSeats());
     }
 

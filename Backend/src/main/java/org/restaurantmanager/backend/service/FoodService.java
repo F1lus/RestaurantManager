@@ -7,7 +7,7 @@ import org.restaurantmanager.backend.datamodel.entity.AllergenEntity;
 import org.restaurantmanager.backend.datamodel.entity.FoodEntity;
 import org.restaurantmanager.backend.datamodel.repository.FoodRepository;
 import org.restaurantmanager.backend.dto.food.CreateFoodRequest;
-import org.restaurantmanager.backend.dto.food.FoodResponse;
+import org.restaurantmanager.backend.dto.food.Food;
 import org.restaurantmanager.backend.dto.food.ModifyFoodRequest;
 import org.restaurantmanager.backend.exception.food.FoodNotFoundException;
 import org.restaurantmanager.backend.util.allergen.IAllergenService;
@@ -30,7 +30,7 @@ public class FoodService implements IFoodService {
     private final FoodRepository foodRepository;
 
     @Override
-    public List<FoodResponse> getAllFoods() {
+    public List<Food> getAllFoods() {
         log.info("Getting all foods...");
         return foodRepository.findAll()
                 .stream()

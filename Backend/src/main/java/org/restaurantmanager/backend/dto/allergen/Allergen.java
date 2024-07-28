@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public final class AllergenResponse {
+public final class Allergen {
 
     private final UUID id;
     private final String name;
