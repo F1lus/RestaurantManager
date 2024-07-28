@@ -15,9 +15,14 @@ public enum ApplicationError {
     // endregion
 
     // region Profile errors
-    PROFILE_EMAIL_DUPLICATE("The email constraint is violated", HttpStatus.CONFLICT),
-    PROFILE_PHONE_NUMBER_DUPLICATE("The phone number constraint is violated", HttpStatus.CONFLICT);
+    PROFILE_EMAIL_DUPLICATE("The profile email constraint is violated", HttpStatus.CONFLICT),
+    PROFILE_PHONE_NUMBER_DUPLICATE("The profile phone number constraint is violated", HttpStatus.CONFLICT),
     // endregion
+
+    // region Seating errors
+    SEATING_NAME_DUPLICATE("The seating name constraint is violated", HttpStatus.CONFLICT),
+    SEATING_ID_INVALID("The seating id is invalid", HttpStatus.NOT_FOUND);
+    //endregion
 
     private final String message;
     private final HttpStatus httpStatus;

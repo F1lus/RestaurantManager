@@ -2,6 +2,7 @@ package org.restaurantmanager.backend.util.seat;
 
 import jakarta.validation.Valid;
 import org.restaurantmanager.backend.dto.seating.CreateSeatingRequest;
+import org.restaurantmanager.backend.dto.seating.ModifySeatingRequest;
 import org.restaurantmanager.backend.dto.seating.SeatingResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +29,10 @@ public interface SeatingApi {
     ResponseEntity<Void> addSeat(@Valid @RequestBody final CreateSeatingRequest request);
 
     @PutMapping("{id}")
-    ResponseEntity<Void> modifySeat(@PathVariable final UUID id);
+    ResponseEntity<Void> modifySeat(
+            @PathVariable final UUID id,
+            @Valid @RequestBody final ModifySeatingRequest request
+    );
 
     @DeleteMapping("{id}")
     ResponseEntity<Void> deleteSeat(@PathVariable final UUID id);

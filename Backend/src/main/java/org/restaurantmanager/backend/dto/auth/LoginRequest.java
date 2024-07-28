@@ -6,16 +6,16 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public final class LoginRequest {
+public final class LoginRequest implements AuthValidation {
 
-    @NotNull(message = "The email is required")
-    @Email(message = "The email format is invalid")
+    @NotNull(message = EMAIL_REQUIRED)
+    @Email(message = EMAIL_FORMAT_INVALID)
     private final String email;
 
-    @NotNull(message = "The password is required")
+    @NotNull(message = PASSWORD_REQUIRED)
     @Pattern(
-            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@_!%&*?])[A-Za-z\\d#$@_!%&*?]{8,}$",
-            message = "The password format is invalid"
+            regexp = PASSWORD_REGEX,
+            message = PASSWORD_FORMAT_INVALID
     )
     private final String password;
 

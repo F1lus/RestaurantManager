@@ -7,31 +7,31 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public final class RegisterRequest {
+public final class RegisterRequest implements AuthValidation {
 
-    @NotNull(message = "The email is required")
-    @Email(message = "The email format is invalid")
+    @NotNull(message = EMAIL_REQUIRED)
+    @Email(message = EMAIL_FORMAT_INVALID)
     private final String email;
 
-    @NotNull(message = "The name is required")
+    @NotNull(message = NAME_REQUIRED)
     @Size(
             min = 3,
             max = 30,
-            message = "The length of the name must be between 3 and 30 characters"
+            message = NAME_LENGTH_INVALID
     )
     private final String fullName;
 
-    @NotNull(message = "The password is required")
+    @NotNull(message = PASSWORD_REQUIRED)
     @Pattern(
-            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@_!%&*?])[A-Za-z\\d#$@_!%&*?]{8,}$",
-            message = "The password format is invalid"
+            regexp = PASSWORD_REGEX,
+            message = PASSWORD_FORMAT_INVALID
     )
     private final String password;
 
-    @NotNull(message = "The password confirmation is required")
+    @NotNull(message = PASSWORD_CONFIRM_REQUIRED)
     @Pattern(
-            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@_!%&*?])[A-Za-z\\d#$@_!%&*?]{8,}$",
-            message = "The password confirmation format is invalid"
+            regexp = PASSWORD_REGEX,
+            message = PASSWORD_CONFIRM_FORMAT_INVALID
     )
     private final String confirmPassword;
 
