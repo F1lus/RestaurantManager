@@ -8,9 +8,8 @@ import org.restaurantmanager.backend.datamodel.repository.SeatingRepository;
 import org.restaurantmanager.backend.dto.seating.CreateSeatingRequest;
 import org.restaurantmanager.backend.dto.seating.ModifySeatingRequest;
 import org.restaurantmanager.backend.dto.seating.SeatingResponse;
-import org.restaurantmanager.backend.exception.seating.SeatingConstraintViolationException;
+import org.restaurantmanager.backend.exception.seating.SeatingNameViolationException;
 import org.restaurantmanager.backend.exception.seating.SeatingNotFoundException;
-import org.restaurantmanager.backend.util.exception.ApplicationError;
 import org.restaurantmanager.backend.util.seat.ISeatingService;
 import org.restaurantmanager.backend.util.seat.SeatingConverter;
 import org.springframework.stereotype.Service;
@@ -72,14 +71,14 @@ public class SeatingService implements ISeatingService {
         seatingRepository.delete(seatingEntity);
     }
 
-    private void validateName(final String name) throws SeatingConstraintViolationException {
+    private void validateName(final String name) {
         seatingRepository.findByName(name)
                 .ifPresent(seatingEntity -> {
-                    throw new SeatingConstraintViolationException(ApplicationError.SEATING_NAME_DUPLICATE);
+                    throw new SeatingNameViolationException();
                 });
     }
 
-    private SeatingEntity getById(final UUID id) throws SeatingConstraintViolationException {
+    private SeatingEntity getById(final UUID id) {
         return seatingRepository.findById(id)
                 .orElseThrow(SeatingNotFoundException::new);
     }

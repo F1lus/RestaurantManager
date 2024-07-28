@@ -9,7 +9,7 @@ import lombok.Data;
 public final class CreateSeatingRequest implements SeatingValidation {
 
     @NotNull(message = NAME_REQUIRED)
-    @NotBlank(message = NAME_BLANK)
+    @NotBlank(message = NAME_EMPTY)
     private final String name;
 
     @NotNull(message = PERSON_COUNT_REQUIRED)

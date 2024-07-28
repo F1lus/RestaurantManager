@@ -12,8 +12,8 @@ import org.restaurantmanager.backend.dto.auth.LoginRequest;
 import org.restaurantmanager.backend.dto.auth.RegisterRequest;
 import org.restaurantmanager.backend.exception.auth.IncorrectCredentialsException;
 import org.restaurantmanager.backend.exception.auth.PasswordConfirmException;
-import org.restaurantmanager.backend.exception.profile.ProfileConstraintViolationException;
-import org.restaurantmanager.backend.util.exception.ApplicationError;
+import org.restaurantmanager.backend.exception.profile.ProfileEmailViolationException;
+import org.restaurantmanager.backend.exception.profile.ProfilePhoneNumberViolationException;
 import org.restaurantmanager.backend.util.auth.IAuthService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -72,7 +72,7 @@ public class AuthService implements IAuthService {
     private void checkEmail(final String email) {
         profileRepository.findByEmail(email)
                 .ifPresent(profileEntity -> {
-                    throw new ProfileConstraintViolationException(ApplicationError.PROFILE_EMAIL_DUPLICATE);
+                    throw new ProfileEmailViolationException();
                 });
     }
 
@@ -83,7 +83,7 @@ public class AuthService implements IAuthService {
 
         profileRepository.findByPhoneNumber(phoneNumber)
                 .ifPresent(profileEntity -> {
-                    throw new ProfileConstraintViolationException(ApplicationError.PROFILE_PHONE_NUMBER_DUPLICATE);
+                    throw new ProfilePhoneNumberViolationException();
                 });
     }
 }

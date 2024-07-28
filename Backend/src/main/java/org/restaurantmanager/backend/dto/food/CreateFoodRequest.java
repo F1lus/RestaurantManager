@@ -10,19 +10,19 @@ import java.util.Set;
 @Data
 public final class CreateFoodRequest implements FoodValidation {
 
-    @NotNull(message = NAME_NOT_NULL)
-    @NotBlank(message = NAME_NOT_EMPTY)
+    @NotNull(message = NAME_REQUIRED)
+    @NotBlank(message = NAME_EMPTY)
     private final String name;
 
     @NotNull(message = DESCRIPTION_NOT_NULL)
-    @NotBlank(message = DESCRIPTION_NOT_EMPTY)
+    @NotBlank(message = DESCRIPTION_EMPTY)
     private final String description;
 
     @NotNull(message = PRICE_NOT_NULL)
     @PositiveOrZero(message = PRICE_NEGATIVE)
     private final Integer price;
 
-    @NotNull(message = ALLERGENS_NOT_NULL)
+    @NotNull(message = ALLERGENS_NULL)
     private final Set<String> allergens;
 
 }

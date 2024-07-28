@@ -12,17 +12,17 @@ import java.util.Set;
 public final class ModifyFoodRequest implements FoodValidation {
 
     @Null
-    @NotBlank(message = NAME_NOT_EMPTY)
+    @NotBlank(message = NAME_EMPTY)
     private final String name;
 
     @Null
-    @NotBlank(message = DESCRIPTION_NOT_EMPTY)
+    @NotBlank(message = DESCRIPTION_EMPTY)
     private final String description;
 
     @Null
     @PositiveOrZero(message = PRICE_NEGATIVE)
     private final Integer price;
 
-    @NotNull(message = ALLERGENS_NOT_NULL)
+    @NotNull(message = ALLERGENS_NULL)
     private final Set<String> allergens;
 }
