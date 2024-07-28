@@ -35,5 +35,5 @@ public interface SeatingApi {
     );
 
     @DeleteMapping("{id}")
-    ResponseEntity<Void> deleteSeat(@PathVariable final UUID id);
+    ResponseEntity<Void> deleteSeat(@PathVariable("id") final UUID id);
 }

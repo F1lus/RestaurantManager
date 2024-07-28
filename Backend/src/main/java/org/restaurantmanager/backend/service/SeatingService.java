@@ -1,6 +1,5 @@
 package org.restaurantmanager.backend.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -10,10 +9,12 @@ import org.restaurantmanager.backend.dto.seating.CreateSeatingRequest;
 import org.restaurantmanager.backend.dto.seating.ModifySeatingRequest;
 import org.restaurantmanager.backend.dto.seating.SeatingResponse;
 import org.restaurantmanager.backend.exception.seating.SeatingConstraintViolationException;
+import org.restaurantmanager.backend.exception.seating.SeatingNotFoundException;
 import org.restaurantmanager.backend.util.exception.ApplicationError;
 import org.restaurantmanager.backend.util.seat.ISeatingService;
 import org.restaurantmanager.backend.util.seat.SeatingConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -80,8 +81,6 @@ public class SeatingService implements ISeatingService {
 
     private SeatingEntity getById(final UUID id) throws SeatingConstraintViolationException {
         return seatingRepository.findById(id)
-                .orElseThrow(
-                        () -> new SeatingConstraintViolationException(ApplicationError.SEATING_ID_INVALID)
-                );
+                .orElseThrow(SeatingNotFoundException::new);
     }
 }

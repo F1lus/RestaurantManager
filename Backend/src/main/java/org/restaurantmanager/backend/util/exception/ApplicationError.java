@@ -21,8 +21,16 @@ public enum ApplicationError {
 
     // region Seating errors
     SEATING_NAME_DUPLICATE("The seating name constraint is violated", HttpStatus.CONFLICT),
-    SEATING_ID_INVALID("The seating id is invalid", HttpStatus.NOT_FOUND);
+    SEATING_ID_INVALID("The seating id is invalid", HttpStatus.NOT_FOUND),
     //endregion
+
+    // region Food errors
+    FOOD_ID_INVALID("The food id is invalid", HttpStatus.NOT_FOUND),
+    // endregion
+
+    // region Allergen errors
+    ALLERGEN_NAME_DUPLICATE("The allergen name constraint is violated", HttpStatus.CONFLICT);
+    // endregion
 
     private final String message;
     private final HttpStatus httpStatus;
