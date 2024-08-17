@@ -34,8 +34,13 @@ public class FoodService implements IFoodService {
         log.info("Getting all foods...");
         return foodRepository.findAll()
                 .stream()
-                .map(FoodConverter::toFoodResponse)
+                .map(FoodConverter::toResponse)
                 .toList();
+    }
+
+    @Override
+    public List<FoodEntity> getAllFoodEntities(List<UUID> ids) {
+        return foodRepository.findAllIn(ids);
     }
 
     @Override

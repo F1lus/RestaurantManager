@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "reservation")
@@ -41,7 +41,7 @@ public class ReservationEntity extends BaseEntity {
     private ProfileEntity reservedBy;
 
     @ManyToMany(mappedBy = "reservations")
-    private Set<FoodEntity> foods;
+    private List<FoodEntity> foods;
 
     @Column(nullable = false)
     private LocalDateTime reservationStart;

@@ -6,6 +6,7 @@ import org.restaurantmanager.backend.dto.auth.RegisterRequest;
 import org.restaurantmanager.backend.dto.auth.TokenResponse;
 import org.restaurantmanager.backend.util.auth.AuthApi;
 import org.restaurantmanager.backend.util.auth.IAuthService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +28,6 @@ public class AuthController implements AuthApi {
     @Override
     public ResponseEntity<String> register(final RegisterRequest registerRequest) {
         authService.register(registerRequest);
-        return ResponseEntity.ok("");
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

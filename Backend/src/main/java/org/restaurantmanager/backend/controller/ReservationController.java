@@ -5,8 +5,10 @@ import lombok.val;
 import org.restaurantmanager.backend.dto.reservation.CreateReservationRequest;
 import org.restaurantmanager.backend.dto.reservation.ModifyReservationRequest;
 import org.restaurantmanager.backend.dto.reservation.Reservation;
+import org.restaurantmanager.backend.util.reservation.IReservationService;
 import org.restaurantmanager.backend.util.reservation.ReservationApi;
 import org.restaurantmanager.backend.util.reservation.ReservationFilter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ReservationController implements ReservationApi {
 
+    private final IReservationService reservationService;
 
     @Override
     public ResponseEntity<Iterable<Reservation>> getReservation(
@@ -37,12 +40,13 @@ public class ReservationController implements ReservationApi {
                 .reservationEnd(reservationEnd)
                 .build();
 
-        return null;
+        return ResponseEntity.ok(reservationService.getReservations(reservationFilter));
     }
 
     @Override
     public ResponseEntity<Void> createReservation(final CreateReservationRequest createReservationRequest) {
-        return null;
+        reservationService.createReservation(createReservationRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override
@@ -50,11 +54,13 @@ public class ReservationController implements ReservationApi {
             final UUID id,
             final ModifyReservationRequest modifyReservationRequest
     ) {
-        return null;
+        reservationService.modifyReservation(modifyReservationRequest);
+        return ResponseEntity.ok().build();
     }
 
     @Override
     public ResponseEntity<Void> deleteReservation(final UUID id) {
-        return null;
+        reservationService.deleteReservation(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -6,6 +6,7 @@ import org.restaurantmanager.backend.dto.food.Food;
 import org.restaurantmanager.backend.dto.food.ModifyFoodRequest;
 import org.restaurantmanager.backend.util.food.FoodApi;
 import org.restaurantmanager.backend.util.food.IFoodService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class FoodController implements FoodApi {
     @Override
     public ResponseEntity<Void> createFood(final CreateFoodRequest request) {
         foodService.createFood(request);
-        return ResponseEntity.ok()
+        return ResponseEntity.status(HttpStatus.CREATED)
                 .build();
     }
 

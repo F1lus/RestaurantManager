@@ -29,8 +29,13 @@ public class SeatingService implements ISeatingService {
     public List<Seating> getSeats() {
         return seatingRepository.findAll()
                 .stream()
-                .map(SeatingConverter::toSeatingRequest)
+                .map(SeatingConverter::toResponse)
                 .toList();
+    }
+
+    @Override
+    public SeatingEntity getSeatById(UUID id) {
+        return seatingRepository.findById(id).orElseThrow(SeatingNotFoundException::new);
     }
 
     @Override

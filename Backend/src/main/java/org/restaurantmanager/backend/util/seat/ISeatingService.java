@@ -1,5 +1,6 @@
 package org.restaurantmanager.backend.util.seat;
 
+import org.restaurantmanager.backend.datamodel.entity.SeatingEntity;
 import org.restaurantmanager.backend.dto.seating.CreateSeatingRequest;
 import org.restaurantmanager.backend.dto.seating.ModifySeatingRequest;
 import org.restaurantmanager.backend.dto.seating.Seating;
@@ -11,6 +12,8 @@ import java.util.UUID;
 public interface ISeatingService {
 
     List<Seating> getSeats();
+
+    SeatingEntity getSeatById(UUID id);
 
     @PreAuthorize("hasAuthority('ADMIN')")
     void addSeat(final CreateSeatingRequest createSeatingRequest);

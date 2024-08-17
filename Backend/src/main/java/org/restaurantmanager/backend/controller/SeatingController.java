@@ -6,6 +6,7 @@ import org.restaurantmanager.backend.dto.seating.ModifySeatingRequest;
 import org.restaurantmanager.backend.dto.seating.Seating;
 import org.restaurantmanager.backend.util.seat.ISeatingService;
 import org.restaurantmanager.backend.util.seat.SeatingApi;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,8 +26,7 @@ public class SeatingController implements SeatingApi {
     @Override
     public ResponseEntity<Void> addSeat(final CreateSeatingRequest request) {
         seatingService.addSeat(request);
-        return ResponseEntity.ok()
-                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override

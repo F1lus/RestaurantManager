@@ -29,7 +29,13 @@ public enum ApplicationError {
     // endregion
 
     // region Allergen errors
-    ALLERGEN_NAME_DUPLICATE("The allergen name constraint is violated", HttpStatus.CONFLICT);
+    ALLERGEN_NAME_DUPLICATE("The allergen name constraint is violated", HttpStatus.CONFLICT),
+    // endregion
+
+    // region Reservation errors
+    RESERVATION_TIME_INVALID("The reservation time is invalid", HttpStatus.BAD_REQUEST),
+    RESERVATION_CONFLICT("The reservation is conflicting with another", HttpStatus.CONFLICT),
+    RESERVATION_NOT_FOUND("The reservation could not be found", HttpStatus.NOT_FOUND);
     // endregion
 
     private final String message;
