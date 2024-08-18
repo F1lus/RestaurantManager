@@ -1,0 +1,11 @@
+<nav class="bg-gray-200 sticky bg-opacity-30 backdrop-blur-lg border-b-4 border-b-emerald-400">
+  <ul class="list-none flex gap-3 py-5 pl-5">
+    @for (link of navLinks; track link.name) {
+      <li>
+        <a [routerLink]="link.link">
+          {{ link.name | translate }}
+        </a>
+      </li>
+    }
+  </ul>
+</nav>
