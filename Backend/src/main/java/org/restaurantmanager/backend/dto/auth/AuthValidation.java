@@ -17,4 +17,6 @@ public interface AuthValidation extends ApplicationValidation {
 
     String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@_!%&*?])[A-Za-z\\d#$@_!%&*?]{8,}$";
 
+    String PHONE_REQUIRED = "phone_required";
+
 }

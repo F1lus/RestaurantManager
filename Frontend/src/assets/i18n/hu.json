@@ -1,6 +1,8 @@
 {
-  "general": {
+  "link": {
     "home": "Főoldal",
-    "menu": "Étlap"
+    "menu": "Étlap",
+    "login": "Bejelentkezés",
+    "register": "Regisztráció"
   }
 }

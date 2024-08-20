@@ -35,6 +35,7 @@ public final class RegisterRequest implements AuthValidation {
     )
     private final String confirmPassword;
 
+    @NotNull(message = PHONE_REQUIRED)
     private final String phoneNumber;
 
 }

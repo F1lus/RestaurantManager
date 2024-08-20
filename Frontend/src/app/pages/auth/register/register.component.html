@@ -1,0 +1,56 @@
+<form class="md:grid md:content-center md:justify-center md:align-middle w-full h-100">
+  <div class="grid gap-x-6 mb-6 md:grid-cols-2">
+    <div>
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="first_name">First name</label>
+      <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="first_name"
+             placeholder="John"
+             required type="text"/>
+    </div>
+    <div>
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="last_name">Last name</label>
+      <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="last_name"
+             placeholder="Doe"
+             required type="text"/>
+    </div>
+    <div class="col-span-full">
+      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="phone">Phone number</label>
+      <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="phone"
+             pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+             placeholder="123-45-678" required type="tel"/>
+    </div>
+  </div>
+  <div class="mb-6">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="email">Email address</label>
+    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="email"
+           placeholder="john.doe@company.com"
+           required type="email"/>
+  </div>
+  <div class="mb-6">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="password">Password</label>
+    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="password"
+           placeholder="•••••••••"
+           required type="password"/>
+  </div>
+  <div class="mb-6">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="confirm_password">Confirm
+      password</label>
+    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="confirm_password"
+           placeholder="•••••••••"
+           required type="password"/>
+  </div>
+  <div class="flex items-start mb-6">
+    <div class="flex items-center h-5">
+      <input class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" id="remember" required
+             type="checkbox"
+             value=""/>
+    </div>
+    <label class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="remember">I agree with the <a class="text-blue-600 hover:underline dark:text-blue-500"
+                                                                                                                href="#">terms
+      and conditions</a>.</label>
+  </div>
+  <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full md:w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          type="submit">
+    Submit
+  </button>
+</form>
+

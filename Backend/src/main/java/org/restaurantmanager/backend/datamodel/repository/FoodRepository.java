@@ -13,5 +13,5 @@ import java.util.UUID;
 public interface FoodRepository extends JpaRepository<FoodEntity, UUID> {
 
     @Query("select food from FoodEntity food where food.id in (:food_ids)")
-    List<FoodEntity> findAllIn(@Param(":food_ids") List<UUID> foodIds);
+    List<FoodEntity> findAllIn(@Param("food_ids") List<UUID> foodIds);
 }

@@ -8,7 +8,6 @@ import {TranslationService} from "./services/translation.service";
   standalone: true,
   imports: [RouterOutlet, NavigationComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
 

@@ -1,5 +1,8 @@
 {
-  "general": {
-    "home": "Home"
+  "link": {
+    "home": "Home",
+    "menu": "Menu",
+    "login": "Sign in",
+    "register": "Sign up"
   }
 }

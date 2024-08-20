@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
+import {NavLink} from "../../model/navigation";
+import {ProtectionLevel} from "../../model/auth";
 
 @Component({
   selector: 'app-navigation',
@@ -10,17 +12,28 @@ import {RouterLink} from "@angular/router";
     RouterLink
   ],
   templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.scss'
 })
 export class NavigationComponent {
-  public readonly navLinks = [
+  public readonly navLinks: NavLink[] = [
     {
-      name: 'general.home',
-      link: '/'
+      name: 'link.home',
+      link: '/',
+      protection: ProtectionLevel.UNAUTHORIZED
     },
     {
-      name: 'general.menu',
-      link: '/menu'
+      name: 'link.menu',
+      link: '/menu',
+      protection: ProtectionLevel.NONE
+    },
+    {
+      name: 'link.login',
+      link: '/auth/login',
+      protection: ProtectionLevel.UNAUTHORIZED
+    },
+    {
+      name: 'link.register',
+      link: '/auth/register',
+      protection: ProtectionLevel.UNAUTHORIZED
     }
   ]
 }
