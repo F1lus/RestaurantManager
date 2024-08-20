@@ -1,0 +1,6 @@
+<ng-container *ngIf="notificationService.notification$ | async as notification">
+  <section class="absolute bottom-10 right-10 bg-gray-400">
+    <h3>{{ notification.title }}</h3>
+    <p class="text-justify">{{ notification.text }}</p>
+  </section>
+</ng-container>
