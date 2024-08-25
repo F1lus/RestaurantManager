@@ -9,13 +9,16 @@ export class NotificationService {
 
   public readonly delay = 10_000;
   private readonly _notification$ = new ReplaySubject<Notification>();
+  private queueLength = 0;
 
-  public get notification$() {
-    return this._notification$.pipe(
-      delayWhen((_, index) => timer(this.delay)),
-      tap(console.log)
-    );
-  }
+  public readonly notification$ = this._notification$.pipe(
+    delayWhen(() => {
+      const delay = timer(this.delay * this.queueLength)
+      this.queueLength++;
+      return delay;
+    }),
+    tap(() => this.queueLength--),
+  );
 
   public addNotification(notification: Notification) {
     this._notification$.next(notification);
