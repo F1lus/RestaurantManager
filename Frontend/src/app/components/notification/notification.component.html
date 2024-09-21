@@ -1,9 +1,0 @@
-<ng-container *ngIf="notificationService.notification$ | async as notification">
-  <section class="absolute z-50 bottom-10 right-10 bg-gray-300 border shadow w-[40vw] md:w-[30vw] p-3">
-    <div class="grid">
-      <h3 class="col-start-1">{{ notification.title }}</h3>
-      <button class="col-end-12 text-gray-500" type="button">X</button>
-    </div>
-    <p class="text-justify">{{ notification.text }}</p>
-  </section>
-</ng-container>

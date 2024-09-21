@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {NavigationComponent} from "./components/navigation/navigation.component";
 import {TranslationService} from "./services/translation.service";
-import {NotificationComponent} from "./components/notification/notification.component";
+import {NavigationComponent} from "./components/navigation/navigation.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavigationComponent, NotificationComponent],
+  imports: [RouterOutlet, NavigationComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
@@ -17,7 +16,7 @@ export class AppComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.translationService.init();
   }
 

@@ -8,7 +8,7 @@ import {Notification} from "../model/common";
 export class NotificationService {
 
   public readonly delay = 10_000;
-  private readonly _notification$ = new ReplaySubject<Notification>();
+  private readonly _notification$ = new ReplaySubject<Notification | null>();
   private queueLength = 0;
 
   public readonly notification$ = this._notification$.pipe(
@@ -17,10 +17,16 @@ export class NotificationService {
       this.queueLength++;
       return delay;
     }),
-    tap(() => this.queueLength--),
+    tap(() => {
+      this.queueLength--;
+      console.log(this.queueLength);
+      if (this.queueLength <= 0) {
+        this.addNotification(null);
+      }
+    }),
   );
 
-  public addNotification(notification: Notification) {
+  public addNotification(notification: Notification | null) {
     this._notification$.next(notification);
   }
 }
