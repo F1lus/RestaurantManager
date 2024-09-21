@@ -7,7 +7,7 @@
 </header>
 
 <main class="grid md:grid-cols-3 sm:grid-cols-1 grid-rows-1 gap-5 m-5">
-  @for (card of promoCards; track card.text) {
+  @for (card of promoCards; track card.id) {
     <figure class="bg-slate-100 rounded-xl p-8 md:p-0 shadow">
       <img
         [ngSrc]="card.imgSrc"
@@ -31,15 +31,15 @@
     {{ "home.reserve_promo.text" | translate }}
   </div>
   <div class="flex justify-center">
-    <ol class="relative text-gray-500 border-s border-gray-200 dark:border-gray-700 dark:text-gray-400">
-      @for (reservationStep of reservationSteps; track reservationStep.title) {
+    <ol class="relative border-s border-gray-200">
+      @for (reservationStep of reservationSteps; track reservationStep.id) {
         <li class="ms-6" [ngClass]="{ 'mb-10': !$last }">
         <span
           class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -start-4 ring-4 ring-white">
             <img [ngSrc]="reservationStep.imgSrc" fill alt="add_icon">
         </span>
-          <h3 class="font-medium leading-tight">{{ reservationStep.title | translate }}</h3>
-          <p class="text-sm">{{ reservationStep.subtext | translate }}</p>
+          <h3 class="font-medium leading-tight text-amber-500">{{ reservationStep.title | translate }}</h3>
+          <p class="text-sm text-gray-500">{{ reservationStep.subtext | translate }}</p>
         </li>
       }
     </ol>
@@ -48,6 +48,6 @@
 
 <footer class="bg-amber-500 h-[15vh] grid grid-cols-1 grid-rows-1">
   <div class="content-center text-center font-bold">
-    {{ 'app_title' | translate }} &copy; {{ Date.now() | date: 'yyyy' }}
+    {{ 'app_title' | translate }} &copy; {{ currentDate | date: 'yyyy' }}
   </div>
 </footer>

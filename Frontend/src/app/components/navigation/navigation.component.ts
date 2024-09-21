@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
-import {RouterLink} from "@angular/router";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 import {NavLink} from "../../model/navigation";
 import {ProtectionLevel} from "../../model/auth";
 import {NgOptimizedImage} from "@angular/common";
@@ -11,7 +11,8 @@ import {NgOptimizedImage} from "@angular/common";
   imports: [
     TranslateModule,
     RouterLink,
-    NgOptimizedImage
+    NgOptimizedImage,
+    RouterLinkActive
   ],
   templateUrl: './navigation.component.html',
 })
