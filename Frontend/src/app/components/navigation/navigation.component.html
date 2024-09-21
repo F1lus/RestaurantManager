@@ -1,8 +1,12 @@
-<nav class="bg-white sticky top-0 bg-opacity-90 backdrop-blur-lg border-gray-200 dark:bg-gray-900 shadow">
+<nav class="bg-white sticky top-0 bg-opacity-90 backdrop-blur-lg border-gray-200 dark:bg-gray-900 shadow z-50">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a class="flex items-center space-x-3 rtl:space-x-reverse" routerLink="/">
-      <span class="h-8">Icon</span>
-      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Restaurant Manager</span>
+      <span class="h-8">
+        <img alt="Icon" height="35" ngSrc="assets/images/common/restaurant_logo.png" width="35">
+      </span>
+      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+        {{ 'app_title' | translate }}
+      </span>
     </a>
     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
       <button aria-expanded="false"
@@ -10,7 +14,6 @@
               data-dropdown-placement="bottom" data-dropdown-toggle="user-dropdown" id="user-menu-button"
               type="button">
         <span class="sr-only">Open user menu</span>
-        <img alt="user photo" class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg">
       </button>
       <!-- Dropdown menu -->
       <div

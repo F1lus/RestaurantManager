@@ -1,8 +1,34 @@
 {
+  "app_title": "Restaurant Manager",
   "link": {
     "home": "Főoldal",
     "menu": "Étlap",
     "login": "Bejelentkezés",
     "register": "Regisztráció"
+  },
+  "home": {
+    "welcome": "Üdvözöljük!",
+    "promo_text": {
+      "drinks": "Fedezd fel különleges italválasztékunkat, ahol a frissítő limonádéktól a kézműves koktélokig minden ínycsiklandó élmény vár! Élvezd az ízek harmóniáját, és hűsítsd magad egyedi frissítőinkkel, amelyeket gondosan válogattunk számodra!",
+      "foods": "Kóstold meg éttermünk ínycsiklandó fogásait, ahol a friss alapanyagok és a mesteri szakértelem találkozik! Minden falat egy kulináris élmény, amelyet a tradíció és az innováció tökéletes harmóniája jellemez.",
+      "service": "Élvezd a kivételes kiszolgálást éttermünkben, ahol figyelmesség és vendégszeretet minden pillanatban érezhető! Barátságos csapatunk gondoskodik róla, hogy látogatásod felejthetetlen élmény legyen."
+    },
+    "reserve_promo": {
+      "text": "Ha sikerült felkeltenünk az érdeklődésedet, ne várj tovább! Foglalj asztalt még ma, és készülj egy felejthetetlen gasztronómiai élményre, amit csak nálunk találsz meg. Legyen szó egy különleges alkalomról vagy egy hétköznapi ebédről, garantáljuk, hogy minden pillanat emlékezetes lesz. Könnyen kezelhető online foglalási rendszerünk segítségével pár kattintással biztosíthatod helyed. Ne hagyd ki, szeretettel várunk!"
+    },
+    "step_by_step": {
+      "title": {
+        "create_account": "Készítsd el a fiókod",
+        "book_reservation": "Állítsd össze a foglalásod",
+        "review": "Ellenőrizd a foglalást",
+        "done": "A foglalásod elkészült!"
+      },
+      "subtext": {
+        "create_account": "A foglalás csak így lehetséges",
+        "book_reservation": "Hogy a nálunk töltött időd megfeleljen az elvárásoknak",
+        "review": "Csak hogy biztosra menjünk",
+        "done": "A többit pedig bízd ránk!"
+      }
+    }
   }
 }

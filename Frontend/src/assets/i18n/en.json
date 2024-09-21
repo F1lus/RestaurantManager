@@ -1,8 +1,34 @@
 {
+  "app_title": "Restaurant Manager",
   "link": {
     "home": "Home",
     "menu": "Menu",
     "login": "Sign in",
     "register": "Sign up"
+  },
+  "home": {
+    "welcome": "Welcome!",
+    "promo_text": {
+      "drinks": "Discover our special drink selection, where everything from refreshing lemonades to handcrafted cocktails offers a delightful experience! Enjoy the harmony of flavors and cool down with our unique refreshments, carefully curated just for you!",
+      "foods": "Taste the delicious dishes at our restaurant, where fresh ingredients meet masterful expertise! Every bite is a culinary experience, characterized by the perfect harmony of tradition and innovation.",
+      "service": "Experience exceptional service at our restaurant, where every detail is handled with care and warmth. Our friendly team is committed to ensuring your visit is both comfortable and memorable. Let us make your dining experience truly special!"
+    },
+    "reserve_promo": {
+      "text": "If we’ve piqued your interest, don’t wait any longer! Book a table today and get ready for an unforgettable culinary experience that you can only find with us. Whether it’s a special occasion or a casual lunch, we guarantee that every moment will be memorable. With our easy-to-use online reservation system, you can secure your spot in just a few clicks. Don’t miss out; we look forward to welcoming you!"
+    },
+    "step_by_step": {
+      "title": {
+        "create_account": "Create your account",
+        "book_reservation": "Put together your reservation",
+        "review": "Review your reservation",
+        "done": "Your reservation is done!"
+      },
+      "subtext": {
+        "create_account": "It is a mandatory step for the reservation",
+        "book_reservation": "So that you may have the best experience with us",
+        "review": "Just to be sure",
+        "done": "And leave the rest to us!"
+      }
+    }
   }
 }

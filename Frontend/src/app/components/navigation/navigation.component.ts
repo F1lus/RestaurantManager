@@ -3,13 +3,15 @@ import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink} from "@angular/router";
 import {NavLink} from "../../model/navigation";
 import {ProtectionLevel} from "../../model/auth";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
   imports: [
     TranslateModule,
-    RouterLink
+    RouterLink,
+    NgOptimizedImage
   ],
   templateUrl: './navigation.component.html',
 })
