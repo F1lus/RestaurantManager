@@ -8,7 +8,8 @@
 
 <main class="grid md:grid-cols-3 sm:grid-cols-1 grid-rows-1 gap-5 m-5">
   @for (card of promoCards; track card.id) {
-    <figure class="bg-slate-100 rounded-xl p-8 md:p-0 shadow">
+    <figure
+      class="bg-slate-100 rounded-xl p-8 md:p-0 shadow md:transform md:hover:scale-[1.02] md:transition-transform">
       <img
         [ngSrc]="card.imgSrc"
         class="rounded-xl mx-auto shadow-2xl"

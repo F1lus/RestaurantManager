@@ -7,3 +7,7 @@
   background: url('assets/images/home/welcome.jpg') no-repeat fixed;
   background-size: cover;
 }
+
+.active-link {
+  color: theme('colors.amber.600');
+}
