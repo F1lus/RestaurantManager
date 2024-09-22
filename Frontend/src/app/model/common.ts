@@ -1,12 +1,12 @@
-export enum Severity {
-  SUCCESS,
-  WARNING,
-  ERROR,
-  INFO
+export interface Allergen {
+  id: string;
+  name: string;
 }
 
-export interface Notification {
-  title: string;
-  text: string;
-  severity: Severity;
+export interface Food {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  allergens: Allergen[];
 }

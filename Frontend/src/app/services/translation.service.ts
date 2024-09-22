@@ -15,6 +15,16 @@ export class TranslationService {
   ) {
   }
 
+  public init() {
+    const savedLang = localStorage.getItem(this.storageKey);
+    if (savedLang) {
+      this.language = savedLang;
+      return;
+    }
+
+    this.language = navigator.language.split('-')[0].toLowerCase()
+  }
+
   public get language() {
     return this.currentLanguage;
   }
@@ -24,16 +34,6 @@ export class TranslationService {
 
     this.currentLanguage = nextLang;
     this.changeLanguage(nextLang);
-  }
-
-  public init() {
-    const savedLang = localStorage.getItem(this.storageKey);
-    if (savedLang) {
-      this.language = savedLang;
-      return;
-    }
-
-    this.language = navigator.language.split('-')[0].toLowerCase()
   }
 
   private changeLanguage(lang: string) {

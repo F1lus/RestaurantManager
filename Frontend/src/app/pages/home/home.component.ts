@@ -3,7 +3,6 @@ import {TranslateModule} from "@ngx-translate/core";
 import {DatePipe, NgClass, NgOptimizedImage} from "@angular/common";
 
 @Component({
-  selector: 'app-home',
   standalone: true,
   imports: [
     TranslateModule,

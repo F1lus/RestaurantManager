@@ -4,6 +4,7 @@ import {MenuComponent} from "./pages/menu/menu.component";
 import {AuthComponent} from "./pages/auth/auth.component";
 import {LoginComponent} from "./pages/auth/login/login.component";
 import {RegisterComponent} from "./pages/auth/register/register.component";
+import {menuResolver} from "./resolvers/menu.resolver";
 
 export const routes: Routes = [
   {
@@ -14,6 +15,8 @@ export const routes: Routes = [
   {
     path: 'menu',
     component: MenuComponent,
+    resolve: {menu: menuResolver},
+    runGuardsAndResolvers: "paramsOrQueryParamsChange"
   },
   {
     path: 'auth',
