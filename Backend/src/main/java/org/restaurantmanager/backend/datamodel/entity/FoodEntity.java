@@ -35,7 +35,6 @@ public class FoodEntity extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    // TODO: Check again later
     @Column
     private String description;
 

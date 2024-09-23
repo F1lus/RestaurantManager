@@ -2,12 +2,20 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {Subscription} from "rxjs";
 import {Food} from "../../model/common";
+import {AllergensPipe} from "../../pipes/allergens.pipe";
+import {PricePipe} from "../../pipes/price.pipe";
+import {TranslateModule} from "@ngx-translate/core";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-menu',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    AllergensPipe,
+    PricePipe,
+    TranslateModule,
+    NgIf
   ],
   templateUrl: './menu.component.html',
 })

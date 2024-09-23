@@ -1,5 +1,6 @@
 {
   "app_title": "Restaurant Manager",
+  "mandatory_fields": "A csillaggal jelölt mezők kitöltése kötelező",
   "link": {
     "home": "Főoldal",
     "menu": "Étlap",
@@ -30,5 +31,24 @@
         "done": "A többit pedig bízd ránk!"
       }
     }
+  },
+  "menu": {
+    "extra_fees_included": "Az árak tartalmazzák a szervízdíjat, és az adókat",
+    "food_table": {
+      "name": "Étel neve leírással",
+      "allergens": "Allergének",
+      "price": "Ár"
+    }
+  },
+  "auth": {
+    "email": "Email cím",
+    "email_placeholder": "Add meg az email címed",
+    "password": "Jelszó",
+    "password_placeholder": "Add meg a jelszavad",
+    "first_name": "Keresztnév",
+    "last_name": "Vezetéknév",
+    "phone_number": "Telefonszám",
+    "password_repeat": "Jelszó ismétlése",
+    "password_repeat_placeholder": "Add meg a jelszavad újra"
   }
 }
