@@ -14,7 +14,7 @@ public final class ProfileConverter {
                 .email(profileEntity.getEmail())
                 .fullName(profileEntity.getFullName())
                 .phoneNumber(profileEntity.getPhoneNumber())
-                .profileType(profileEntity.getProfileType())
+                .profileTypes(profileEntity.getProfileType().includedProfileTypes)
                 .build();
     }
 }

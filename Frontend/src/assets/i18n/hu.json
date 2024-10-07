@@ -5,7 +5,11 @@
     "home": "Főoldal",
     "menu": "Étlap",
     "login": "Bejelentkezés",
-    "register": "Regisztráció"
+    "register": "Regisztráció",
+    "overview": "Áttekintés",
+    "dashboard": "Vezérlőpult",
+    "reserve": "Foglalás",
+    "restaurant": "Étterem"
   },
   "home": {
     "welcome": "Üdvözöljük",

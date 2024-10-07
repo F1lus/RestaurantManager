@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {NavLink} from "../../model/navigation";
-import {ProtectionLevel} from "../../model/auth";
-import {NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, NgOptimizedImage} from "@angular/common";
+import {NavigationService} from "../../services/navigation.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-navigation',
@@ -12,31 +13,20 @@ import {NgOptimizedImage} from "@angular/common";
     TranslateModule,
     RouterLink,
     NgOptimizedImage,
-    RouterLinkActive
+    RouterLinkActive,
+    AsyncPipe
   ],
   templateUrl: './navigation.component.html',
 })
-export class NavigationComponent {
-  public readonly navLinks: NavLink[] = [
-    {
-      name: 'link.home',
-      link: '/',
-      protection: ProtectionLevel.UNAUTHORIZED
-    },
-    {
-      name: 'link.menu',
-      link: '/menu',
-      protection: ProtectionLevel.NONE
-    },
-    {
-      name: 'link.login',
-      link: '/login',
-      protection: ProtectionLevel.UNAUTHORIZED
-    },
-    {
-      name: 'link.register',
-      link: '/register',
-      protection: ProtectionLevel.UNAUTHORIZED
-    }
-  ]
+export class NavigationComponent implements OnInit {
+
+  public navLinks!: Observable<NavLink[]>;
+
+  constructor(private readonly navigationService: NavigationService) {
+  }
+
+  public ngOnInit(): void {
+    this.navLinks = this.navigationService.navLinksListener;
+  }
+
 }

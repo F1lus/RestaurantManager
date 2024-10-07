@@ -17,7 +17,6 @@ export class AuthService {
 
   public get authToken() {
     const token = localStorage.getItem(this.authKey)
-    console.log(token);
     if (!token) {
       return ''
     }
@@ -35,18 +34,19 @@ export class AuthService {
   public isLoggedIn(): Observable<boolean> {
     return this.getCurrentUser()
       .pipe(
-        map(response => !!response),
-        catchError(() => of(false)),
+        map(response => !!response)
       )
   }
 
   public getCurrentUser() {
-    return this.http.get<GeneralProfile>('/auth')
+    return this.http.get<GeneralProfile | null>('/api/auth').pipe(
+      catchError(() => of(null)),
+    )
   }
 
   public login(params: LoginParams) {
     const {email, password} = params;
-    return this.http.post<LoginResponse>('/auth/login', {email, password})
+    return this.http.post<LoginResponse>('/api/auth/login', {email, password})
       .pipe(
         tap(response => this.authToken = response.token)
       )
@@ -62,7 +62,7 @@ export class AuthService {
       passwordRepeat
     } = params;
 
-    return this.http.post('/auth/register', {
+    return this.http.post('/api/auth/register', {
       email,
       fullName: `${firstName} ${lastName}`,
       phoneNumber,

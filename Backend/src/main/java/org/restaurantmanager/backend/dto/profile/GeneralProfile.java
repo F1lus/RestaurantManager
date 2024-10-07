@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.restaurantmanager.backend.datamodel.fieldtype.ProfileType;
 
+import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -13,5 +14,5 @@ public final class GeneralProfile {
     private final String fullName;
     private final String email;
     private final String phoneNumber;
-    private final ProfileType profileType;
+    private final List<ProfileType> profileTypes;
 }

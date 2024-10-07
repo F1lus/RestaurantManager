@@ -4,7 +4,11 @@
     "home": "Home",
     "menu": "Menu",
     "login": "Sign in",
-    "register": "Sign up"
+    "register": "Sign up",
+    "overview": "Overview",
+    "dashboard": "Dashboard",
+    "reserve": "Reserve",
+    "restaurant": "Restaurant"
   },
   "home": {
     "welcome": "Welcome",

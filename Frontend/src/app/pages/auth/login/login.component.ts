@@ -8,6 +8,7 @@ import {serverSideValidator} from "../../../util/ServerSideValidation";
 import {ErrorPipe} from "../../../pipes/error.pipe";
 import {NgClass} from "@angular/common";
 import {HttpErrorResponse} from "@angular/common/http";
+import {LoggedInService} from "../../../services/logged-in.service";
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
+    private readonly loggedInService: LoggedInService,
     private readonly formBuilder: FormBuilder,
     private router: Router,
   ) {
@@ -38,7 +40,10 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.value.email ?? '';
     const password = this.loginForm.value.password ?? '';
     this.authService.login({email, password}).subscribe({
-      next: () => void this.router.navigate(['/dashboard']),
+      next: () => {
+        this.loggedInService.attemptLogin();
+        void this.router.navigate(['/overview']);
+      },
       error: (err: HttpErrorResponse) => {
         if (typeof err.error === 'string') {
           this.formError = err.error;

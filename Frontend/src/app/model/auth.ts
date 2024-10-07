@@ -17,7 +17,7 @@ export interface GeneralProfile {
   fullName: string;
   email: string;
   phoneNumber: string;
-  profileType: ProfileType;
+  profileTypes: ProfileType[];
 }
 
 export interface LoginParams {

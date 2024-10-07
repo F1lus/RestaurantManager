@@ -31,7 +31,6 @@ export class MenuComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.subscription.add(
       this.route.data.subscribe(data => {
-        console.log(data['currentUser']);
         this.menuItems = data['menu'].foods;
         this.currentPage = data['menu'].currentPage;
       })
