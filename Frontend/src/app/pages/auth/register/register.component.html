@@ -6,16 +6,23 @@
     </h2>
 
     <form (ngSubmit)="handleSubmit()" [formGroup]="registerForm">
+      @if (!!formError) {
+        <div class="mb-4 text-red-600 text-center">{{ formError | translate }}</div>
+      }
       <div class="grid grid-cols-2 gap-4 mb-4">
         <div>
           <label class="block text-gray-700 font-semibold mb-2" for="first_name">
             {{ 'auth.first_name' | translate }}
           </label>
           <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 [ngClass]="{ 'border-red-600': registerForm.controls.firstName.hasError('serverSide') }"
                  formControlName="firstName"
                  id="first_name"
                  placeholder="John"
                  type="text">
+          @if (registerForm.controls.firstName.hasError('serverSide')) {
+            <div class="text-red-600">{{ registerForm.controls.firstName.errors | error | translate }}</div>
+          }
         </div>
 
         <div>
@@ -23,10 +30,14 @@
             {{ 'auth.last_name' | translate }}
           </label>
           <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 [ngClass]="{ 'border-red-600': registerForm.controls.lastName.hasError('serverSide') }"
                  formControlName="lastName"
                  id="last_name"
                  placeholder="Doe"
                  type="text">
+          @if (registerForm.controls.lastName.hasError('serverSide')) {
+            <div class="text-red-600">{{ registerForm.controls.lastName.errors | error | translate }}</div>
+          }
         </div>
       </div>
       <div class="mb-4">
@@ -35,19 +46,27 @@
         </label>
         <input [placeholder]="'auth.email_placeholder' | translate"
                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+               [ngClass]="{ 'border-red-600': registerForm.controls.email.hasError('serverSide') }"
                formControlName="email"
                id="email"
                type="email">
+        @if (registerForm.controls.email.hasError('serverSide')) {
+          <div class="text-red-600">{{ registerForm.controls.email.errors | error | translate }}</div>
+        }
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 font-semibold mb-2" for="phone">
           {{ 'auth.phone_number' | translate }}
         </label>
         <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+               [ngClass]="{ 'border-red-600': registerForm.controls.phoneNumber.hasError('serverSide') }"
                formControlName="phoneNumber"
                id="phone"
                placeholder="+36 23 456 7890"
                type="tel">
+        @if (registerForm.controls.phoneNumber.hasError('serverSide')) {
+          <div class="text-red-600">{{ registerForm.controls.phoneNumber.errors | error | translate }}</div>
+        }
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 font-semibold mb-2" for="password">
@@ -55,9 +74,13 @@
         </label>
         <input [placeholder]="'auth.password_placeholder' | translate"
                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+               [ngClass]="{ 'border-red-600': registerForm.controls.password.hasError('serverSide') }"
                formControlName="password"
                id="password"
                type="password">
+        @if (registerForm.controls.password.hasError('serverSide')) {
+          <div class="text-red-600">{{ registerForm.controls.password.errors | error | translate }}</div>
+        }
       </div>
       <div class="mb-6">
         <label class="block text-gray-700 font-semibold mb-2" for="password_repeat">
@@ -65,9 +88,13 @@
         </label>
         <input [placeholder]="'auth.password_repeat_placeholder' | translate"
                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+               [ngClass]="{ 'border-red-600': registerForm.controls.passwordRepeat.hasError('serverSide') }"
                formControlName="passwordRepeat"
                id="password_repeat"
                type="password">
+        @if (registerForm.controls.passwordRepeat.hasError('serverSide')) {
+          <div class="text-red-600">{{ registerForm.controls.passwordRepeat.errors | error | translate }}</div>
+        }
       </div>
       <button
         [disabled]="registerForm.invalid"

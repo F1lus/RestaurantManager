@@ -4,10 +4,14 @@ import jakarta.validation.Valid;
 import org.restaurantmanager.backend.dto.auth.LoginRequest;
 import org.restaurantmanager.backend.dto.auth.RegisterRequest;
 import org.restaurantmanager.backend.dto.auth.TokenResponse;
+import org.restaurantmanager.backend.dto.profile.GeneralProfile;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 import static org.restaurantmanager.backend.util.auth.AuthApi.AUTH_PATH;
 
@@ -23,4 +27,7 @@ public interface AuthApi {
 
     @PostMapping(REGISTER_PATH)
     ResponseEntity<String> register(@Valid @RequestBody final RegisterRequest registerRequest);
+
+    @GetMapping
+    ResponseEntity<GeneralProfile> getCurrentUser(final Principal principal);
 }

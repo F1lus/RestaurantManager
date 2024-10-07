@@ -49,5 +49,22 @@
     "phone_number": "Phone number",
     "password_repeat": "Password repeat",
     "password_repeat_placeholder": "Add your password again"
-  }
+  },
+  "field_required": "This field cannot be empty",
+  "email_format_invalid": "The email format is invalid",
+  "password_format_invalid": "The password must be at least 8 characters long and contain at least one lowercase and one uppercase letter, one number, and one special character!",
+  "price_negative": "The price cannot be negative",
+  "person_count_not_negative": "The number of people cannot be less than one",
+  "incorrect_credentials": "The email address or password is incorrect",
+  "access_denied": "The email address or password is incorrect",
+  "password_confirm_invalid": "The passwords do not match",
+  "profile_email_duplicate": "This email address is already in use",
+  "profile_phone_number_duplicate": "This phone number is already in use",
+  "seating_name_duplicate": "This seating name is already in use",
+  "seating_id_invalid": "This seating does not exist",
+  "food_id_invalid": "This food does not exist in the system",
+  "allergen_name_duplicate": "An allergen with this name already exists",
+  "reservation_time_invalid": "The reservation time is invalid",
+  "reservation_conflict": "This time slot is already booked",
+  "reservation_not_found": "No such reservation exists"
 }

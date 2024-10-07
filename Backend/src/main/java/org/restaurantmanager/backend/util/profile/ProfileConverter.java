@@ -6,7 +6,7 @@ import org.restaurantmanager.backend.datamodel.entity.ProfileEntity;
 import org.restaurantmanager.backend.dto.profile.GeneralProfile;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ProfileConverter {
+public final class ProfileConverter {
 
     public static GeneralProfile toResponse(ProfileEntity profileEntity) {
         return GeneralProfile.builder()
@@ -14,6 +14,7 @@ public class ProfileConverter {
                 .email(profileEntity.getEmail())
                 .fullName(profileEntity.getFullName())
                 .phoneNumber(profileEntity.getPhoneNumber())
+                .profileType(profileEntity.getProfileType())
                 .build();
     }
 }

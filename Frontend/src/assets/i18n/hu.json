@@ -50,5 +50,22 @@
     "phone_number": "Telefonszám",
     "password_repeat": "Jelszó ismétlése",
     "password_repeat_placeholder": "Add meg a jelszavad újra"
-  }
+  },
+  "field_required": "Ez a mező nem lehet üres",
+  "email_format_invalid": "Az email formátuma nem megfelelő",
+  "password_format_invalid": "A jelszó legalább 8 karakter hosszú legyen és tartalmazzon legalább egy kis- és nagybetűt, legalább egy számot és egy speciális karaktert!",
+  "price_negative": "Az ár nem lehet negatív",
+  "person_count_not_negative": "Az emberek száma nem lehet egynél kisebb",
+  "incorrect_credentials": "Az email-cím, vagy a jelszó helytelen",
+  "access_denied": "Az email-cím, vagy a jelszó helytelen",
+  "password_confirm_invalid": "A jelszavak nem egyeznek meg",
+  "profile_email_duplicate": "Ez az email-cím már használatban van",
+  "profile_phone_number_duplicate": "Ez a telefonszám már használatban van",
+  "seating_name_duplicate": "Ez az ülőhely név már használatban van",
+  "seating_id_invalid": "Ilyen ülőhely nem létezik",
+  "food_id_invalid": "Ilyen étel nem létezik a rendszerben",
+  "allergen_name_duplicate": "Ilyen nevű allergén már létezik",
+  "reservation_time_invalid": "A foglalás ideje nem megfelelő",
+  "reservation_conflict": "Ez az időpont foglalt",
+  "reservation_not_found": "Nem létezik ilyen foglalás"
 }

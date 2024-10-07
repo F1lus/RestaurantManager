@@ -4,16 +4,23 @@
     <h2 class="text-2xl font-bold text-center mb-6">{{ 'link.login' | translate }}</h2>
 
     <form (ngSubmit)="handleSubmit()" [formGroup]="loginForm">
+      @if (!!formError) {
+        <div class="mb-4 text-red-600 text-center">{{ formError | translate }}</div>
+      }
       <div class="mb-4">
         <label class="block text-gray-700 font-semibold mb-2" for="email">
           {{ 'auth.email' | translate }} <span class="text-red-600">*</span>
         </label>
         <input [placeholder]="'auth.email_placeholder' | translate"
                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+               [ngClass]="{ 'border-red-600': loginForm.controls.email.hasError('serverSide') }"
                id="email"
                formControlName="email"
                type="email"
         >
+        @if (loginForm.controls.email.hasError('serverSide')) {
+          <div class="text-red-600">{{ loginForm.controls.email.errors | error | translate }}</div>
+        }
       </div>
       <div class="mb-6">
         <label class="block text-gray-700 font-semibold mb-2" for="password">
@@ -21,10 +28,16 @@
         </label>
         <input [placeholder]="'auth.password_repeat' | translate"
                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+               [ngClass]="{ 'border-red-600': loginForm.controls.password.hasError('serverSide') }"
                id="password"
                formControlName="password"
                type="password"
         >
+        @if (loginForm.controls.password.hasError('serverSide')) {
+          <div class="text-red-600">
+            {{ loginForm.controls.password.errors | error | translate }}
+          </div>
+        }
       </div>
       <button [disabled]="loginForm.invalid"
               class="w-full disabled:bg-blue-400 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"

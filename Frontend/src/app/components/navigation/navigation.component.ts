@@ -30,12 +30,12 @@ export class NavigationComponent {
     },
     {
       name: 'link.login',
-      link: '/auth/login',
+      link: '/login',
       protection: ProtectionLevel.UNAUTHORIZED
     },
     {
       name: 'link.register',
-      link: '/auth/register',
+      link: '/register',
       protection: ProtectionLevel.UNAUTHORIZED
     }
   ]

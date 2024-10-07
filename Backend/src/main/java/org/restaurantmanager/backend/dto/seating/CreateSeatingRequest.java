@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public final class CreateSeatingRequest implements SeatingValidation {
 
-    @NotNull(message = NAME_REQUIRED)
-    @NotBlank(message = NAME_EMPTY)
+    @NotNull(message = FIELD_REQUIRED)
+    @NotBlank(message = FIELD_REQUIRED)
     private final String name;
 
-    @NotNull(message = PERSON_COUNT_REQUIRED)
-    @Positive(message = PERSON_COUNT_NOT_POSITIVE)
+    @NotNull(message = FIELD_REQUIRED)
+    @Positive(message = PERSON_COUNT_NOT_NEGATIVE)
     private final Integer personCount;
 }

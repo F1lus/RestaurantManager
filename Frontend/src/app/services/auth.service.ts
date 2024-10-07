@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {LoginParams, LoginResponse, RegisterParams} from "../model/auth";
-import {tap} from "rxjs";
+import {GeneralProfile, LoginParams, LoginResponse, RegisterParams} from "../model/auth";
+import {catchError, map, Observable, of, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ export class AuthService {
 
   public get authToken() {
     const token = localStorage.getItem(this.authKey)
+    console.log(token);
     if (!token) {
       return ''
     }
@@ -27,9 +28,25 @@ export class AuthService {
     localStorage.setItem(this.authKey, token);
   }
 
+  public removeAuthToken() {
+    localStorage.removeItem(this.authKey);
+  }
+
+  public isLoggedIn(): Observable<boolean> {
+    return this.getCurrentUser()
+      .pipe(
+        map(response => !!response),
+        catchError(() => of(false)),
+      )
+  }
+
+  public getCurrentUser() {
+    return this.http.get<GeneralProfile>('/auth')
+  }
+
   public login(params: LoginParams) {
     const {email, password} = params;
-    return this.http.post<LoginResponse>('/api/auth/login', {email, password})
+    return this.http.post<LoginResponse>('/auth/login', {email, password})
       .pipe(
         tap(response => this.authToken = response.token)
       )
@@ -45,7 +62,7 @@ export class AuthService {
       passwordRepeat
     } = params;
 
-    return this.http.post('/api/auth/register', {
+    return this.http.post('/auth/register', {
       email,
       fullName: `${firstName} ${lastName}`,
       phoneNumber,

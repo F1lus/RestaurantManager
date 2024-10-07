@@ -6,10 +6,18 @@ export enum ProtectionLevel {
   AUTHORIZED
 }
 
-export enum AccountType {
+export enum ProfileType {
   USER,
   WAITER,
   ADMIN
+}
+
+export interface GeneralProfile {
+  id: string;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  profileType: ProfileType;
 }
 
 export interface LoginParams {

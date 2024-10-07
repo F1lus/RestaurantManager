@@ -34,7 +34,7 @@ public class WebSecurityConfig {
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(
                         requests -> requests
-                                .requestMatchers("/", "/auth/**", "/api/auth/**")
+                                .requestMatchers("/api/auth/login", "/api/auth/register")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/food")
                                 .permitAll()
@@ -51,9 +51,9 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         val configuration = new CorsConfiguration();
 
+        configuration.applyPermitDefaultValues();
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
         val source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

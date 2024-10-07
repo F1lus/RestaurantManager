@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public final class ModifyAllergenRequest implements AllergenValidation {
 
-    @NotNull(message = NAME_REQUIRED)
-    @NotBlank(message = NAME_EMPTY)
+    @NotNull(message = FIELD_REQUIRED)
+    @NotBlank(message = FIELD_REQUIRED)
     private final String name;
 }

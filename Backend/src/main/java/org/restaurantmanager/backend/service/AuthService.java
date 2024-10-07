@@ -10,16 +10,21 @@ import org.restaurantmanager.backend.datamodel.fieldtype.ProfileType;
 import org.restaurantmanager.backend.datamodel.repository.ProfileRepository;
 import org.restaurantmanager.backend.dto.auth.LoginRequest;
 import org.restaurantmanager.backend.dto.auth.RegisterRequest;
+import org.restaurantmanager.backend.dto.profile.GeneralProfile;
+import org.restaurantmanager.backend.exception.auth.AccessDeniedException;
 import org.restaurantmanager.backend.exception.auth.IncorrectCredentialsException;
 import org.restaurantmanager.backend.exception.auth.PasswordConfirmException;
 import org.restaurantmanager.backend.exception.profile.ProfileEmailViolationException;
 import org.restaurantmanager.backend.exception.profile.ProfilePhoneNumberViolationException;
 import org.restaurantmanager.backend.util.auth.IAuthService;
+import org.restaurantmanager.backend.util.profile.ProfileConverter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.security.Principal;
 
 @Service
 @Slf4j
@@ -50,7 +55,7 @@ public class AuthService implements IAuthService {
     @Transactional
     public void register(final RegisterRequest registerRequest) {
         log.info("Registration started for user: {}", registerRequest.getEmail());
-        if(!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())){
+        if (!registerRequest.getPassword().equals(registerRequest.getPasswordRepeat())) {
             throw new PasswordConfirmException();
         }
 
@@ -67,6 +72,13 @@ public class AuthService implements IAuthService {
 
         profileRepository.save(profileEntity);
         log.info("Registration finished for user: {}", registerRequest.getEmail());
+    }
+
+    @Override
+    public GeneralProfile getCurrentUser(Principal principal) {
+        return profileRepository.findByEmail(principal.getName())
+                .map(ProfileConverter::toResponse)
+                .orElseThrow(AccessDeniedException::new);
     }
 
     private void checkEmail(final String email) {

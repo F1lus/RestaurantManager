@@ -5,19 +5,25 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {RegisterForm} from "../../../model/auth";
 import {Router} from "@angular/router";
 import {serverSideValidator} from "../../../util/ServerSideValidation";
+import {HttpErrorResponse} from "@angular/common/http";
+import {NgClass} from "@angular/common";
+import {ErrorPipe} from "../../../pipes/error.pipe";
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
     TranslateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgClass,
+    ErrorPipe
   ],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent implements OnInit {
 
   public registerForm!: FormGroup<RegisterForm>;
+  public formError?: string;
 
   constructor(
     private readonly authService: AuthService,
@@ -53,9 +59,13 @@ export class RegisterComponent implements OnInit {
       phoneNumber,
       passwordRepeat
     }).subscribe({
-      next: () => void this.router.navigate(['auth', 'login']),
-      error: err => {
-        const errors = err.error as string[];
+      next: () => void this.router.navigate(['login']),
+      error: (err: HttpErrorResponse) => {
+        if (typeof err.error === 'string') {
+          this.formError = err.error;
+          return;
+        }
+        const errors = err.error as Record<string, string>;
         serverSideValidator(this.registerForm, errors);
       }
     });
