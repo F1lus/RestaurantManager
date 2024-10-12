@@ -1,10 +1,12 @@
 package org.restaurantmanager.backend.dto.seating;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.util.UUID;
 
-@Data
+@Builder
+@Getter
 public final class Seating {
 
     private final UUID id;

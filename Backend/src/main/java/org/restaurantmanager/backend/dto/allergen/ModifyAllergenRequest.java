@@ -2,9 +2,11 @@ package org.restaurantmanager.backend.dto.allergen;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@RequiredArgsConstructor
+@Getter
 public final class ModifyAllergenRequest implements AllergenValidation {
 
     @NotNull(message = FIELD_REQUIRED)

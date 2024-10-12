@@ -7,7 +7,7 @@ import {Allergen} from "../model/common";
 })
 export class AllergensPipe implements PipeTransform {
 
-  public transform(value: Allergen[], ...args: unknown[]): string {
+  public transform(value: Allergen[]): string {
     if (value.length > 0) {
       return value.map(allergen => allergen.name).join(', ');
     }

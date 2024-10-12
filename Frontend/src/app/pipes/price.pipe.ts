@@ -7,7 +7,7 @@ import {environment} from "../../environments/environment";
 })
 export class PricePipe implements PipeTransform {
 
-  public transform(value: number, ...args: unknown[]): string {
+  public transform(value: number): string {
     const groupedValue = this.formatNumber(value);
     return `${groupedValue} ${environment.priceTag}`;
   }

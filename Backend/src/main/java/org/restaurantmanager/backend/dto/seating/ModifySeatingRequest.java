@@ -2,9 +2,11 @@ package org.restaurantmanager.backend.dto.seating;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@RequiredArgsConstructor
+@Getter
 public final class ModifySeatingRequest implements SeatingValidation {
 
     @NotBlank(message = FIELD_REQUIRED)

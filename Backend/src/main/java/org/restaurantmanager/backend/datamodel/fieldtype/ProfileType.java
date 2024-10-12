@@ -1,27 +1,29 @@
 package org.restaurantmanager.backend.datamodel.fieldtype;
 
+import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public enum ProfileType {
     USER,
     WAITER(USER),
     ADMIN(List.of(USER, WAITER));
 
-    public final List<ProfileType> includedProfileTypes = new ArrayList<>();
+    private final List<ProfileType> includedProfileTypes = new ArrayList<>();
 
     ProfileType() {
         this.includedProfileTypes.add(this);
     }
 
-    ProfileType(ProfileType profileType) {
+    ProfileType(final ProfileType profileType) {
         this();
         this.includedProfileTypes.add(profileType);
     }
 
-    ProfileType(List<ProfileType> includedProfileTypes) {
+    ProfileType(final List<ProfileType> includedProfileTypes) {
         this();
         this.includedProfileTypes.addAll(includedProfileTypes);
     }

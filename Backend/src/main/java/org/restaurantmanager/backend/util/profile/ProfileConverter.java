@@ -8,13 +8,13 @@ import org.restaurantmanager.backend.dto.profile.GeneralProfile;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ProfileConverter {
 
-    public static GeneralProfile toResponse(ProfileEntity profileEntity) {
+    public static GeneralProfile toResponse(final ProfileEntity profileEntity) {
         return GeneralProfile.builder()
                 .id(profileEntity.getId())
                 .email(profileEntity.getEmail())
                 .fullName(profileEntity.getFullName())
                 .phoneNumber(profileEntity.getPhoneNumber())
-                .profileTypes(profileEntity.getProfileType().includedProfileTypes)
+                .profileTypes(profileEntity.getProfileType().getIncludedProfileTypes())
                 .build();
     }
 }

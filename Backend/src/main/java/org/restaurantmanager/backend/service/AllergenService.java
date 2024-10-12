@@ -23,7 +23,7 @@ public class AllergenService implements IAllergenService {
 
     @Override
     @Transactional
-    public AllergenEntity createAllergen(String name) {
+    public AllergenEntity createAllergen(final String name) {
         log.info("Creating allergen with name: {}", name);
         validateName(name);
 
@@ -35,16 +35,16 @@ public class AllergenService implements IAllergenService {
     }
 
     @Override
-    public Optional<AllergenEntity> findAllergenByName(String name) {
+    public Optional<AllergenEntity> findAllergenByName(final String name) {
         log.info("Finding allergen by name: {}", name);
         return allergenRepository.findByName(name);
     }
 
-    private void validateName(String name) {
+    private void validateName(final String name) {
         log.info("Checking if allergen name is unique: {}", name);
-        allergenRepository.findByName(name)
-                .ifPresent(allergen -> {
-                    throw new AllergenConstraintViolationException(ApplicationError.ALLERGEN_NAME_DUPLICATE);
-                });
+        val isNameTaken = allergenRepository.existsByName(name);
+        if (isNameTaken) {
+            throw new AllergenConstraintViolationException(ApplicationError.ALLERGEN_NAME_DUPLICATE);
+        }
     }
 }

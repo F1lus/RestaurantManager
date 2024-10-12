@@ -13,7 +13,7 @@ public interface ISeatingService {
 
     List<Seating> getSeats();
 
-    SeatingEntity getSeatById(UUID id);
+    SeatingEntity getSeatById(final UUID id);
 
     @PreAuthorize("hasAuthority('ADMIN')")
     void addSeat(final CreateSeatingRequest createSeatingRequest);

@@ -51,6 +51,7 @@ export class RegisterComponent implements OnInit {
     const phoneNumber = this.registerForm.value.phoneNumber ?? '';
     const passwordRepeat = this.registerForm.value.passwordRepeat ?? '';
 
+    this.registerForm.disable();
     this.authService.register({
       email,
       password,
@@ -67,6 +68,7 @@ export class RegisterComponent implements OnInit {
         }
         const errors = err.error as Record<string, string>;
         serverSideValidator(this.registerForm, errors);
+        this.registerForm.enable();
       }
     });
   }

@@ -1,10 +1,11 @@
-package org.restaurantmanager.backend.controller;
+package org.restaurantmanager.backend.controller.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.restaurantmanager.backend.dto.reservation.CreateReservationRequest;
 import org.restaurantmanager.backend.dto.reservation.ModifyReservationRequest;
 import org.restaurantmanager.backend.dto.reservation.Reservation;
+import org.restaurantmanager.backend.dto.reservation.ReservationQuery;
 import org.restaurantmanager.backend.util.reservation.IReservationService;
 import org.restaurantmanager.backend.util.reservation.ReservationApi;
 import org.restaurantmanager.backend.util.reservation.ReservationFilter;
@@ -12,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -23,21 +22,14 @@ public class ReservationController implements ReservationApi {
     private final IReservationService reservationService;
 
     @Override
-    public ResponseEntity<Iterable<Reservation>> getReservation(
-            final UUID reservationId,
-            final UUID profileId,
-            final UUID seatingId,
-            final Set<UUID> foodIds,
-            final LocalDateTime reservationStart,
-            final LocalDateTime reservationEnd
-    ) {
+    public ResponseEntity<Iterable<Reservation>> getReservation(final ReservationQuery query) {
         val reservationFilter = ReservationFilter.builder()
-                .reservationId(reservationId)
-                .profileId(profileId)
-                .seatingId(seatingId)
-                .foodIds(foodIds)
-                .reservationStart(reservationStart)
-                .reservationEnd(reservationEnd)
+                .reservationId(query.getReservationId())
+                .profileId(query.getProfileId())
+                .seatingId(query.getSeatingId())
+                .foodIds(query.getFoodIds())
+                .reservationStart(query.getReservationStart())
+                .reservationEnd(query.getReservationEnd())
                 .build();
 
         return ResponseEntity.ok(reservationService.getReservations(reservationFilter));

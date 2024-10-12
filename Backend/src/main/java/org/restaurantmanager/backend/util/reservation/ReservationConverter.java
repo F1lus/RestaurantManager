@@ -11,7 +11,7 @@ import org.restaurantmanager.backend.util.seat.SeatingConverter;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ReservationConverter {
 
-    public static Reservation toResponse(ReservationEntity reservationEntity) {
+    public static Reservation toResponse(final ReservationEntity reservationEntity) {
         return Reservation.builder()
                 .id(reservationEntity.getId())
                 .seating(SeatingConverter.toResponse(reservationEntity.getSeatingEntity()))

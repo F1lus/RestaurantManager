@@ -8,13 +8,13 @@ import {catchError, of} from "rxjs";
 })
 export class FoodService {
 
-  private readonly BASE_URL = '/api/food';
+  private readonly baseUrl = '/api/food';
 
   constructor(private readonly http: HttpClient) {
   }
 
   public getFoods(pageNumber?: number) {
-    return this.http.get<Food[]>(this.BASE_URL)
+    return this.http.get<Food[]>(this.baseUrl)
       .pipe(catchError(err => {
         console.error('getFoods#', err);
         return of([] as Food[]);

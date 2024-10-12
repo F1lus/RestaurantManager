@@ -1,4 +1,4 @@
-package org.restaurantmanager.backend.controller;
+package org.restaurantmanager.backend.controller.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.backend.dto.food.CreateFoodRequest;

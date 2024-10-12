@@ -1,14 +1,16 @@
 package org.restaurantmanager.backend.dto.food;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.restaurantmanager.backend.dto.allergen.Allergen;
 
 import java.util.Set;
 import java.util.UUID;
 
 @Builder
-@Data
+@Getter
+@Setter
 public final class Food {
     private final UUID id;
     private final String name;

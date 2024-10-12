@@ -3,9 +3,11 @@ package org.restaurantmanager.backend.dto.seating;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@RequiredArgsConstructor
+@Getter
 public final class CreateSeatingRequest implements SeatingValidation {
 
     @NotNull(message = FIELD_REQUIRED)

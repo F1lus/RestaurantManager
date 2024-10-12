@@ -60,7 +60,7 @@ public class ReservationService implements IReservationService {
 
         val foodEntities = getFoodEntities(createReservationRequest.getFoodIds());
         val seatingEntity = seatingService.getSeatById(createReservationRequest.getSeatingId());
-        val profileEntity = profileService.getLoggedInUser();
+        val profileEntity = profileService.getCurrentUser();
 
         val reservationEntity = ReservationEntity.builder()
                 .seatingEntity(seatingEntity)
@@ -97,8 +97,7 @@ public class ReservationService implements IReservationService {
     @Override
     @Transactional
     public void deleteReservation(final UUID id) {
-        val reservationEntity = getReservationEntityById(id);
-        reservationRepository.delete(reservationEntity);
+        reservationRepository.deleteById(id);
     }
 
     private ReservationEntity getReservationEntityById(final UUID id) {
@@ -126,10 +125,8 @@ public class ReservationService implements IReservationService {
                 reservationEnd
         );
 
-        if (
-                reservationEnd.isBefore(reservationStart)
-                        || reservationStart.isAfter(reservationEnd)
-                        || reservationEnd.isEqual(reservationStart)
+        if (reservationEnd.isBefore(reservationStart) || reservationStart.isAfter(reservationEnd)
+                || reservationEnd.isEqual(reservationStart)
         ) {
             throw new ReservationTimeInvalidException();
         }

@@ -1,0 +1,74 @@
+{
+  "app_title": "Restaurant Manager",
+  "link": {
+    "home": "Home",
+    "menu": "Menu",
+    "login": "Sign in",
+    "register": "Sign up",
+    "overview": "Overview",
+    "dashboard": "Dashboard",
+    "reserve": "Reserve",
+    "restaurant": "Restaurant"
+  },
+  "home": {
+    "welcome": "Welcome",
+    "promo_text": {
+      "drinks": "Discover our special drink selection, where everything from refreshing lemonades to handcrafted cocktails offers a delightful experience! Enjoy the harmony of flavors and cool down with our unique refreshments, carefully curated just for you!",
+      "foods": "Taste the delicious dishes at our restaurant, where fresh ingredients meet masterful expertise! Every bite is a culinary experience, characterized by the perfect harmony of tradition and innovation.",
+      "service": "Experience exceptional service at our restaurant, where every detail is handled with care and warmth. Our friendly team is committed to ensuring your visit is both comfortable and memorable. Let us make your dining experience truly special!"
+    },
+    "reserve_promo": {
+      "text": "If we’ve piqued your interest, don’t wait any longer! Book a table today and get ready for an unforgettable culinary experience that you can only find with us. Whether it’s a special occasion or a casual lunch, we guarantee that every moment will be memorable. With our easy-to-use online reservation system, you can secure your spot in just a few clicks. Don’t miss out; we look forward to welcoming you!"
+    },
+    "step_by_step": {
+      "title": {
+        "create_account": "Create your account",
+        "book_reservation": "Put together your reservation",
+        "review": "Review your reservation",
+        "done": "Your reservation is done!"
+      },
+      "subtext": {
+        "create_account": "It is a mandatory step for the reservation",
+        "book_reservation": "So that you may have the best experience with us",
+        "review": "Just to be sure",
+        "done": "And leave the rest to us!"
+      }
+    }
+  },
+  "menu": {
+    "extra_fees_included": "The service price and taxes are included",
+    "food_table": {
+      "name": "Food name with description",
+      "allergens": "Allergens",
+      "price": "Price"
+    }
+  },
+  "auth": {
+    "email": "Email address",
+    "email_placeholder": "Add your email address",
+    "password": "Password",
+    "password_placeholder": "Add your password",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "phone_number": "Phone number",
+    "password_repeat": "Password repeat",
+    "password_repeat_placeholder": "Add your password again"
+  },
+  "field_required": "This field cannot be empty",
+  "email_format_invalid": "The email format is invalid",
+  "password_format_invalid": "The password must be at least 8 characters long and contain at least one lowercase and one uppercase letter, one number, and one special character!",
+  "price_negative": "The price cannot be negative",
+  "person_count_not_negative": "The number of people cannot be less than one",
+  "incorrect_credentials": "The email address or password is incorrect",
+  "access_denied": "The email address or password is incorrect",
+  "password_confirm_invalid": "The passwords do not match",
+  "profile_email_duplicate": "This email address is already in use",
+  "profile_phone_number_duplicate": "This phone number is already in use",
+  "seating_name_duplicate": "This seating name is already in use",
+  "seating_id_invalid": "This seating does not exist",
+  "food_id_invalid": "This food does not exist in the system",
+  "allergen_name_duplicate": "An allergen with this name already exists",
+  "reservation_time_invalid": "The reservation time is invalid",
+  "reservation_conflict": "This time slot is already booked",
+  "reservation_not_found": "No such reservation exists"
+}

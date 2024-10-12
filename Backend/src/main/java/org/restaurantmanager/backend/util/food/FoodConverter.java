@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class FoodConverter {
 
-    public static Food toResponse(FoodEntity foodEntity) {
+    public static Food toResponse(final FoodEntity foodEntity) {
         return Food.builder()
                 .id(foodEntity.getId())
                 .name(foodEntity.getName())
@@ -23,7 +23,7 @@ public final class FoodConverter {
                 .build();
     }
 
-    public static Set<Food> toResponse(Collection<FoodEntity> foodEntities) {
+    public static Set<Food> toResponse(final Collection<FoodEntity> foodEntities) {
         return foodEntities.stream()
                 .map(FoodConverter::toResponse)
                 .collect(Collectors.toSet());

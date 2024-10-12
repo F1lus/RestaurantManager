@@ -13,7 +13,7 @@ public interface IFoodService {
 
     List<Food> getAllFoods();
 
-    List<FoodEntity> getAllFoodEntities(List<UUID> ids);
+    List<FoodEntity> getAllFoodEntities(final List<UUID> ids);
 
     @PreAuthorize("hasAuthority('ADMIN')")
     void createFood(final CreateFoodRequest createFoodRequest);

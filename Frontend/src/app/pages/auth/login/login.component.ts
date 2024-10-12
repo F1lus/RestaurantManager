@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
   public handleSubmit() {
     const email = this.loginForm.value.email ?? '';
     const password = this.loginForm.value.password ?? '';
+    this.loginForm.disable();
     this.authService.login({email, password}).subscribe({
       next: () => {
         this.loggedInService.attemptLogin();
@@ -51,6 +52,7 @@ export class LoginComponent implements OnInit {
         }
         const errors = err.error as Record<string, string>;
         serverSideValidator(this.loginForm, errors);
+        this.loginForm.enable();
       },
     })
   }

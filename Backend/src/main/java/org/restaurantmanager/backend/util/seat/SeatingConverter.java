@@ -10,11 +10,11 @@ import org.restaurantmanager.backend.dto.seating.Seating;
 public final class SeatingConverter {
 
     public static Seating toResponse(final SeatingEntity seatingEntity) {
-        return new Seating(
-                seatingEntity.getId(),
-                seatingEntity.getName(),
-                seatingEntity.getPersonCount()
-        );
+        return Seating.builder()
+                .id(seatingEntity.getId())
+                .name(seatingEntity.getName())
+                .personCount(seatingEntity.getPersonCount())
+                .build();
     }
 
     public static SeatingEntity toEntity(final CreateSeatingRequest createSeatingRequest) {

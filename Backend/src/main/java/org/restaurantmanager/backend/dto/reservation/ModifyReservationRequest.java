@@ -1,13 +1,15 @@
 package org.restaurantmanager.backend.dto.reservation;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Data
+@RequiredArgsConstructor
+@Getter
 public final class ModifyReservationRequest implements ReservationValidation {
 
     @NotNull(message = FIELD_REQUIRED)

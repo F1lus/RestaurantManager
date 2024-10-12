@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {BehaviorSubject, Subscription, switchMap, tap, timer} from "rxjs";
+import {BehaviorSubject, filter, Subscription, switchMap, tap, timer} from "rxjs";
 import {GeneralProfile} from "../model/auth";
-import {AuthService} from "./auth.service";
+import {ProfileService} from "./profile.service";
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,14 @@ export class LoggedInService implements OnDestroy {
   private readonly subscription = new Subscription();
   private readonly timedQuery = timer(0, this.TIMER_INTERVAL)
     .pipe(
-      switchMap(() => this.authService.getCurrentUser()),
+      filter(() => this.isInitialized),
+      switchMap(() => this.profileService.getCurrentUser()),
       tap(userInfo => this._userInfo.next(userInfo))
     );
 
-  constructor(private readonly authService: AuthService) {
+  constructor(
+    private readonly profileService: ProfileService,
+  ) {
   }
 
   public get userInfo() {
@@ -30,19 +33,18 @@ export class LoggedInService implements OnDestroy {
   }
 
   public attemptLogin() {
-    if (!this.isInitialized && !!this.authService.authToken) {
+    if (!this.isInitialized) {
       this.subscription.add(this.timedQuery.subscribe());
       this.isInitialized = true;
     }
   }
 
   public logout() {
-    this.subscription.unsubscribe();
     this.isInitialized = false;
     this._userInfo.next(null);
   }
 
   public ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 }

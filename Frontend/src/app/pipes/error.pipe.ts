@@ -6,7 +6,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class ErrorPipe implements PipeTransform {
 
-  transform(value: any, ...args: unknown[]): string {
+  transform(value: any): string {
     if (!value || !value.serverSide) {
       return "";
     }

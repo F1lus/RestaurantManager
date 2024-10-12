@@ -32,14 +32,14 @@ public class FoodService implements IFoodService {
     @Override
     public List<Food> getAllFoods() {
         log.info("Getting all foods...");
-        return foodRepository.findAll()
+        return foodRepository.getAll()
                 .stream()
                 .map(FoodConverter::toResponse)
                 .toList();
     }
 
     @Override
-    public List<FoodEntity> getAllFoodEntities(List<UUID> ids) {
+    public List<FoodEntity> getAllFoodEntities(final List<UUID> ids) {
         return foodRepository.findAllIn(ids);
     }
 
@@ -85,8 +85,7 @@ public class FoodService implements IFoodService {
     @Override
     @Transactional
     public void deleteFood(final UUID id) {
-        val foodEntity = getById(id);
-        foodRepository.delete(foodEntity);
+        foodRepository.deleteById(id);
     }
 
     private Set<AllergenEntity> getAllergens(final Set<String> allergens) {

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface IAllergenService {
 
-    AllergenEntity createAllergen(String name);
+    AllergenEntity createAllergen(final String name);
 
-    Optional<AllergenEntity> findAllergenByName(String name);
+    Optional<AllergenEntity> findAllergenByName(final String name);
 }

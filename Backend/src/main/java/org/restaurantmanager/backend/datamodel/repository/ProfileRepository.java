@@ -11,5 +11,8 @@ import java.util.UUID;
 public interface ProfileRepository extends CrudRepository<ProfileEntity, UUID> {
 
     Optional<ProfileEntity> findByEmail(String email);
-    Optional<ProfileEntity> findByPhoneNumber(String phoneNumber);
+
+    boolean existsByPhoneNumber(String phoneNumber);
+
+    boolean existsByEmail(String email);
 }

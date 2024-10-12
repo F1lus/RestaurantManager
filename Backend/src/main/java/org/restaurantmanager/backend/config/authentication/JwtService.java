@@ -24,23 +24,23 @@ public class JwtService {
     private final Long expirationTime;
 
     public JwtService(
-            @Value("${security.jwt.secret-key}") String secretKey,
-            @Value("${security.jwt.expiration-time}") Long expirationTime
+            @Value("${security.jwt.secret-key}") final String secretKey,
+            @Value("${security.jwt.expiration-time}") final Long expirationTime
     ) {
         this.secretKey = secretKey;
         this.expirationTime = expirationTime;
     }
 
-    public String extractUsername(String token) {
+    public String extractUsername(final String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
+    public <T> T extractClaim(final String token, final Function<Claims, T> claimResolver) {
         val claims = extractAllClaims(token);
         return claimResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(final UserDetails userDetails) {
         return generateToken(Map.of(), userDetails);
     }
 
@@ -51,7 +51,7 @@ public class JwtService {
         return buildToken(extraClaims, userDetails, expirationTime);
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
+    public boolean isTokenValid(final String token, final UserDetails userDetails) {
         val username = extractUsername(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }

@@ -1,10 +1,12 @@
 package org.restaurantmanager.backend.dto.allergen;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.util.UUID;
 
-@Data
+@Builder
+@Getter
 public final class Allergen {
 
     private final UUID id;

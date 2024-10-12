@@ -24,6 +24,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
+    private static final String AUTH_PATH = "/api/auth/**";
+    private static final String FOOD_PATH = "/api/food";
+    private static final String[] RESOURCES = {"/*", "/browser/**", "/assets/**", "/media/**"};
+
     private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -34,12 +38,10 @@ public class WebSecurityConfig {
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(
                         requests -> requests
-                                .requestMatchers("/api/auth/login", "/api/auth/register")
-                                .permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/food")
-                                .permitAll()
-                                .anyRequest()
-                                .authenticated()
+                                .requestMatchers(AUTH_PATH).permitAll()
+                                .requestMatchers(HttpMethod.GET, FOOD_PATH).permitAll()
+                                .requestMatchers(RESOURCES).permitAll()
+                                .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
@@ -51,7 +53,6 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         val configuration = new CorsConfiguration();
 
-        configuration.applyPermitDefaultValues();
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 

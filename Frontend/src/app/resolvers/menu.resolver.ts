@@ -9,7 +9,7 @@ interface FoodResolver {
   currentPage: number;
 }
 
-export const menuResolver: ResolveFn<FoodResolver> = (route, state) => {
+export const menuResolver: ResolveFn<FoodResolver> = (route) => {
   const page = route.queryParamMap.get('page');
   const currentPage = page ? +page : 1;
   return inject(FoodService).getFoods(currentPage)

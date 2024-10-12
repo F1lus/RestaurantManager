@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 public final class AllergenConverter {
 
     public static Allergen toResponse(final AllergenEntity allergenEntity) {
-        return new Allergen(
-                allergenEntity.getId(),
-                allergenEntity.getName()
-        );
+        return Allergen.builder()
+                .id(allergenEntity.getId())
+                .name(allergenEntity.getName())
+                .build();
     }
 
     public static Set<Allergen> toResponse(final Collection<AllergenEntity> allergenEntities) {

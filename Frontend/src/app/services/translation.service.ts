@@ -7,7 +7,7 @@ import {TranslateService} from "@ngx-translate/core";
 export class TranslationService {
 
   private readonly storageKey = 'lang';
-  private readonly supportedLanguages = ['en', 'hu'];
+  private readonly supportedLanguages = Object.freeze(['hu', 'en']);
   private currentLanguage: string = 'hu';
 
   constructor(
@@ -34,6 +34,10 @@ export class TranslationService {
 
     this.currentLanguage = nextLang;
     this.changeLanguage(nextLang);
+  }
+
+  public get languages() {
+    return [...this.supportedLanguages];
   }
 
   private changeLanguage(lang: string) {

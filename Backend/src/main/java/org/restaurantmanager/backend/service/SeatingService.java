@@ -27,14 +27,14 @@ public class SeatingService implements ISeatingService {
 
     @Override
     public List<Seating> getSeats() {
-        return seatingRepository.findAll()
+        return seatingRepository.getAll()
                 .stream()
                 .map(SeatingConverter::toResponse)
                 .toList();
     }
 
     @Override
-    public SeatingEntity getSeatById(UUID id) {
+    public SeatingEntity getSeatById(final UUID id) {
         return seatingRepository.findById(id).orElseThrow(SeatingNotFoundException::new);
     }
 
@@ -72,15 +72,14 @@ public class SeatingService implements ISeatingService {
     @Override
     @Transactional
     public void deleteSeat(final UUID id) {
-        val seatingEntity = getById(id);
-        seatingRepository.delete(seatingEntity);
+        seatingRepository.deleteById(id);
     }
 
     private void validateName(final String name) {
-        seatingRepository.findByName(name)
-                .ifPresent(seatingEntity -> {
-                    throw new SeatingNameViolationException();
-                });
+        val isNameTaken = seatingRepository.existsByName(name);
+        if (isNameTaken) {
+            throw new SeatingNameViolationException();
+        }
     }
 
     private SeatingEntity getById(final UUID id) {
