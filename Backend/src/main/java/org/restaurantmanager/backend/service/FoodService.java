@@ -40,7 +40,7 @@ public class FoodService implements IFoodService {
 
     @Override
     public List<FoodEntity> getAllFoodEntities(final List<UUID> ids) {
-        return foodRepository.findAllIn(ids);
+        return foodRepository.findAllByIdIn(ids);
     }
 
     @Override
