@@ -52,13 +52,6 @@ export class NavigationService {
       link: '/dashboard',
       protection: ProtectionLevel.AUTHORIZED,
       accountType: ProfileType.WAITER
-    },
-    {
-      order: 5,
-      name: 'link.restaurant',
-      link: '/restaurant',
-      protection: ProtectionLevel.AUTHORIZED,
-      accountType: ProfileType.ADMIN
     }
   ];
 

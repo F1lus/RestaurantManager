@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class AuthService implements IAuthService {
 
     private final ProfileRepository profileRepository;
@@ -46,7 +47,6 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    @Transactional
     public void register(final RegisterRequest registerRequest) {
         log.info("Registration started for user: {}", registerRequest.getEmail());
         if (!registerRequest.getPassword().equals(registerRequest.getPasswordRepeat())) {

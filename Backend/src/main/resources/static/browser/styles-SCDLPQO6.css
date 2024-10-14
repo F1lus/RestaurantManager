@@ -324,6 +324,10 @@ img, video {
     z-index: 50
 }
 
+.order-1 {
+    order: 1
+}
+
 .m-5 {
     margin: 1.25rem
 }
@@ -351,6 +355,14 @@ img, video {
 
 .ms-6 {
     margin-inline-start: 1.5rem
+}
+
+.mt-0 {
+    margin-top: 0
+}
+
+.mt-2 {
+    margin-top: .5rem
 }
 
 .mt-4 {
@@ -381,6 +393,10 @@ img, video {
     display: none
 }
 
+.h-60 {
+    height: 15rem
+}
+
 .h-8 {
     height: 2rem
 }
@@ -403,6 +419,10 @@ img, video {
 
 .w-8 {
     width: 2rem
+}
+
+.w-auto {
+    width: auto
 }
 
 .w-full {
@@ -463,6 +483,10 @@ img, video {
     grid-template-rows:repeat(1, minmax(0, 1fr))
 }
 
+.flex-row {
+    flex-direction: row
+}
+
 .flex-col {
     flex-direction: column
 }
@@ -495,6 +519,12 @@ img, video {
     gap: 1.25rem
 }
 
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(.5rem * var(--tw-space-x-reverse));
+    margin-left: calc(.5rem * calc(1 - var(--tw-space-x-reverse)))
+}
+
 .space-x-3 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
     margin-right: calc(.75rem * var(--tw-space-x-reverse));
@@ -509,6 +539,10 @@ img, video {
 
 .self-center {
     align-self: center
+}
+
+.overflow-x-auto {
+    overflow-x: auto
 }
 
 .whitespace-nowrap {
@@ -533,6 +567,10 @@ img, video {
 
 .border {
     border-width: 1px
+}
+
+.border-0 {
+    border-width: 0px
 }
 
 .border-s {
@@ -569,6 +607,11 @@ img, video {
     background-color: rgb(0 0 0 / var(--tw-bg-opacity))
 }
 
+.bg-blue-300 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(147 197 253 / var(--tw-bg-opacity))
+}
+
 .bg-blue-500 {
     --tw-bg-opacity: 1;
     background-color: rgb(59 130 246 / var(--tw-bg-opacity))
@@ -597,6 +640,14 @@ img, video {
     --tw-bg-opacity: .9
 }
 
+.p-0 {
+    padding: 0
+}
+
+.p-1 {
+    padding: .25rem
+}
+
 .p-10 {
     padding: 2.5rem
 }
@@ -607,6 +658,10 @@ img, video {
 
 .p-4 {
     padding: 1rem
+}
+
+.p-5 {
+    padding: 1.25rem
 }
 
 .p-8 {
@@ -842,6 +897,10 @@ img, video {
         display: flex
     }
 
+    .md\:hidden {
+        display: none
+    }
+
     .md\:w-auto {
         width: auto
     }
@@ -860,6 +919,12 @@ img, video {
 
     .md\:flex-row {
         flex-direction: row
+    }
+
+    .md\:space-x-2 > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-x-reverse: 0;
+        margin-right: calc(.5rem * var(--tw-space-x-reverse));
+        margin-left: calc(.5rem * calc(1 - var(--tw-space-x-reverse)))
     }
 
     .md\:space-x-8 > :not([hidden]) ~ :not([hidden]) {

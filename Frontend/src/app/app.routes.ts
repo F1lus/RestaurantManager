@@ -9,9 +9,9 @@ import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 import {loggedInGuard} from "./guards/logged-in.guard";
 import {OverviewComponent} from "./pages/overview/overview.component";
 import {ReserveComponent} from "./pages/reserve/reserve.component";
-import {RestaurantComponent} from "./pages/restaurant/restaurant.component";
 import {hasPermission} from "./guards/has-permission.guard";
 import {ProfileType} from "./model/auth";
+import {profilesResolver} from "./resolvers/profiles.resolver";
 
 export const routes: Routes = [
   {
@@ -39,6 +39,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    resolve: {profiles: profilesResolver},
     canActivate: [loggedInGuard, hasPermission],
     data: {permission: ProfileType.WAITER}
   },
@@ -51,11 +52,5 @@ export const routes: Routes = [
     path: 'reserve',
     component: ReserveComponent,
     canActivate: [loggedInGuard]
-  },
-  {
-    path: 'restaurant',
-    component: RestaurantComponent,
-    canActivate: [loggedInGuard, hasPermission],
-    data: {permission: ProfileType.ADMIN}
-  },
+  }
 ];

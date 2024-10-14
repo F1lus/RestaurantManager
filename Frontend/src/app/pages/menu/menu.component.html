@@ -20,7 +20,7 @@
               <div>{{ menuItem.name }}</div>
               <p class="text-gray-500">{{ menuItem.description }}</p>
             </td>
-            <td>{{ menuItem.allergens | allergens }}</td>
+            <td>{{ menuItem.allergens | array: 'name' }}</td>
             <td>{{ menuItem.price | price }}</td>
           </tr>
         }

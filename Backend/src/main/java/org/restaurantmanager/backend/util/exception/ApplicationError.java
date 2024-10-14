@@ -17,6 +17,7 @@ public enum ApplicationError {
     // region Profile errors
     PROFILE_EMAIL_DUPLICATE("The profile email constraint is violated", HttpStatus.CONFLICT),
     PROFILE_PHONE_NUMBER_DUPLICATE("The profile phone number constraint is violated", HttpStatus.CONFLICT),
+    PROFILE_NOT_FOUND("The profile does not exist", HttpStatus.NOT_FOUND),
     // endregion
 
     // region Seating errors

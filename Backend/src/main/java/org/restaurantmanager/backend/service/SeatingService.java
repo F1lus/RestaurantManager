@@ -21,6 +21,7 @@ import java.util.UUID;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class SeatingService implements ISeatingService {
 
     private final SeatingRepository seatingRepository;
@@ -39,7 +40,6 @@ public class SeatingService implements ISeatingService {
     }
 
     @Override
-    @Transactional
     public void addSeat(final CreateSeatingRequest createSeatingRequest) {
         validateName(createSeatingRequest.getName());
 
@@ -48,7 +48,6 @@ public class SeatingService implements ISeatingService {
     }
 
     @Override
-    @Transactional
     public void modifySeat(final UUID id, final ModifySeatingRequest modifySeatingRequest) {
         val seatingEntity = getById(id);
         boolean entityWasModified = false;
@@ -70,7 +69,6 @@ public class SeatingService implements ISeatingService {
     }
 
     @Override
-    @Transactional
     public void deleteSeat(final UUID id) {
         seatingRepository.deleteById(id);
     }

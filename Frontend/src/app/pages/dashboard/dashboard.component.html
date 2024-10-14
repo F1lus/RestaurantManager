@@ -1,1 +1,9 @@
-<p>dashboard works!</p>
+<app-dashboard-navigation></app-dashboard-navigation>
+
+@if (state === DashboardState.MODIFY_USER) {
+  <app-manage-users></app-manage-users>
+} @else if (state === DashboardState.MODIFY_SEAT) {
+  <app-manage-seats></app-manage-seats>
+} @else {
+  <app-manage-menu></app-manage-menu>
+}

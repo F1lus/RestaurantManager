@@ -31,6 +31,7 @@ import java.util.UUID;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class ReservationService implements IReservationService {
 
     private final IFoodService foodService;
@@ -49,7 +50,6 @@ public class ReservationService implements IReservationService {
     }
 
     @Override
-    @Transactional
     public void createReservation(final CreateReservationRequest createReservationRequest) {
         log.info("Creating reservation...");
         validateReservationTime(
@@ -74,7 +74,6 @@ public class ReservationService implements IReservationService {
     }
 
     @Override
-    @Transactional
     public void modifyReservation(final ModifyReservationRequest modifyReservationRequest) {
         validateReservationTime(
                 modifyReservationRequest.getReservationStart(),
@@ -95,7 +94,6 @@ public class ReservationService implements IReservationService {
     }
 
     @Override
-    @Transactional
     public void deleteReservation(final UUID id) {
         reservationRepository.deleteById(id);
     }

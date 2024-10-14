@@ -13,7 +13,7 @@ public class AngularConfig implements WebMvcConfigurer {
     private static final String VIEW_NAME = "forward:/browser/index.html";
     private static final String RESOURCE_HANDLER_PATH_PATTERN = "/**";
     private static final String RESOURCE_LOCATION = "classpath:/static/browser/";
-    private static final int CACHE_PERIOD = 3600;
+    private static final int CACHE_PERIOD = 0;
     private static final boolean RESOURCE_CHAIN = true;
 
     @Override

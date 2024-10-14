@@ -27,6 +27,8 @@ export class NavigationComponent implements OnInit {
   public supportedLanguages!: string[];
   public currentLanguage!: string;
 
+  public isMobileViewHidden = true;
+
   constructor(
     private readonly navigationService: NavigationService,
     private readonly translationService: TranslationService,
@@ -42,5 +44,9 @@ export class NavigationComponent implements OnInit {
   public changeLanguage(lang: string) {
     this.translationService.language = lang;
     this.currentLanguage = this.translationService.language;
+  }
+
+  public clickOnHamburger(): void {
+    this.isMobileViewHidden = !this.isMobileViewHidden;
   }
 }

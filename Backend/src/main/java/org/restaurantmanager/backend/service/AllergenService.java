@@ -17,12 +17,12 @@ import java.util.Optional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class AllergenService implements IAllergenService {
 
     private final AllergenRepository allergenRepository;
 
     @Override
-    @Transactional
     public AllergenEntity createAllergen(final String name) {
         log.info("Creating allergen with name: {}", name);
         validateName(name);

@@ -10,3 +10,9 @@ export interface Food {
   price: number;
   allergens: Allergen[];
 }
+
+export enum DashboardState {
+  MODIFY_USER = 'MODIFY_USER',
+  MODIFY_SEAT = 'MODIFY_SEAT',
+  MODIFY_MENU = 'MODIFY_MENU',
+}

@@ -7,9 +7,9 @@ export enum ProtectionLevel {
 }
 
 export enum ProfileType {
-  USER,
-  WAITER,
-  ADMIN
+  USER = "USER",
+  WAITER = "WAITER",
+  ADMIN = "ADMIN",
 }
 
 export interface GeneralProfile {

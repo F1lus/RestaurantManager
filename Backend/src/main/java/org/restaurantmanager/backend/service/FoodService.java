@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class FoodService implements IFoodService {
 
     private final IAllergenService allergenService;
@@ -44,7 +45,6 @@ public class FoodService implements IFoodService {
     }
 
     @Override
-    @Transactional
     public void createFood(final CreateFoodRequest createFoodRequest) {
         log.info("Creating food with name: {}", createFoodRequest.getName());
 
@@ -61,7 +61,6 @@ public class FoodService implements IFoodService {
     }
 
     @Override
-    @Transactional
     public void modifyFood(final UUID id, final ModifyFoodRequest modifyFoodRequest) {
         val foodEntity = getById(id);
 
@@ -83,7 +82,6 @@ public class FoodService implements IFoodService {
     }
 
     @Override
-    @Transactional
     public void deleteFood(final UUID id) {
         foodRepository.deleteById(id);
     }

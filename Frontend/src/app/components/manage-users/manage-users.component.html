@@ -1,0 +1,25 @@
+<section class="grid grid-cols-2 mt-2 space-x-3 p-5">
+  <app-selectable-list
+    (selected)="handleSelected($event)"
+    [listOfElements]="profiles"
+  ></app-selectable-list>
+
+  @if (selectedProfile) {
+    <div>
+      <div>Név: {{ selectedProfile.fullName }}</div>
+      <div>Email: {{ selectedProfile.email }}</div>
+      <div>Telefonszám: {{ selectedProfile.phoneNumber }}</div>
+      <div>Jogosultságok: {{ selectedProfile.profileTypes.join(', ') }}</div>
+
+      @if (selectedProfile.profileTypes.includes(ProfileType.WAITER)) {
+        <button class="bg-amber-500 p-2 rounded" (click)="demoteUser()">
+          Pincér jogosultság visszavonása
+        </button>
+      } @else {
+        <button class="bg-amber-500 p-2 rounded" (click)="promoteUser()">
+          Előléptetés pincérré
+        </button>
+      }
+    </div>
+  }
+</section>

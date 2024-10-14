@@ -32,9 +32,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        log.info("Authentication filter called for: {}", request.getRequestURI());
-        val authHeader = request.getHeader("Authorization");
+        if (request.getRequestURI().startsWith("/api")) {
+            log.info("Authentication filter called for: {}", request.getRequestURI());
+        }
 
+        val authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;

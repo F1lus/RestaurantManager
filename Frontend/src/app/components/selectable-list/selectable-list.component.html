@@ -1,0 +1,11 @@
+@if (title) {
+  <h3>{{ title }}</h3>
+}
+
+<div class="h-60 overflow-x-auto border shadow rounded">
+  @for (element of listOfElements; track element) {
+    <div [ngClass]="{ 'bg-blue-300': selectedRow === $index }" (click)="onRowSelect($index)">
+      {{ element['fullName'] }}
+    </div>
+  }
+</div>

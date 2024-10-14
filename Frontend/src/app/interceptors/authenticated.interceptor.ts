@@ -2,8 +2,10 @@ import {HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest} from "@angular
 import {catchError, Observable, throwError} from "rxjs";
 import {inject} from "@angular/core";
 import {AuthService} from "../services/auth.service";
-import {Router} from "@angular/router";
 import {LoggedInService} from "../services/logged-in.service";
+import {Router} from "@angular/router";
+
+const watchedStatuses = Object.freeze([401, 403])
 
 export function authenticatedInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
   const authService = inject(AuthService);
@@ -12,9 +14,7 @@ export function authenticatedInterceptor(req: HttpRequest<unknown>, next: HttpHa
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
-      console.error('An error has been caught:', err);
-
-      if (err.status === 401 || err.status === 403) {
+      if (watchedStatuses.includes(err.status)) {
         authService.removeAuthToken();
         loggedInService.logout();
         void router.navigate(['/login']);

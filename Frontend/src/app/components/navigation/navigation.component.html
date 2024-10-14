@@ -15,7 +15,7 @@
           <li>
             <a
               [routerLink]="navLink.link"
-              [routerLinkActiveOptions]="{ exact: true }"
+              [routerLinkActiveOptions]="{ exact: navLink.name === 'link.home' }"
               routerLinkActive="active-link"
               class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-amber-500 md:p-0"
             >
@@ -27,7 +27,7 @@
     </div>
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-2">
       <ul
-        class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+        class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-2 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
         @for (lang of supportedLanguages; track lang) {
           <li>
             <button
@@ -41,5 +41,47 @@
         }
       </ul>
     </div>
+    <div class="items-center justify-between flex md:hidden w-auto order-1">
+      <div
+        class="flex font-medium p-0 border-gray-100 rounded-lg space-x-2 rtl:space-x-reverse flex-row mt-0 border-0"
+      >
+        <button (click)="clickOnHamburger()" class="border rounded hover:bg-gray-100 p-1">
+          <img alt="menu" height="35"
+               ngSrc="assets/images/common/menu.png"
+               width="35">
+        </button>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="{ 'hidden': isMobileViewHidden }" class="md:hidden">
+    <ul
+      class="flex font-medium p-0 border-gray-100 rounded-lg space-x-2 rtl:space-x-reverse flex-row mt-0 border-0">
+      @for (lang of supportedLanguages; track lang) {
+        <li>
+          <button
+            [ngClass]="{ 'active-link': lang === currentLanguage }"
+            class="p-2"
+            (click)="changeLanguage(lang)"
+          >
+            {{ lang | uppercase }}
+          </button>
+        </li>
+      }
+    </ul>
+    <hr>
+    <ul>
+      @for (navLink of navLinks | async; track navLink.name) {
+        <li>
+          <a
+            [routerLink]="navLink.link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active-link"
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-amber-500 md:p-0"
+          >
+            {{ navLink.name | translate }}
+          </a>
+        </li>
+      }
+    </ul>
   </div>
 </nav>

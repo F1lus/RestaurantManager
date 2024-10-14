@@ -2,7 +2,6 @@ package org.restaurantmanager.backend.datamodel.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,7 +40,7 @@ public class FoodEntity extends BaseEntity {
     @Column(nullable = false)
     private Integer price;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "food_allergen",
             joinColumns = @JoinColumn(name = "food_id"),
