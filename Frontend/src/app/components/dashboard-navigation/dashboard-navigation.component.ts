@@ -19,7 +19,6 @@ interface DashboardLink {
     RouterLink
   ],
   templateUrl: './dashboard-navigation.component.html',
-  styleUrl: './dashboard-navigation.component.scss'
 })
 export class DashboardNavigationComponent {
 

@@ -1,24 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {GeneralProfile, ProfileType} from "../../model/auth";
 import {ActivatedRoute} from "@angular/router";
 import {take} from "rxjs";
 import {SelectableListComponent} from "../selectable-list/selectable-list.component";
 import {ProfileService} from "../../services/profile.service";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-manage-users',
   standalone: true,
   imports: [
-    SelectableListComponent
+    SelectableListComponent,
+    NgOptimizedImage
   ],
   templateUrl: './manage-users.component.html',
-  styleUrl: './manage-users.component.scss'
 })
 export class ManageUsersComponent implements OnInit {
 
+  @ViewChild("controls") controls?: TemplateRef<any>;
+
   public profiles: GeneralProfile[] = [];
 
-  public selectedProfile?: GeneralProfile
+  public readonly displayedColumns = ['fullName', 'email', 'phoneNumber'] as const;
   protected readonly ProfileType = ProfileType;
 
   constructor(
@@ -30,28 +33,24 @@ export class ManageUsersComponent implements OnInit {
   public ngOnInit() {
     this.route.data
       .pipe(take(1))
-      .subscribe(data => {
-        this.profiles = data['profiles'] as GeneralProfile[];
-      });
+      .subscribe(data => this.profiles = data['profiles'] as GeneralProfile[]);
   }
 
-  public handleSelected(index: number) {
-    this.selectedProfile = this.profiles[index];
-  }
-
-  public promoteUser() {
-    this.profileService.modifyUserAuthority(this.selectedProfile!.id, ProfileType.WAITER)
+  public promoteUser(index: number) {
+    this.profileService.modifyUserAuthority(this.profiles[index].id, ProfileType.WAITER)
       .subscribe({
-        next: () => this.selectedProfile!.profileTypes.push(ProfileType.WAITER),
+        next: () => {
+          this.profiles[index].profileTypes.push(ProfileType.WAITER)
+        },
       })
   }
 
-  public demoteUser() {
-    this.profileService.modifyUserAuthority(this.selectedProfile!.id, ProfileType.USER)
+  public demoteUser(index: number) {
+    this.profileService.modifyUserAuthority(this.profiles[index].id, ProfileType.USER)
       .subscribe({
         next: () => {
-          const index = this.selectedProfile!.profileTypes.indexOf(ProfileType.WAITER)
-          this.selectedProfile!.profileTypes.splice(index, 1)
+          const profileTypeIndex = this.profiles[index].profileTypes.indexOf(ProfileType.WAITER)
+          this.profiles[index].profileTypes.splice(profileTypeIndex, 1)
         },
       })
   }

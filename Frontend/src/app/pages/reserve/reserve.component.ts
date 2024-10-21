@@ -5,7 +5,6 @@ import {Component} from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './reserve.component.html',
-  styleUrl: './reserve.component.scss'
 })
 export class ReserveComponent {
 

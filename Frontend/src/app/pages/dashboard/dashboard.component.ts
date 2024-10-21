@@ -21,7 +21,6 @@ import {ManageMenuComponent} from "../../components/manage-menu/manage-menu.comp
     ManageMenuComponent
   ],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 

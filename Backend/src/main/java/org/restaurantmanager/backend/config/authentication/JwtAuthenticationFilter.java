@@ -23,6 +23,10 @@ import java.io.IOException;
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String AUTH_TYPE = "Bearer ";
+    private static final int AUTH_TOKEN_START = 7;
+
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
@@ -33,17 +37,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         if (request.getRequestURI().startsWith("/api")) {
-            log.info("Authentication filter called for: {}", request.getRequestURI());
+            log.info("Authentication filter called for: [{}] {}", request.getMethod(), request.getRequestURI());
         }
 
-        val authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        val authHeader = request.getHeader(AUTHORIZATION_HEADER);
+        if (authHeader == null || !authHeader.startsWith(AUTH_TYPE)) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
-            val jwt = authHeader.substring(7);
+            val jwt = authHeader.substring(AUTH_TOKEN_START);
             val userEmail = jwtService.extractUsername(jwt);
             val authentication = SecurityContextHolder.getContext().getAuthentication();
 

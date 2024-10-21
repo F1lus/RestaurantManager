@@ -2,10 +2,33 @@
   <h3>{{ title }}</h3>
 }
 
-<div class="h-60 overflow-x-auto border shadow rounded">
-  @for (element of listOfElements; track element) {
-    <div [ngClass]="{ 'bg-blue-300': selectedRow === $index }" (click)="onRowSelect($index)">
-      {{ element['fullName'] }}
-    </div>
-  }
-</div>
+<table class="table-fixed w-[100%] max-h-[80vh] text-center overflow-x-auto border shadow rounded">
+  <thead>
+  <tr class="border">
+    @for (column of displayColumns; track displayColumns) {
+      <th class="border">{{ column }}</th>
+    }
+    @if (controlsTemplate) {
+      <th class="border">Műveletek</th>
+    }
+  </tr>
+  </thead>
+  <tbody>
+    @for (element of listOfElements; track element['id']) {
+      <tr class="border" [ngClass]="{ 'bg-blue-300': selectedRow === $index }" (click)="onRowSelect($index)">
+        @for (column of displayColumns; track column) {
+          <td class="border">{{ element[column] | array: column }}</td>
+        }
+        @if (controlsTemplate) {
+          <td class="border">
+            <ng-container
+              [ngTemplateOutlet]="controlsTemplate"
+              [ngTemplateOutletContext]="{ index: $index }"
+            >
+            </ng-container>
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>

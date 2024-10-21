@@ -46,13 +46,13 @@ export class LoginComponent implements OnInit {
         void this.router.navigate(['/overview']);
       },
       error: (err: HttpErrorResponse) => {
+        this.loginForm.enable();
         if (typeof err.error === 'string') {
           this.formError = err.error;
           return;
         }
         const errors = err.error as Record<string, string>;
         serverSideValidator(this.loginForm, errors);
-        this.loginForm.enable();
       },
     })
   }

@@ -1,9 +1,11 @@
 <app-dashboard-navigation></app-dashboard-navigation>
 
-@if (state === DashboardState.MODIFY_USER) {
-  <app-manage-users></app-manage-users>
-} @else if (state === DashboardState.MODIFY_SEAT) {
-  <app-manage-seats></app-manage-seats>
-} @else {
-  <app-manage-menu></app-manage-menu>
-}
+<section class="p-10">
+  @if (state === DashboardState.MODIFY_USER) {
+    <app-manage-users></app-manage-users>
+  } @else if (state === DashboardState.MODIFY_SEAT) {
+    <app-manage-seats></app-manage-seats>
+  } @else {
+    <app-manage-menu></app-manage-menu>
+  }
+</section>

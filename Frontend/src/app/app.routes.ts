@@ -39,7 +39,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    resolve: {profiles: profilesResolver},
+    resolve: {profiles: profilesResolver, menu: menuResolver},
     canActivate: [loggedInGuard, hasPermission],
     data: {permission: ProfileType.WAITER}
   },

@@ -5,7 +5,6 @@ import {Component} from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './manage-seats.component.html',
-  styleUrl: './manage-seats.component.scss'
 })
 export class ManageSeatsComponent {
 

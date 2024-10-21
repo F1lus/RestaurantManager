@@ -62,13 +62,13 @@ export class RegisterComponent implements OnInit {
     }).subscribe({
       next: () => void this.router.navigate(['login']),
       error: (err: HttpErrorResponse) => {
+        this.registerForm.enable();
         if (typeof err.error === 'string') {
           this.formError = err.error;
           return;
         }
         const errors = err.error as Record<string, string>;
         serverSideValidator(this.registerForm, errors);
-        this.registerForm.enable();
       }
     });
   }

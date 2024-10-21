@@ -1,25 +1,17 @@
-<section class="grid grid-cols-2 mt-2 space-x-3 p-5">
-  <app-selectable-list
-    (selected)="handleSelected($event)"
-    [listOfElements]="profiles"
-  ></app-selectable-list>
+<app-selectable-list
+  [controlsTemplate]="controls"
+  [displayColumns]="displayedColumns"
+  [listOfElements]="profiles"
+></app-selectable-list>
 
-  @if (selectedProfile) {
-    <div>
-      <div>Név: {{ selectedProfile.fullName }}</div>
-      <div>Email: {{ selectedProfile.email }}</div>
-      <div>Telefonszám: {{ selectedProfile.phoneNumber }}</div>
-      <div>Jogosultságok: {{ selectedProfile.profileTypes.join(', ') }}</div>
-
-      @if (selectedProfile.profileTypes.includes(ProfileType.WAITER)) {
-        <button class="bg-amber-500 p-2 rounded" (click)="demoteUser()">
-          Pincér jogosultság visszavonása
-        </button>
-      } @else {
-        <button class="bg-amber-500 p-2 rounded" (click)="promoteUser()">
-          Előléptetés pincérré
-        </button>
-      }
-    </div>
+<ng-template #controls let-index="index">
+  @if (profiles[index].profileTypes.includes(ProfileType.WAITER)) {
+    <button class="bg-red-500 p-2 rounded" (click)="demoteUser(index)">
+      <img ngSrc="assets/images/common/arrow_down.png" alt="demote" width="15" height="15">
+    </button>
+  } @else {
+    <button class="bg-green-500 p-2 rounded" (click)="promoteUser(index)">
+      <img ngSrc="assets/images/common/arrow_up.png" alt="promote" width="15" height="15">
+    </button>
   }
-</section>
+</ng-template>
