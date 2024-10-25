@@ -1,6 +1,17 @@
-<section class="grid grid-cols-2 mt-2 space-x-3 p-5">
-  <app-selectable-list
-    [displayColumns]="[ 'name', 'price', 'allergens' ]"
-    [listOfElements]="menu"
-  ></app-selectable-list>
+<section class="flex justify-end mb-3">
+    <button (click)="addNew()" class="bg-amber-500 p-2 rounded border">Új hozzáadása</button>
 </section>
+<app-selectable-list
+        [controlsTemplate]="controls"
+        [displayColumns]="[ 'name', 'price', 'allergens' ]"
+        [listOfElements]="menu"
+></app-selectable-list>
+
+<ng-template #controls let-index="index">
+    <button (click)="edit(index)" class="bg-gray-200 p-2 rounded border mx-2">
+        <img alt="edit" height="15" ngSrc="assets/images/common/edit.png" width="15">
+    </button>
+    <button (click)="remove(index)" class="bg-red-500 p-2 rounded border mx-2">
+        <img alt="delete" height="15" ngSrc="assets/images/common/delete.png" width="15">
+    </button>
+</ng-template>

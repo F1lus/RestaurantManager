@@ -1,0 +1,21 @@
+<section class="relative">
+  <input
+    #input
+    (input)="handleChange($event.target)"
+    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+    type="text"
+  >
+  @if (hasValue) {
+    <ul class="border rounded-b-lg shadow-2xl w-full absolute -bottom-50 z-50">
+      @for (value of filteredValues; track value) {
+        <li
+          class="hover:bg-blue-300"
+          [ngClass]="{ 'rounded-b-lg': $last }"
+          (click)="handleElementClick(value, input)"
+        >
+          {{ value }}
+        </li>
+      }
+    </ul>
+  }
+</section>

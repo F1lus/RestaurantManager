@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Food} from "../model/common";
+import {Allergen, CreateFoodRequest, Food} from "../model/common";
 import {catchError, of} from "rxjs";
 
 @Injectable({
@@ -19,5 +19,17 @@ export class FoodService {
         console.error('getFoods#', err);
         return of([] as Food[]);
       }));
+  }
+
+  public getAllergens() {
+    return this.http.get<Allergen[]>(`${this.baseUrl}/allergens`);
+  }
+
+  public createFood(food: CreateFoodRequest) {
+    return this.http.post<void>(this.baseUrl, food);
+  }
+
+  public removeFood(id: string) {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

@@ -5,7 +5,9 @@
     <app-manage-users></app-manage-users>
   } @else if (state === DashboardState.MODIFY_SEAT) {
     <app-manage-seats></app-manage-seats>
-  } @else {
+  } @else if (state === DashboardState.MODIFY_MENU) {
     <app-manage-menu></app-manage-menu>
+  } @else if (state === DashboardState.ADD_MENU) {
+    <app-food-form></app-food-form>
   }
 </section>

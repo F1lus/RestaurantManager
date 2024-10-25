@@ -8,6 +8,7 @@ import {DashboardNavigationComponent} from "../../components/dashboard-navigatio
 import {ManageUsersComponent} from "../../components/manage-users/manage-users.component";
 import {ManageSeatsComponent} from "../../components/manage-seats/manage-seats.component";
 import {ManageMenuComponent} from "../../components/manage-menu/manage-menu.component";
+import {FoodFormComponent} from "../../components/food-form/food-form.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,8 @@ import {ManageMenuComponent} from "../../components/manage-menu/manage-menu.comp
     DashboardNavigationComponent,
     ManageUsersComponent,
     ManageSeatsComponent,
-    ManageMenuComponent
+    ManageMenuComponent,
+    FoodFormComponent
   ],
   templateUrl: './dashboard.component.html',
 })

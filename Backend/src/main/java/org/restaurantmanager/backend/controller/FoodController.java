@@ -1,9 +1,11 @@
 package org.restaurantmanager.backend.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.restaurantmanager.backend.dto.allergen.Allergen;
 import org.restaurantmanager.backend.dto.food.CreateFoodRequest;
 import org.restaurantmanager.backend.dto.food.Food;
 import org.restaurantmanager.backend.dto.food.ModifyFoodRequest;
+import org.restaurantmanager.backend.util.allergen.IAllergenService;
 import org.restaurantmanager.backend.util.food.FoodApi;
 import org.restaurantmanager.backend.util.food.IFoodService;
 import org.springframework.http.HttpStatus;
@@ -17,10 +19,16 @@ import java.util.UUID;
 public class FoodController implements FoodApi {
 
     private final IFoodService foodService;
+    private final IAllergenService allergenService;
 
     @Override
     public ResponseEntity<Iterable<Food>> getFoods() {
         return ResponseEntity.ok(foodService.getAllFoods());
+    }
+
+    @Override
+    public ResponseEntity<Iterable<Allergen>> getAllergens() {
+        return ResponseEntity.ok(allergenService.getAllAllergens());
     }
 
     @Override

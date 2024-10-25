@@ -12,6 +12,7 @@ import {ReserveComponent} from "./pages/reserve/reserve.component";
 import {hasPermission} from "./guards/has-permission.guard";
 import {ProfileType} from "./model/auth";
 import {profilesResolver} from "./resolvers/profiles.resolver";
+import {allergensResolver} from "./resolvers/allergens.resolver";
 
 export const routes: Routes = [
   {
@@ -39,7 +40,8 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    resolve: {profiles: profilesResolver, menu: menuResolver},
+    resolve: {profiles: profilesResolver, menu: menuResolver, allergens: allergensResolver},
+    runGuardsAndResolvers: "paramsOrQueryParamsChange",
     canActivate: [loggedInGuard, hasPermission],
     data: {permission: ProfileType.WAITER}
   },

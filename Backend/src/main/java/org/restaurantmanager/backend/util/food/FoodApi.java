@@ -1,6 +1,7 @@
 package org.restaurantmanager.backend.util.food;
 
 import jakarta.validation.Valid;
+import org.restaurantmanager.backend.dto.allergen.Allergen;
 import org.restaurantmanager.backend.dto.food.CreateFoodRequest;
 import org.restaurantmanager.backend.dto.food.Food;
 import org.restaurantmanager.backend.dto.food.ModifyFoodRequest;
@@ -21,9 +22,13 @@ import static org.restaurantmanager.backend.util.food.FoodApi.FOOD_PATH;
 public interface FoodApi {
 
     String FOOD_PATH = "/api/food";
+    String ALLERGEN_PATH = "/allergens";
 
     @GetMapping
     ResponseEntity<Iterable<Food>> getFoods();
+
+    @GetMapping(ALLERGEN_PATH)
+    ResponseEntity<Iterable<Allergen>> getAllergens();
 
     @PostMapping
     ResponseEntity<Void> createFood(@Valid @RequestBody final CreateFoodRequest request);
