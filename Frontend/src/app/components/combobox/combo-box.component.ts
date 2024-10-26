@@ -1,4 +1,14 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {NgClass} from "@angular/common";
@@ -10,19 +20,20 @@ import {NgClass} from "@angular/common";
     NgClass
   ],
   templateUrl: './combo-box.component.html',
-  styleUrl: './combo-box.component.scss'
 })
-export class ComboBoxComponent implements OnInit, OnChanges, OnDestroy {
+export class ComboBoxComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @Input() public autoCompletes: string[] = [];
+  @Input({required: true}) public autoCompletes: string[] = [];
+  @Input() public initialValue: string[] = [];
 
   @Output() public changes = new EventEmitter<string[]>();
+
+  @ViewChild("input", {static: true}) input!: ElementRef<HTMLInputElement>;
 
   public filteredValues: string[] = [];
   public form!: FormGroup<{ elements: FormControl<string[]> }>;
 
   public hasValue = false;
-  public isFocused = false;
 
   private sub = new Subscription();
 
@@ -58,12 +69,6 @@ export class ComboBoxComponent implements OnInit, OnChanges, OnDestroy {
     );
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['autoCompletes']) {
-      this.filteredValues = this.autoCompletes;
-    }
-  }
-
   public handleChange(target: EventTarget | null) {
     if (!target) {
       return;
@@ -76,21 +81,22 @@ export class ComboBoxComponent implements OnInit, OnChanges, OnDestroy {
     })
   }
 
-  public handleElementClick(value: string, input: HTMLInputElement) {
+  public handleElementClick(value: string) {
     if (!this.form.value.elements) {
       return;
     }
-    const element = this.form.value.elements[this.form.value.elements.length - 1].toLowerCase();
+    this.form.value.elements[this.form.value.elements.length - 1] = value
 
-    const index = value.toLowerCase().lastIndexOf(element);
-    const substring = value.substring(index + element.length);
-
-    input.value = `${input.value}${substring}`;
-    input.dispatchEvent(new Event('input'));
+    this.input.nativeElement.value = this.form.value.elements.join(", ");
+    this.input.nativeElement.dispatchEvent(new Event('input'));
   }
 
   public ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  public ngAfterViewInit(): void {
+    this.input.nativeElement.value = this.initialValue.join(", ");
   }
 
 }

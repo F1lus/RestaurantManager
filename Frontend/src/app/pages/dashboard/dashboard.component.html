@@ -1,13 +1,21 @@
 <app-dashboard-navigation></app-dashboard-navigation>
 
 <section class="p-10">
-  @if (state === DashboardState.MODIFY_USER) {
-    <app-manage-users></app-manage-users>
-  } @else if (state === DashboardState.MODIFY_SEAT) {
-    <app-manage-seats></app-manage-seats>
-  } @else if (state === DashboardState.MODIFY_MENU) {
-    <app-manage-menu></app-manage-menu>
-  } @else if (state === DashboardState.ADD_MENU) {
-    <app-food-form></app-food-form>
+  @switch (state) {
+    @case (DashboardState.MODIFY_USER) {
+      <app-manage-users></app-manage-users>
+    }
+    @case (DashboardState.MODIFY_MENU) {
+      <app-manage-menu></app-manage-menu>
+    }
+    @case (DashboardState.MODIFY_SEAT) {
+      <app-manage-seats></app-manage-seats>
+    }
+    @case (DashboardState.ADD_MENU) {
+      <app-food-form></app-food-form>
+    }
+    @case (DashboardState.ADD_SEAT) {
+      <app-seat-form></app-seat-form>
+    }
   }
 </section>

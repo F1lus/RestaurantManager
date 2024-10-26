@@ -6,12 +6,12 @@
     type="text"
   >
   @if (hasValue) {
-    <ul class="border rounded-b-lg shadow-2xl w-full absolute -bottom-50 z-50">
+    <ul class="border rounded-b-lg shadow-2xl w-full absolute -bottom-50 z-50 bg-white">
       @for (value of filteredValues; track value) {
         <li
           class="hover:bg-blue-300"
           [ngClass]="{ 'rounded-b-lg': $last }"
-          (click)="handleElementClick(value, input)"
+          (click)="handleElementClick(value)"
         >
           {{ value }}
         </li>

@@ -7,7 +7,6 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class ArrayPipe implements PipeTransform {
 
   public transform(value: any, property: string): string {
-    console.log(value)
     if (!Array.isArray(value)) {
       return "" + value;
     }

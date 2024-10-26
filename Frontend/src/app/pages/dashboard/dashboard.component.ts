@@ -9,6 +9,7 @@ import {ManageUsersComponent} from "../../components/manage-users/manage-users.c
 import {ManageSeatsComponent} from "../../components/manage-seats/manage-seats.component";
 import {ManageMenuComponent} from "../../components/manage-menu/manage-menu.component";
 import {FoodFormComponent} from "../../components/food-form/food-form.component";
+import {SeatFormComponent} from "../../components/seat-form/seat-form.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,8 @@ import {FoodFormComponent} from "../../components/food-form/food-form.component"
     ManageUsersComponent,
     ManageSeatsComponent,
     ManageMenuComponent,
-    FoodFormComponent
+    FoodFormComponent,
+    SeatFormComponent
   ],
   templateUrl: './dashboard.component.html',
 })

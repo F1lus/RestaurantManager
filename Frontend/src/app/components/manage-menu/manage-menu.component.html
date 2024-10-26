@@ -1,11 +1,27 @@
 <section class="flex justify-end mb-3">
-    <button (click)="addNew()" class="bg-amber-500 p-2 rounded border">Új hozzáadása</button>
+  <button
+    [queryParamsHandling]="'merge'"
+    [queryParams]="{state: DashboardState.ADD_MENU}"
+    [routerLink]="[]"
+    class="bg-amber-500 p-2 rounded border"
+  >
+    Új hozzáadása
+  </button>
 </section>
 <app-selectable-list
         [controlsTemplate]="controls"
-        [displayColumns]="[ 'name', 'price', 'allergens' ]"
+        [displayColumns]="displayedColumns"
         [listOfElements]="menu"
 ></app-selectable-list>
+
+@if (selectedFood) {
+  <app-food-form
+    [food]="selectedFood"
+    [isEditing]="true"
+    (submit)="handleFoodEdit()"
+    (close)="handleClose()"
+  ></app-food-form>
+}
 
 <ng-template #controls let-index="index">
     <button (click)="edit(index)" class="bg-gray-200 p-2 rounded border mx-2">

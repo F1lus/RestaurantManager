@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Allergen, CreateFoodRequest, DashboardState, Food, FoodForm} from "../../model/common";
 import {ErrorPipe} from "../../pipes/error.pipe";
@@ -19,11 +19,14 @@ import {FoodService} from "../../services/food.service";
     ComboBoxComponent
   ],
   templateUrl: './food-form.component.html',
-  styleUrl: './food-form.component.scss'
 })
-export class FoodFormComponent implements OnInit, OnChanges {
+export class FoodFormComponent implements OnInit {
 
   @Input() public food: Food | null = null;
+  @Input() public isEditing = false;
+
+  @Output() public readonly submit = new EventEmitter<void>();
+  @Output() public readonly close = new EventEmitter<void>();
 
   public foodForm!: FormGroup<FoodForm>;
   public allergens: string[] = [];
@@ -38,6 +41,14 @@ export class FoodFormComponent implements OnInit, OnChanges {
   ) {
   }
 
+  private get request() {
+    if (this.isEditing && this.food) {
+      return this.foodService.editFood(this.food.id, this.foodForm.value as CreateFoodRequest);
+    }
+
+    return this.foodService.createFood(this.foodForm.value as CreateFoodRequest)
+  }
+
   public ngOnInit(): void {
     this.foodForm = this.formBuilder.group({
       name: this.formBuilder.nonNullable.control('', [Validators.required]),
@@ -45,6 +56,8 @@ export class FoodFormComponent implements OnInit, OnChanges {
       price: this.formBuilder.nonNullable.control(0, [Validators.required, Validators.min(1)]),
       allergens: this.formBuilder.nonNullable.control<string[]>([]),
     });
+
+    this.updateFoodForm();
 
     this.route.data
       .pipe(
@@ -54,28 +67,43 @@ export class FoodFormComponent implements OnInit, OnChanges {
       .subscribe(allergens => this.allergens = allergens);
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (changes['food']) {
-      this.foodForm.patchValue({
-        name: this.food?.name ?? '',
-        description: this.food?.description ?? '',
-        price: this.food?.price ?? 0,
-        allergens: this.food?.allergens.map(allergen => allergen.name) ?? []
-      })
-    }
-  }
-
   public handleAllergensChange(allergens: string[]) {
     this.foodForm.patchValue({
-      allergens
+      allergens: allergens.filter(allergen => allergen.trim().length > 0)
     });
   }
 
   public handleSubmit() {
-    this.foodService.createFood(this.foodForm.value as CreateFoodRequest)
-      .subscribe(() => void this.router.navigate([], {
+    this.request.subscribe(() => {
+      if (this.isEditing) {
+        this.submit.emit();
+        this.close.emit();
+        return;
+      }
+
+      void this.router.navigate([], {
         queryParams: {state: DashboardState.MODIFY_MENU}, queryParamsHandling: 'merge'
-      }));
+      })
+    });
+  }
+
+  public handleCancel() {
+    if (this.isEditing) {
+      this.close.emit();
+    }
+
+    void this.router.navigate([], {
+      queryParams: {state: DashboardState.MODIFY_MENU}, queryParamsHandling: 'merge'
+    })
+  }
+
+  private updateFoodForm() {
+    this.foodForm.patchValue({
+      name: this.food?.name ?? '',
+      description: this.food?.description ?? '',
+      price: this.food?.price ?? 0,
+      allergens: this.food?.allergens.map(allergen => allergen.name) ?? []
+    })
   }
 
 }

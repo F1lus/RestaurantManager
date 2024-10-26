@@ -18,6 +18,7 @@ export enum DashboardState {
   MODIFY_SEAT = 'MODIFY_SEAT',
   MODIFY_MENU = 'MODIFY_MENU',
   ADD_MENU = 'ADD_MENU',
+  ADD_SEAT = 'ADD_SEAT',
 }
 
 export interface FoodForm {
@@ -32,4 +33,15 @@ export interface CreateFoodRequest {
   description: string;
   price: number;
   allergens: string[];
+}
+
+export interface Seating {
+  id: string;
+  name: string;
+  personCount: number;
+}
+
+export interface SeatForm {
+  name: FormControl<string>;
+  personCount: FormControl<number>;
 }

@@ -1,1 +1,26 @@
-<p>manage-seats works!</p>
+<section class="flex justify-end mb-3">
+  <button
+    [queryParamsHandling]="'merge'"
+    [queryParams]="{state: DashboardState.ADD_SEAT}"
+    [routerLink]="[]"
+    class="bg-amber-500 p-2 rounded border"
+  >
+    Új hozzáadása
+  </button>
+</section>
+
+<app-selectable-list
+  [controlsTemplate]="controls"
+  [displayColumns]="displayedColumns"
+  [listOfElements]="seats"
+>
+</app-selectable-list>
+
+<ng-template #controls let-index="index">
+  <button (click)="edit(index)" class="bg-gray-200 p-2 rounded border mx-2">
+    <img alt="edit" height="15" ngSrc="assets/images/common/edit.png" width="15">
+  </button>
+  <button (click)="remove(index)" class="bg-red-500 p-2 rounded border mx-2">
+    <img alt="delete" height="15" ngSrc="assets/images/common/delete.png" width="15">
+  </button>
+</ng-template>

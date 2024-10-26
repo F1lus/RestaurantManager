@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {DashboardState, Food} from "../../model/common";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {map, take} from "rxjs";
 import {SelectableListComponent} from "../selectable-list/selectable-list.component";
 import {NgOptimizedImage} from "@angular/common";
 import {FoodService} from "../../services/food.service";
+import {FoodFormComponent} from "../food-form/food-form.component";
 
 @Component({
   selector: 'app-manage-menu',
@@ -12,16 +13,19 @@ import {FoodService} from "../../services/food.service";
   imports: [
     SelectableListComponent,
     NgOptimizedImage,
+    FoodFormComponent,
+    RouterLink,
   ],
   templateUrl: './manage-menu.component.html',
 })
 export class ManageMenuComponent implements OnInit {
 
+  public readonly displayedColumns = ['name', 'price', 'allergens'] as const;
   public menu: Food[] = [];
+  public selectedFood?: Food;
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly router: Router,
     private readonly foodService: FoodService,
   ) {
   }
@@ -31,17 +35,7 @@ export class ManageMenuComponent implements OnInit {
       .pipe(take(1), map(data => data['menu']['foods'] as Food[]))
       .subscribe(data => this.menu = data);
   }
-
-  public addNew() {
-    void this.router.navigate([], {queryParams: {state: DashboardState.ADD_MENU}, queryParamsHandling: 'merge'});
-  }
-
-  public edit(index: number) {
-    if (index < 0 || index >= this.menu.length) {
-      return;
-    }
-    const menu = this.menu[index];
-  }
+  protected readonly DashboardState = DashboardState;
 
   public remove(index: number) {
     if (index < 0 || index >= this.menu.length) {
@@ -55,4 +49,21 @@ export class ManageMenuComponent implements OnInit {
       })
   }
 
+  public edit(index: number) {
+    if (index < 0 || index >= this.menu.length) {
+      return;
+    }
+    this.selectedFood = this.menu[index];
+  }
+
+  public handleFoodEdit() {
+    this.foodService.getFoods()
+      .subscribe(foods => {
+        this.menu = foods;
+      });
+  }
+
+  public handleClose() {
+    this.selectedFood = undefined;
+  }
 }

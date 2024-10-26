@@ -29,6 +29,10 @@ export class FoodService {
     return this.http.post<void>(this.baseUrl, food);
   }
 
+  public editFood(id: string, food: CreateFoodRequest) {
+    return this.http.put<void>(`${this.baseUrl}/${id}`, food)
+  }
+
   public removeFood(id: string) {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
