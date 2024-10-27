@@ -6,6 +6,7 @@ import {SelectableListComponent} from "../selectable-list/selectable-list.compon
 import {NgOptimizedImage} from "@angular/common";
 import {FoodService} from "../../services/food.service";
 import {FoodFormComponent} from "../food-form/food-form.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-menu',
@@ -15,6 +16,7 @@ import {FoodFormComponent} from "../food-form/food-form.component";
     NgOptimizedImage,
     FoodFormComponent,
     RouterLink,
+    TranslateModule,
   ],
   templateUrl: './manage-menu.component.html',
 })

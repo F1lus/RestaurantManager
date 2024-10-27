@@ -1,4 +1,9 @@
 {
+  "general": {
+    "submit": "Kész",
+    "cancel": "Mégse",
+    "add_new": "Új elem hozzáadása"
+  },
   "app_title": "Restaurant Manager",
   "mandatory_fields": "A csillaggal jelölt mezők kitöltése kötelező",
   "link": {
@@ -55,6 +60,17 @@
     "password_repeat": "Jelszó ismétlése",
     "password_repeat_placeholder": "Add meg a jelszavad újra"
   },
+  "dashboard": {
+    "link": {
+      "manage_users": "Felhasználók",
+      "manage_seats": "Asztalok",
+      "manage_menu": "Étlap"
+    },
+    "new_food": "Új étel felvétele",
+    "new_seat": "Új asztal felvitele",
+    "edit_food": "Étel szerkesztése",
+    "edit_seat": "Asztal szerkesztése"
+  },
   "field_required": "Ez a mező nem lehet üres",
   "email_format_invalid": "Az email formátuma nem megfelelő",
   "password_format_invalid": "A jelszó legalább 8 karakter hosszú legyen és tartalmazzon legalább egy kis- és nagybetűt, legalább egy számot és egy speciális karaktert!",
@@ -71,5 +87,14 @@
   "allergen_name_duplicate": "Ilyen nevű allergén már létezik",
   "reservation_time_invalid": "A foglalás ideje nem megfelelő",
   "reservation_conflict": "Ez az időpont foglalt",
-  "reservation_not_found": "Nem létezik ilyen foglalás"
+  "reservation_not_found": "Nem létezik ilyen foglalás",
+  "fullName": "Teljes név",
+  "email": "Email cím",
+  "phoneNumber": "Telefonszám",
+  "operations": "Műveletek",
+  "name": "Megnevezés",
+  "personCount": "Férőhely",
+  "price": "Ár",
+  "allergens": "Allergének",
+  "description": "Leírás"
 }

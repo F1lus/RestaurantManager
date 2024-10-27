@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef} from '@angular/core';
 import {NgClass, NgTemplateOutlet} from "@angular/common";
 import {ArrayPipe} from "../../pipes/array.pipe";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-selectable-list',
@@ -8,7 +9,8 @@ import {ArrayPipe} from "../../pipes/array.pipe";
   imports: [
     NgClass,
     ArrayPipe,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    TranslateModule
   ],
   templateUrl: './selectable-list.component.html',
 })

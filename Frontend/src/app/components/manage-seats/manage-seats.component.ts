@@ -4,6 +4,9 @@ import {map, take} from "rxjs";
 import {DashboardState, Seating} from "../../model/common";
 import {SelectableListComponent} from "../selectable-list/selectable-list.component";
 import {NgOptimizedImage} from "@angular/common";
+import {SeatingService} from "../../services/seating.service";
+import {SeatFormComponent} from "../seat-form/seat-form.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-seats',
@@ -11,18 +14,22 @@ import {NgOptimizedImage} from "@angular/common";
   imports: [
     SelectableListComponent,
     RouterLink,
-    NgOptimizedImage
+    NgOptimizedImage,
+    SeatFormComponent,
+    TranslateModule
   ],
   templateUrl: './manage-seats.component.html',
 })
 export class ManageSeatsComponent implements OnInit {
 
   public seats: Seating[] = [];
+  public selectedSeat?: Seating;
   public readonly displayedColumns = ['name', 'personCount'] as const;
   protected readonly DashboardState = DashboardState;
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly seatingService: SeatingService,
   ) {
   }
 
@@ -35,10 +42,32 @@ export class ManageSeatsComponent implements OnInit {
   }
 
   public edit(index: number) {
-
+    if (index < 0 || index >= this.seats.length) {
+      return;
+    }
+    this.selectedSeat = this.seats[index];
   }
 
   public remove(index: number) {
+    if (index < 0 || index >= this.seats.length) {
+      return;
+    }
+    const foodId = this.seats[index].id;
 
+    this.seatingService.deleteSeat(foodId)
+      .subscribe(() => {
+        this.seats.splice(index, 1);
+      })
+  }
+
+  public handleSeatEdit() {
+    this.seatingService.getSeats()
+      .subscribe(seats => {
+        this.seats = seats;
+      });
+  }
+
+  public handleClose() {
+    this.selectedSeat = undefined;
   }
 }

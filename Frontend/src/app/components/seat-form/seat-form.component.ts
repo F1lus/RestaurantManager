@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SeatForm, Seating} from "../../model/common";
+import {DashboardState, SeatForm, Seating} from "../../model/common";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {SeatingService} from "../../services/seating.service";
 import {ComboBoxComponent} from "../combobox/combo-box.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-seat-form',
@@ -29,6 +30,7 @@ export class SeatFormComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly seatService: SeatingService,
+    private readonly router: Router
   ) {
   }
 
@@ -41,10 +43,41 @@ export class SeatFormComponent implements OnInit {
     this.updateForm();
   }
 
+  private get request() {
+    if (this.isEditing && !!this.seating) {
+      return this.seatService.modifySeat({id: this.seating.id, ...this.seatForm.value} as Seating);
+    }
+    return this.seatService.createSeat(this.seatForm.value);
+  }
+
+  public handleSubmit() {
+    this.request.subscribe(() => {
+      if (this.isEditing) {
+        this.submit.emit();
+        this.close.emit();
+        return;
+      }
+
+      void this.router.navigate([], {
+        queryParams: {state: DashboardState.MODIFY_SEAT}, queryParamsHandling: 'merge'
+      })
+    });
+  }
+
   private updateForm() {
     this.seatForm.patchValue({
       name: this.seating?.name ?? '',
       personCount: this.seating?.personCount ?? 0,
     });
+  }
+
+  public handleCancel() {
+    if (this.isEditing) {
+      this.close.emit();
+    }
+
+    void this.router.navigate([], {
+      queryParams: {state: DashboardState.MODIFY_SEAT}, queryParamsHandling: 'merge'
+    })
   }
 }

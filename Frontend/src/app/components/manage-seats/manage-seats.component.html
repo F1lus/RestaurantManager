@@ -5,7 +5,7 @@
     [routerLink]="[]"
     class="bg-amber-500 p-2 rounded border"
   >
-    Új hozzáadása
+    {{ 'general.add_new' | translate }}
   </button>
 </section>
 
@@ -15,6 +15,16 @@
   [listOfElements]="seats"
 >
 </app-selectable-list>
+
+@if (selectedSeat) {
+  <app-seat-form
+    [seating]="selectedSeat"
+    [isEditing]="true"
+    (submit)="handleSeatEdit()"
+    (close)="handleClose()"
+  >
+  </app-seat-form>
+}
 
 <ng-template #controls let-index="index">
   <button (click)="edit(index)" class="bg-gray-200 p-2 rounded border mx-2">

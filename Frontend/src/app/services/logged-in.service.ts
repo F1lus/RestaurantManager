@@ -37,10 +37,14 @@ export class LoggedInService implements OnDestroy {
 
   public attemptLogin() {
     this.shouldEmitValue = true;
+
     if (!this.isInitialized && !!this.authService.authToken) {
       this.subscription.add(this.timedQuery.subscribe());
       this.isInitialized = true;
+      return;
     }
+
+    this.sendUserInfo();
   }
 
   public logout() {
@@ -49,6 +53,10 @@ export class LoggedInService implements OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.subscription?.unsubscribe();
+    this.subscription.unsubscribe();
+  }
+
+  private sendUserInfo() {
+    this.profileService.getCurrentUser().subscribe(userInfo => this._userInfo.next(userInfo));
   }
 }

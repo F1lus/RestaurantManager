@@ -6,10 +6,10 @@
   <thead>
   <tr class="border">
     @for (column of displayColumns; track displayColumns) {
-      <th class="border">{{ column }}</th>
+      <th class="border">{{ column | translate }}</th>
     }
     @if (controlsTemplate) {
-      <th class="border">Műveletek</th>
+      <th class="border">{{ 'operations' | translate }}</th>
     }
   </tr>
   </thead>

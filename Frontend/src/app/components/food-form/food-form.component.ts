@@ -41,14 +41,6 @@ export class FoodFormComponent implements OnInit {
   ) {
   }
 
-  private get request() {
-    if (this.isEditing && this.food) {
-      return this.foodService.editFood(this.food.id, this.foodForm.value as CreateFoodRequest);
-    }
-
-    return this.foodService.createFood(this.foodForm.value as CreateFoodRequest)
-  }
-
   public ngOnInit(): void {
     this.foodForm = this.formBuilder.group({
       name: this.formBuilder.nonNullable.control('', [Validators.required]),
@@ -104,6 +96,14 @@ export class FoodFormComponent implements OnInit {
       price: this.food?.price ?? 0,
       allergens: this.food?.allergens.map(allergen => allergen.name) ?? []
     })
+  }
+
+  private get request() {
+    if (this.isEditing && this.food) {
+      return this.foodService.editFood(this.food.id, this.foodForm.value as CreateFoodRequest);
+    }
+
+    return this.foodService.createFood(this.foodForm.value as CreateFoodRequest)
   }
 
 }
