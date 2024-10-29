@@ -14,6 +14,7 @@ import {ProfileType} from "./model/auth";
 import {profilesResolver} from "./resolvers/profiles.resolver";
 import {allergensResolver} from "./resolvers/allergens.resolver";
 import {seatsResolver} from "./resolvers/seats.resolver";
+import {reservationResolver} from "./resolvers/reservation.resolver";
 
 export const routes: Routes = [
   {
@@ -44,16 +45,18 @@ export const routes: Routes = [
     resolve: {profiles: profilesResolver, menu: menuResolver, allergens: allergensResolver, seats: seatsResolver},
     runGuardsAndResolvers: "paramsOrQueryParamsChange",
     canActivate: [loggedInGuard, hasPermission],
-    data: {permission: ProfileType.WAITER}
+    data: {permission: ProfileType.ADMIN}
   },
   {
     path: 'overview',
     component: OverviewComponent,
+    resolve: {reservations: reservationResolver, menu: menuResolver, seats: seatsResolver},
     canActivate: [loggedInGuard],
   },
   {
     path: 'reserve',
     component: ReserveComponent,
+    resolve: {menu: menuResolver, seats: seatsResolver},
     canActivate: [loggedInGuard]
   }
 ];

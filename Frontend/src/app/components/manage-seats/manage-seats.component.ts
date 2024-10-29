@@ -52,9 +52,9 @@ export class ManageSeatsComponent implements OnInit {
     if (index < 0 || index >= this.seats.length) {
       return;
     }
-    const foodId = this.seats[index].id;
+    const seatId = this.seats[index].id;
 
-    this.seatingService.deleteSeat(foodId)
+    this.seatingService.deleteSeat(seatId)
       .subscribe(() => {
         this.seats.splice(index, 1);
       })

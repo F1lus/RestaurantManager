@@ -95,5 +95,9 @@
   "personCount": "Seats",
   "price": "Price",
   "allergens": "Allergens",
-  "description": "Description"
+  "description": "Description",
+  "generalProfile": "Reserved by",
+  "seating": "Seat",
+  "foods": "Foods",
+  "reservation": "Duration"
 }

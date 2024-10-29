@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {DashboardState, SeatForm, Seating} from "../../model/common";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {SeatingService} from "../../services/seating.service";
@@ -17,7 +17,7 @@ import {Router} from "@angular/router";
   ],
   templateUrl: './seat-form.component.html',
 })
-export class SeatFormComponent implements OnInit {
+export class SeatFormComponent implements OnInit, OnChanges {
 
   @Input() public seating?: Seating;
   @Input() public isEditing = false;
@@ -41,6 +41,12 @@ export class SeatFormComponent implements OnInit {
     });
 
     this.updateForm();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (!changes['seating'].isFirstChange()) {
+      this.updateForm();
+    }
   }
 
   private get request() {

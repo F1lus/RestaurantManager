@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.restaurantmanager.backend.datamodel.entity.FoodEntity;
 import org.restaurantmanager.backend.datamodel.entity.ReservationEntity;
+import org.restaurantmanager.backend.datamodel.fieldtype.ProfileType;
+import org.restaurantmanager.backend.datamodel.repository.FoodRepository;
 import org.restaurantmanager.backend.datamodel.repository.ReservationRepository;
 import org.restaurantmanager.backend.datamodel.specification.ReservationSpecification;
 import org.restaurantmanager.backend.dto.reservation.CreateReservationRequest;
@@ -37,11 +39,20 @@ public class ReservationService implements IReservationService {
     private final IFoodService foodService;
     private final ISeatingService seatingService;
     private final IProfileService profileService;
+    private final FoodRepository foodRepository;
     private final ReservationRepository reservationRepository;
 
     @Override
     public List<Reservation> getReservations(final ReservationFilter reservationFilter) {
         log.info("Getting reservations by the filter criteria");
+        val profileEntity = profileService.getCurrentUser();
+        if (profileEntity.getProfileType() == ProfileType.USER) {
+            return reservationRepository.findAllByReservedBy(profileEntity)
+                    .stream()
+                    .map(ReservationConverter::toResponse)
+                    .toList();
+        }
+
         val reservationSpecification = new ReservationSpecification(reservationFilter);
         return reservationRepository.findAll(reservationSpecification)
                 .stream()
@@ -70,18 +81,22 @@ public class ReservationService implements IReservationService {
                 .reservationEnd(createReservationRequest.getReservationEnd())
                 .build();
 
+        foodEntities.forEach(foodEntity -> foodEntity.getReservations().add(reservationEntity));
+
         reservationRepository.save(reservationEntity);
+        foodRepository.saveAll(foodEntities);
     }
 
     @Override
-    public void modifyReservation(final ModifyReservationRequest modifyReservationRequest) {
+    public void modifyReservation(final UUID id, final ModifyReservationRequest modifyReservationRequest) {
         validateReservationTime(
+                id,
                 modifyReservationRequest.getReservationStart(),
                 modifyReservationRequest.getReservationEnd(),
                 modifyReservationRequest.getSeatingId()
         );
 
-        val reservationEntity = getReservationEntityById(modifyReservationRequest.getId());
+        val reservationEntity = getReservationEntityById(id);
         val foodEntities = getFoodEntities(modifyReservationRequest.getFoodIds());
         val seatingEntity = seatingService.getSeatById(modifyReservationRequest.getSeatingId());
 
@@ -90,11 +105,19 @@ public class ReservationService implements IReservationService {
         reservationEntity.setReservationStart(modifyReservationRequest.getReservationStart());
         reservationEntity.setReservationEnd(modifyReservationRequest.getReservationEnd());
 
+        foodEntities.forEach(foodEntity -> foodEntity.getReservations().add(reservationEntity));
+
         reservationRepository.save(reservationEntity);
+        foodRepository.saveAll(foodEntities);
     }
 
     @Override
     public void deleteReservation(final UUID id) {
+        val reservationEntity = getReservationEntityById(id);
+        val foodEntities = reservationEntity.getFoods();
+        foodEntities.forEach(food -> food.getReservations().remove(reservationEntity));
+
+        foodRepository.saveAll(foodEntities);
         reservationRepository.deleteById(id);
     }
 
@@ -109,6 +132,38 @@ public class ReservationService implements IReservationService {
         }
 
         return foodService.getAllFoodEntities(foodIds);
+    }
+
+    private void validateReservationTime(
+            final UUID id,
+            final LocalDateTime reservationStart,
+            final LocalDateTime reservationEnd,
+            final UUID seatId
+    ) {
+        log.info(
+                "Checking if the reservation {} can be made for the seat {} from {} to {}",
+                id,
+                seatId,
+                reservationStart,
+                reservationEnd
+        );
+
+        if (reservationEnd.isBefore(reservationStart) || reservationStart.isAfter(reservationEnd)
+                || reservationEnd.isEqual(reservationStart)
+        ) {
+            throw new ReservationTimeInvalidException();
+        }
+
+        val reservationInInterval = reservationRepository.countReservationsInInterval(
+                id,
+                reservationStart,
+                reservationEnd,
+                seatId
+        );
+
+        if (reservationInInterval != 0) {
+            throw new ReservationConflictException();
+        }
     }
 
     private void validateReservationTime(

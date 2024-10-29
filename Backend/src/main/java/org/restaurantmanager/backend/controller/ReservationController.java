@@ -46,7 +46,7 @@ public class ReservationController implements ReservationApi {
             final UUID id,
             final ModifyReservationRequest modifyReservationRequest
     ) {
-        reservationService.modifyReservation(modifyReservationRequest);
+        reservationService.modifyReservation(id, modifyReservationRequest);
         return ResponseEntity.ok().build();
     }
 

@@ -51,7 +51,7 @@ export class NavigationService {
       name: 'link.dashboard',
       link: '/dashboard',
       protection: ProtectionLevel.AUTHORIZED,
-      accountType: ProfileType.WAITER
+      accountType: ProfileType.ADMIN
     }
   ];
 

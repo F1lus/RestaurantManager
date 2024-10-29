@@ -13,7 +13,7 @@ public interface IReservationService {
 
     void createReservation(final CreateReservationRequest createReservationRequest);
 
-    void modifyReservation(final ModifyReservationRequest modifyReservationRequest);
+    void modifyReservation(final UUID id, final ModifyReservationRequest modifyReservationRequest);
 
     void deleteReservation(final UUID id);
 }

@@ -23,6 +23,4 @@ public final class ModifyReservationRequest implements ReservationValidation {
     @NotNull(message = FIELD_REQUIRED)
     private final LocalDateTime reservationEnd;
 
-    @NotNull(message = FIELD_REQUIRED)
-    private UUID id;
 }

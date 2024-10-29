@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Allergen, CreateFoodRequest, DashboardState, Food, FoodForm} from "../../model/common";
 import {ErrorPipe} from "../../pipes/error.pipe";
@@ -20,7 +20,7 @@ import {FoodService} from "../../services/food.service";
   ],
   templateUrl: './food-form.component.html',
 })
-export class FoodFormComponent implements OnInit {
+export class FoodFormComponent implements OnInit, OnChanges {
 
   @Input() public food: Food | null = null;
   @Input() public isEditing = false;
@@ -57,6 +57,12 @@ export class FoodFormComponent implements OnInit {
         map(allergens => allergens.map(allergen => allergen.name))
       )
       .subscribe(allergens => this.allergens = allergens);
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (!changes['food'].isFirstChange()) {
+      this.updateFoodForm();
+    }
   }
 
   public handleAllergensChange(allergens: string[]) {

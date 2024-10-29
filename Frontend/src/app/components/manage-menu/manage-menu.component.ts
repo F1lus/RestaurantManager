@@ -52,6 +52,7 @@ export class ManageMenuComponent implements OnInit {
   }
 
   public edit(index: number) {
+    this.handleClose();
     if (index < 0 || index >= this.menu.length) {
       return;
     }

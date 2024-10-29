@@ -96,5 +96,9 @@
   "personCount": "Férőhely",
   "price": "Ár",
   "allergens": "Allergének",
-  "description": "Leírás"
+  "description": "Leírás",
+  "generalProfile": "Felhasználó",
+  "seating": "Ülőhely",
+  "foods": "Ételek",
+  "reservation": "Időtartam"
 }
