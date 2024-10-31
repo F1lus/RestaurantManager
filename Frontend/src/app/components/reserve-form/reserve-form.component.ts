@@ -56,8 +56,8 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
 
   public ngOnInit() {
     this.reserveForm = this.formBuilder.group({
-      seatingId: this.formBuilder.nonNullable.control('', [Validators.required]),
-      foodIds: this.formBuilder.nonNullable.control<string[]>([], [Validators.required]),
+      seatIds: this.formBuilder.nonNullable.control<string[]>([], [Validators.required]),
+      foodIds: this.formBuilder.nonNullable.control<string[]>([], []),
       reservationStart: this.formBuilder.nonNullable.control('', [Validators.required]),
       reservationEnd: this.formBuilder.nonNullable.control('', [Validators.required]),
     }, {validators: [reservationTimeValidation()]});
@@ -72,7 +72,7 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
           this.totalCost = this.menu
             .filter(food => values.includes(food.id))
             .map(food => food.price)
-            .reduce((a, b) => a + b);
+            .reduce((a, b) => a + b, 0);
         })
     );
 
@@ -141,7 +141,7 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
 
   private updateForm() {
     this.reserveForm.patchValue({
-      seatingId: this.reservation?.seating.id ?? '',
+      seatIds: this.reservation?.seats.map(seat => seat.id) ?? [],
       foodIds: this.reservation?.foods.map(food => food.id) ?? [],
       reservationStart: this.reservation?.reservationStart ?? '',
       reservationEnd: this.reservation?.reservationEnd ?? '',

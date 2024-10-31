@@ -8,6 +8,7 @@ import {DatePipe, NgOptimizedImage} from "@angular/common";
 import {ArrayPipe} from "../../pipes/array.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReserveFormComponent} from "../../components/reserve-form/reserve-form.component";
+import {DateTime} from "luxon";
 
 @Component({
   selector: 'app-overview',
@@ -41,6 +42,7 @@ export class OverviewComponent implements OnInit {
         map(data => data['reservations'] as Reservation[]),
       )
       .subscribe(reservations => {
+        console.log(reservations);
         this.reservations = reservations;
       });
   }
@@ -72,5 +74,13 @@ export class OverviewComponent implements OnInit {
       .subscribe(reservations => {
         this.reservations = reservations;
       })
+  }
+
+  public areOperationsEnabled(endDate: string) {
+    const end = DateTime.fromISO(endDate);
+    const diff = end.diffNow(['minutes', 'hours']);
+
+    console.log(diff);
+    return !(diff.hours === 0 && diff.minutes <= 30);
   }
 }

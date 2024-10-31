@@ -35,8 +35,8 @@ public class SeatingService implements ISeatingService {
     }
 
     @Override
-    public SeatingEntity getSeatById(final UUID id) {
-        return seatingRepository.findById(id).orElseThrow(SeatingNotFoundException::new);
+    public List<SeatingEntity> getSeatsByIds(final List<UUID> ids) {
+        return seatingRepository.getAllByIds(ids);
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.UUID;
 public final class ModifyReservationRequest implements ReservationValidation {
 
     @NotNull(message = FIELD_REQUIRED)
-    private final UUID seatingId;
+    private final List<UUID> seatIds;
 
     private final List<UUID> foodIds;
 

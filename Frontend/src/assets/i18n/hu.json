@@ -71,6 +71,16 @@
     "edit_food": "Étel szerkesztése",
     "edit_seat": "Asztal szerkesztése"
   },
+  "reserve": {
+    "create": "Foglalás létrehozása",
+    "modify": "Foglalás módosítása",
+    "seat_select": "Ülőhelyek kiválasztása",
+    "food_select": "Ételek kiválasztása",
+    "startDate": "Foglalás kezdete",
+    "endDate": "Foglalás vége",
+    "totalCost": "A helyszínen fizetendő",
+    "personCount": "fő"
+  },
   "field_required": "Ez a mező nem lehet üres",
   "email_format_invalid": "Az email formátuma nem megfelelő",
   "password_format_invalid": "A jelszó legalább 8 karakter hosszú legyen és tartalmazzon legalább egy kis- és nagybetűt, legalább egy számot és egy speciális karaktert!",

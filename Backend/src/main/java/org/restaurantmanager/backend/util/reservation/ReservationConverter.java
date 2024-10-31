@@ -14,7 +14,7 @@ public final class ReservationConverter {
     public static Reservation toResponse(final ReservationEntity reservationEntity) {
         return Reservation.builder()
                 .id(reservationEntity.getId())
-                .seating(SeatingConverter.toResponse(reservationEntity.getSeatingEntity()))
+                .seats(SeatingConverter.toResponse(reservationEntity.getSeatingEntities()))
                 .foods(FoodConverter.toResponse(reservationEntity.getFoods()))
                 .generalProfile(ProfileConverter.toResponse(reservationEntity.getReservedBy()))
                 .reservationStart(reservationEntity.getReservationStart())

@@ -48,14 +48,14 @@ export interface SeatForm {
 }
 
 export interface ReserveForm {
-  seatingId: FormControl<string>;
+  seatIds: FormControl<string[]>;
   foodIds: FormControl<string[]>;
   reservationStart: FormControl<string>;
   reservationEnd: FormControl<string>;
 }
 
 export interface ReservationRequest {
-  seatingId: string;
+  seatIds: string[];
   foodIds: string[];
   reservationStart: string;
   reservationEnd: string;
@@ -63,17 +63,8 @@ export interface ReservationRequest {
 
 export interface Reservation {
   id: string;
-  seating: Seating;
+  seats: Seating[];
   generalProfile: GeneralProfile;
-  foods: Food[];
-  reservationStart: string;
-  reservationEnd: string;
-}
-
-export interface SimpleReservation {
-  id: string;
-  seating: string;
-  generalProfile: string;
   foods: Food[];
   reservationStart: string;
   reservationEnd: string;

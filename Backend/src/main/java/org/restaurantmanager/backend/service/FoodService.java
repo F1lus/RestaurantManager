@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.restaurantmanager.backend.datamodel.entity.AllergenEntity;
 import org.restaurantmanager.backend.datamodel.entity.FoodEntity;
+import org.restaurantmanager.backend.datamodel.repository.AllergenRepository;
 import org.restaurantmanager.backend.datamodel.repository.FoodRepository;
+import org.restaurantmanager.backend.datamodel.repository.ReservationRepository;
 import org.restaurantmanager.backend.dto.food.CreateFoodRequest;
 import org.restaurantmanager.backend.dto.food.Food;
 import org.restaurantmanager.backend.dto.food.ModifyFoodRequest;
@@ -28,7 +30,9 @@ import java.util.stream.Collectors;
 public class FoodService implements IFoodService {
 
     private final IAllergenService allergenService;
+    private final AllergenRepository allergenRepository;
     private final FoodRepository foodRepository;
+    private final ReservationRepository reservationRepository;
 
     @Override
     public List<Food> getAllFoods() {
@@ -83,6 +87,19 @@ public class FoodService implements IFoodService {
 
     @Override
     public void deleteFood(final UUID id) {
+        val foodEntity = getById(id);
+        foodEntity.getReservations().forEach(reservation -> reservation.getFoods().remove(foodEntity));
+        reservationRepository.saveAll(foodEntity.getReservations());
+
+        foodEntity.getAllergens().forEach(allergen -> allergen.getFoods().remove(foodEntity));
+
+        val emptyAllergens = foodEntity.getAllergens().stream()
+                .filter(allergen -> allergen.getFoods().isEmpty())
+                .toList();
+        if (!emptyAllergens.isEmpty()) {
+            allergenRepository.deleteAll(emptyAllergens);
+        }
+
         foodRepository.deleteById(id);
     }
 

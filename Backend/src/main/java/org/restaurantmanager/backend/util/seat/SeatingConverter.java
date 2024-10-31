@@ -6,6 +6,8 @@ import org.restaurantmanager.backend.datamodel.entity.SeatingEntity;
 import org.restaurantmanager.backend.dto.seating.CreateSeatingRequest;
 import org.restaurantmanager.backend.dto.seating.Seating;
 
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SeatingConverter {
 
@@ -15,6 +17,12 @@ public final class SeatingConverter {
                 .name(seatingEntity.getName())
                 .personCount(seatingEntity.getPersonCount())
                 .build();
+    }
+
+    public static List<Seating> toResponse(final List<SeatingEntity> seatingEntities) {
+        return seatingEntities.stream()
+                .map(SeatingConverter::toResponse)
+                .toList();
     }
 
     public static SeatingEntity toEntity(final CreateSeatingRequest createSeatingRequest) {

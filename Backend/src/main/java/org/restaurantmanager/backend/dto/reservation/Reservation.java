@@ -7,6 +7,7 @@ import org.restaurantmanager.backend.dto.profile.GeneralProfile;
 import org.restaurantmanager.backend.dto.seating.Seating;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Getter
 public final class Reservation {
     private UUID id;
-    private Seating seating;
+    private List<Seating> seats;
     private GeneralProfile generalProfile;
     private Set<Food> foods;
     private LocalDateTime reservationStart;

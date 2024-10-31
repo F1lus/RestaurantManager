@@ -15,6 +15,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -42,18 +44,25 @@ public class FoodEntity extends BaseEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "food_allergen",
+            name = "foods_allergens",
             joinColumns = @JoinColumn(name = "food_id"),
             inverseJoinColumns = @JoinColumn(name = "allergen_id")
+
     )
     private Set<AllergenEntity> allergens;
 
-    @ManyToMany
-    @JoinTable(
-            name = "food_reservation",
-            joinColumns = @JoinColumn(name = "food_id"),
-            inverseJoinColumns = @JoinColumn(name = "reservation_id")
-    )
-    private Set<ReservationEntity> reservations;
+    @ManyToMany(mappedBy = "foods")
+    private List<ReservationEntity> reservations;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FoodEntity that)) return false;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

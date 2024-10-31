@@ -1,4 +1,4 @@
-<section class="mt-10">
+<section class="mt-10 px-10">
   <table class="table-fixed w-[100%] max-h-[80vh] text-center overflow-x-auto border shadow rounded">
     <thead>
     <tr class="border">
@@ -11,19 +11,21 @@
       @for (element of reservations; track element.id) {
         <tr class="border">
           <td class="border">{{ element.generalProfile.fullName }}</td>
-          <td class="border">{{ element.seating.name }}</td>
+          <td class="border">{{ element.seats | array: 'name' }}</td>
           <td class="border">{{ element.foods | array: 'name' }}</td>
           <td class="border">
             {{ element.reservationStart | date: 'YYYY.MM.dd HH:mm' }}
             - {{ element.reservationEnd | date: 'YYYY.MM.dd HH:mm' }}
           </td>
           <td class="border">
-            <button (click)="edit($index)" class="bg-gray-200 p-2 rounded border mx-2">
-              <img alt="edit" height="15" ngSrc="assets/images/common/edit.png" width="15">
-            </button>
-            <button (click)="remove($index)" class="bg-red-500 p-2 rounded border mx-2">
-              <img alt="delete" height="15" ngSrc="assets/images/common/delete.png" width="15">
-            </button>
+            @if (areOperationsEnabled(element.reservationEnd)) {
+              <button (click)="edit($index)" class="bg-gray-200 p-2 rounded border mx-2">
+                <img alt="edit" height="15" ngSrc="assets/images/common/edit.png" width="15">
+              </button>
+              <button (click)="remove($index)" class="bg-red-500 p-2 rounded border mx-2">
+                <img alt="delete" height="15" ngSrc="assets/images/common/delete.png" width="15">
+              </button>
+            }
           </td>
         </tr>
       }

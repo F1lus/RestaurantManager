@@ -70,6 +70,16 @@
     "edit_food": "Edit existing food",
     "edit_seat": "Edit existing table"
   },
+  "reserve": {
+    "create": "Create reservation",
+    "modify": "Modify reservation",
+    "seat_select": "Choose seats",
+    "food_select": "Choose foods",
+    "startDate": "Start of the reservation",
+    "endDate": "End of the reservation",
+    "totalCost": "Paid on the spot",
+    "personCount": "people"
+  },
   "field_required": "This field cannot be empty",
   "email_format_invalid": "The email format is invalid",
   "password_format_invalid": "The password must be at least 8 characters long and contain at least one lowercase and one uppercase letter, one number, and one special character!",
