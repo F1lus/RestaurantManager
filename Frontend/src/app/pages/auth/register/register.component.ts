@@ -3,7 +3,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {AuthService} from "../../../services/auth.service";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {RegisterForm} from "../../../model/auth";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {serverSideValidator} from "../../../util/ServerSideValidation";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgClass} from "@angular/common";
@@ -16,7 +16,8 @@ import {ErrorPipe} from "../../../pipes/error.pipe";
     TranslateModule,
     ReactiveFormsModule,
     NgClass,
-    ErrorPipe
+    ErrorPipe,
+    RouterLink
   ],
   templateUrl: './register.component.html',
 })

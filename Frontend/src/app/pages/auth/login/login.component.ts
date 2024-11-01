@@ -3,7 +3,7 @@ import {AuthService} from "../../../services/auth.service";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {LoginForm} from "../../../model/auth";
 import {TranslateModule} from "@ngx-translate/core";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {serverSideValidator} from "../../../util/ServerSideValidation";
 import {ErrorPipe} from "../../../pipes/error.pipe";
 import {NgClass} from "@angular/common";
@@ -13,7 +13,7 @@ import {LoggedInService} from "../../../services/logged-in.service";
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, TranslateModule, ErrorPipe, NgClass],
+  imports: [ReactiveFormsModule, TranslateModule, ErrorPipe, NgClass, RouterLink],
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {

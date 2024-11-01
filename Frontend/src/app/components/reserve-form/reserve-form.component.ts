@@ -8,6 +8,9 @@ import {ReservationService} from "../../services/reservation.service";
 import {reservationTimeValidation} from "../../util/ReservationTimeValidation";
 import {PricePipe} from "../../pipes/price.pipe";
 import {TranslateModule} from "@ngx-translate/core";
+import {HttpErrorResponse} from "@angular/common/http";
+import {serverSideValidator} from "../../util/ServerSideValidation";
+import {ErrorPipe} from "../../pipes/error.pipe";
 
 @Component({
   selector: 'app-reserve-form',
@@ -15,10 +18,10 @@ import {TranslateModule} from "@ngx-translate/core";
   imports: [
     PricePipe,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    ErrorPipe
   ],
   templateUrl: './reserve-form.component.html',
-  styleUrl: './reserve-form.component.scss'
 })
 export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
 
@@ -29,6 +32,7 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
   @Output() public readonly close = new EventEmitter<void>();
 
   public reserveForm!: FormGroup<ReserveForm>;
+  public formError?: string;
 
   public totalCost = 0;
   public menu: Food[] = [];
@@ -101,14 +105,25 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public handleSubmit() {
-    this.request.subscribe(() => {
-      if (this.isEditing) {
-        this.submit.emit();
-        this.close.emit();
-        return;
-      }
+    this.request.subscribe({
+      next: () => {
+        if (this.isEditing) {
+          this.submit.emit();
+          this.close.emit();
+          return;
+        }
 
-      void this.router.navigate(['/overview']);
+        void this.router.navigate(['/overview']);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.reserveForm.enable();
+        if (typeof err.error === 'string') {
+          this.formError = err.error;
+          return;
+        }
+        const errors = err.error as Record<string, string>;
+        serverSideValidator(this.reserveForm, errors);
+      }
     })
   }
 

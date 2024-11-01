@@ -59,7 +59,9 @@
     "last_name": "Vezetéknév",
     "phone_number": "Telefonszám",
     "password_repeat": "Jelszó ismétlése",
-    "password_repeat_placeholder": "Add meg a jelszavad újra"
+    "password_repeat_placeholder": "Add meg a jelszavad újra",
+    "no_account_link": "Még nincs fiókod? Kattints ide",
+    "has_account_link": "Már van fiókod? Kattints ide"
   },
   "dashboard": {
     "link": {

@@ -58,7 +58,9 @@
     "last_name": "Last name",
     "phone_number": "Phone number",
     "password_repeat": "Password repeat",
-    "password_repeat_placeholder": "Add your password again"
+    "password_repeat_placeholder": "Add your password again",
+    "no_account_link": "No account yet? Click here",
+    "has_account_link": "Already have an account? Click here"
   },
   "dashboard": {
     "link": {

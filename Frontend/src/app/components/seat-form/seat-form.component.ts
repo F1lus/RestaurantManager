@@ -5,6 +5,9 @@ import {SeatingService} from "../../services/seating.service";
 import {ComboBoxComponent} from "../combobox/combo-box.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
+import {serverSideValidator} from "../../util/ServerSideValidation";
+import {ErrorPipe} from "../../pipes/error.pipe";
 
 @Component({
   selector: 'app-seat-form',
@@ -13,7 +16,8 @@ import {Router} from "@angular/router";
     ComboBoxComponent,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    ErrorPipe
   ],
   templateUrl: './seat-form.component.html',
 })
@@ -26,6 +30,7 @@ export class SeatFormComponent implements OnInit, OnChanges {
   @Output() public readonly close = new EventEmitter<void>();
 
   public seatForm!: FormGroup<SeatForm>;
+  public formError?: string;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -57,16 +62,29 @@ export class SeatFormComponent implements OnInit, OnChanges {
   }
 
   public handleSubmit() {
-    this.request.subscribe(() => {
-      if (this.isEditing) {
-        this.submit.emit();
-        this.close.emit();
-        return;
-      }
+    this.seatForm.disable();
+    this.request.subscribe({
+      next: () => {
+        this.seatForm.enable();
+        if (this.isEditing) {
+          this.submit.emit();
+          this.close.emit();
+          return;
+        }
 
-      void this.router.navigate([], {
-        queryParams: {state: DashboardState.MODIFY_SEAT}, queryParamsHandling: 'merge'
-      })
+        void this.router.navigate([], {
+          queryParams: {state: DashboardState.MODIFY_SEAT}, queryParamsHandling: 'merge'
+        });
+      },
+      error: (err: HttpErrorResponse) => {
+        this.seatForm.enable();
+        if (typeof err.error === 'string') {
+          this.formError = err.error;
+          return;
+        }
+        const errors = err.error as Record<string, string>;
+        serverSideValidator(this.seatForm, errors);
+      }
     });
   }
 

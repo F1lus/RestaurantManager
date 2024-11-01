@@ -8,6 +8,8 @@ import {ComboBoxComponent} from "../combobox/combo-box.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {map} from "rxjs";
 import {FoodService} from "../../services/food.service";
+import {serverSideValidator} from "../../util/ServerSideValidation";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-food-form',
@@ -30,6 +32,7 @@ export class FoodFormComponent implements OnInit, OnChanges {
 
   public foodForm!: FormGroup<FoodForm>;
   public allergens: string[] = [];
+  public formError?: string;
 
   public currency = environment.priceTag;
 
@@ -72,16 +75,29 @@ export class FoodFormComponent implements OnInit, OnChanges {
   }
 
   public handleSubmit() {
-    this.request.subscribe(() => {
-      if (this.isEditing) {
-        this.submit.emit();
-        this.close.emit();
-        return;
-      }
+    this.foodForm.disable();
+    this.request.subscribe({
+      next: () => {
+        this.foodForm.enable();
+        if (this.isEditing) {
+          this.submit.emit();
+          this.close.emit();
+          return;
+        }
 
-      void this.router.navigate([], {
-        queryParams: {state: DashboardState.MODIFY_MENU}, queryParamsHandling: 'merge'
-      })
+        void this.router.navigate([], {
+          queryParams: {state: DashboardState.MODIFY_MENU}, queryParamsHandling: 'merge'
+        })
+      },
+      error: (err: HttpErrorResponse) => {
+        this.foodForm.enable();
+        if (typeof err.error === 'string') {
+          this.formError = err.error;
+          return;
+        }
+        const errors = err.error as Record<string, string>;
+        serverSideValidator(this.foodForm, errors);
+      }
     });
   }
 
