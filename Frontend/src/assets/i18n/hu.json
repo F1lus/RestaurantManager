@@ -14,7 +14,8 @@
     "overview": "Áttekintés",
     "dashboard": "Vezérlőpult",
     "reserve": "Foglalás",
-    "restaurant": "Étterem"
+    "restaurant": "Étterem",
+    "logout": "Kilépés"
   },
   "home": {
     "welcome": "Üdvözöljük",

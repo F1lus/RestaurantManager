@@ -13,7 +13,8 @@
     "overview": "Overview",
     "dashboard": "Dashboard",
     "reserve": "Reserve",
-    "restaurant": "Restaurant"
+    "restaurant": "Restaurant",
+    "logout": "Log out"
   },
   "home": {
     "welcome": "Welcome",

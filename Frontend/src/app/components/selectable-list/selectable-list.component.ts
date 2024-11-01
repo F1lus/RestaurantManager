@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
 import {NgClass, NgTemplateOutlet} from "@angular/common";
 import {ArrayPipe} from "../../pipes/array.pipe";
 import {TranslateModule} from "@ngx-translate/core";
@@ -14,7 +14,7 @@ import {TranslateModule} from "@ngx-translate/core";
   ],
   templateUrl: './selectable-list.component.html',
 })
-export class SelectableListComponent<T extends Record<any, any>> implements OnChanges {
+export class SelectableListComponent<T extends Record<any, any>> {
 
   @Input() public title?: string;
   @Input() public controlsTemplate?: TemplateRef<any>;
@@ -26,10 +26,6 @@ export class SelectableListComponent<T extends Record<any, any>> implements OnCh
   @Output() public readonly selected = new EventEmitter<number>();
 
   protected selectedRow?: number;
-
-  public ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-  }
 
   public onRowSelect(index: number) {
     if (!this.isSelectionEnabled) {

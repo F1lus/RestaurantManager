@@ -42,7 +42,6 @@ export class OverviewComponent implements OnInit {
         map(data => data['reservations'] as Reservation[]),
       )
       .subscribe(reservations => {
-        console.log(reservations);
         this.reservations = reservations;
       });
   }
@@ -80,7 +79,6 @@ export class OverviewComponent implements OnInit {
     const end = DateTime.fromISO(endDate);
     const diff = end.diffNow(['minutes', 'hours']);
 
-    console.log(diff);
     return !(diff.hours === 0 && diff.minutes <= 30);
   }
 }

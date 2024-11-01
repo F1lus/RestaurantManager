@@ -3,6 +3,7 @@ import {BehaviorSubject, filter, Subscription, switchMap, tap, timer} from "rxjs
 import {GeneralProfile} from "../model/auth";
 import {ProfileService} from "./profile.service";
 import {AuthService} from "./auth.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class LoggedInService implements OnDestroy {
   constructor(
     private readonly profileService: ProfileService,
     private readonly authService: AuthService,
+    private readonly router: Router
   ) {
   }
 
@@ -36,20 +38,23 @@ export class LoggedInService implements OnDestroy {
   }
 
   public attemptLogin() {
-    this.shouldEmitValue = true;
-
     if (!this.isInitialized && !!this.authService.authToken) {
       this.subscription.add(this.timedQuery.subscribe());
+      this.shouldEmitValue = true;
       this.isInitialized = true;
-      return;
     }
 
-    this.sendUserInfo();
+    if (this.isInitialized && !!this.authService.authToken) {
+      this.shouldEmitValue = true;
+      this.sendUserInfo();
+    }
   }
 
   public logout() {
+    this.authService.removeAuthToken();
     this.shouldEmitValue = false;
     this._userInfo.next(null);
+    void this.router.navigate(['login']);
   }
 
   public ngOnDestroy() {

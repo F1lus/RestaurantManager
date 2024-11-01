@@ -23,7 +23,6 @@ export class ProfileService {
   }
 
   public modifyUserAuthority(id: string, profileType: ProfileType) {
-    console.log(profileType);
     return this.http.put<void>(`${this.baseUrl}/${id}`, {profileType});
   }
 }

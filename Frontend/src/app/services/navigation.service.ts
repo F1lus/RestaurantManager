@@ -52,6 +52,12 @@ export class NavigationService {
       link: '/dashboard',
       protection: ProtectionLevel.AUTHORIZED,
       accountType: ProfileType.ADMIN
+    },
+    {
+      order: 100,
+      name: 'link.logout',
+      link: '/logout',
+      protection: ProtectionLevel.AUTHORIZED,
     }
   ];
 

@@ -15,6 +15,7 @@ import {profilesResolver} from "./resolvers/profiles.resolver";
 import {allergensResolver} from "./resolvers/allergens.resolver";
 import {seatsResolver} from "./resolvers/seats.resolver";
 import {reservationResolver} from "./resolvers/reservation.resolver";
+import {LogoutComponent} from "./pages/logout/logout.component";
 
 export const routes: Routes = [
   {
@@ -57,6 +58,11 @@ export const routes: Routes = [
     path: 'reserve',
     component: ReserveComponent,
     resolve: {menu: menuResolver, seats: seatsResolver},
+    canActivate: [loggedInGuard]
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
     canActivate: [loggedInGuard]
   }
 ];

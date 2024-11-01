@@ -4,9 +4,11 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
@@ -21,7 +23,7 @@ import {NgClass} from "@angular/common";
   ],
   templateUrl: './combo-box.component.html',
 })
-export class ComboBoxComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ComboBoxComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
   @Input({required: true}) public autoCompletes: string[] = [];
   @Input() public initialValue: string[] = [];
@@ -67,6 +69,12 @@ export class ComboBoxComponent implements OnInit, AfterViewInit, OnDestroy {
           this.changes.emit(elements);
         })
     );
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (!changes['initialValue'].isFirstChange()) {
+      this.input.nativeElement.value = this.initialValue.join(", ");
+    }
   }
 
   public handleChange(target: EventTarget | null) {
