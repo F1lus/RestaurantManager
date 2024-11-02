@@ -1,8 +1,12 @@
 # RestaurantManager
 
-Startup: `docker-compose up --build`
+## Setup
 
-Seed db: `cd Backend && ./gradlew flywayMigrate -Pflyway.url='jdbc:postgresql://localhost:5432/restaurant_manager'`
+- Java version: `17`
+- Startup: `docker-compose up --build`
+- Seed db: `cd Backend && ./gradlew flywayMigrate -Pflyway.url='jdbc:postgresql://localhost:5432/restaurant_manager'`
 
-- Admin user email: **filimon.mark@gmail.com**
-- Admin user password: **Abc_123!**
+## Admin profile
+
+- email: **filimon.mark@gmail.com**
+- password: **Abc_123!**

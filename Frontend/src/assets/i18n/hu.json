@@ -79,10 +79,12 @@
     "modify": "Foglalás módosítása",
     "seat_select": "Ülőhelyek kiválasztása",
     "food_select": "Ételek kiválasztása",
-    "startDate": "Foglalás kezdete",
-    "endDate": "Foglalás vége",
+    "startDate": "Foglalás kezdete (30 perces felosztás)",
+    "endDate": "Foglalás vége (30 perces felosztás)",
     "totalCost": "A helyszínen fizetendő",
-    "personCount": "fő"
+    "personCount": "fő",
+    "date-helper": "Megkezdett napra nem lehet foglalni, min. 30 perc, max. 4 óra",
+    "two-week-notice": "Foglalás maximum két héttel előre lehetséges ({{max}})"
   },
   "field_required": "Ez a mező nem lehet üres",
   "email_format_invalid": "Az email formátuma nem megfelelő",

@@ -14,8 +14,8 @@ import java.util.UUID;
 public interface ReservationRepository extends CrudRepository<ReservationEntity, UUID> {
 
     @Query("select count(r) from ReservationEntity r inner join r.seatingEntities s " +
-            "where r.reservationStart >= :reservationStart " +
-            "and r.reservationEnd <= :reservationEnd " +
+            "where r.reservationStart < :reservationEnd " +
+            "and r.reservationEnd > :reservationStart " +
             "and s.id in :seatIds")
     Integer countReservationsInInterval(
             @Param("reservationStart") LocalDateTime reservationStart,
@@ -24,8 +24,8 @@ public interface ReservationRepository extends CrudRepository<ReservationEntity,
     );
 
     @Query("select count(r) from ReservationEntity r inner join r.seatingEntities s " +
-            "where r.reservationStart >= :reservationStart " +
-            "and r.reservationEnd <= :reservationEnd " +
+            "where r.reservationStart < :reservationEnd " +
+            "and r.reservationEnd > :reservationStart " +
             "and s.id in :seatIds " +
             "and r.id <> :id")
     Integer countReservationsInInterval(

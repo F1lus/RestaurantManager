@@ -11,6 +11,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {HttpErrorResponse} from "@angular/common/http";
 import {serverSideValidator} from "../../util/ServerSideValidation";
 import {ErrorPipe} from "../../pipes/error.pipe";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-reserve-form',
@@ -19,7 +20,8 @@ import {ErrorPipe} from "../../pipes/error.pipe";
     PricePipe,
     ReactiveFormsModule,
     TranslateModule,
-    ErrorPipe
+    ErrorPipe,
+    DatePipe
   ],
   templateUrl: './reserve-form.component.html',
 })
@@ -73,10 +75,7 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
         .foodIds
         .valueChanges
         .subscribe(values => {
-          this.totalCost = this.menu
-            .filter(food => values.includes(food.id))
-            .map(food => food.price)
-            .reduce((a, b) => a + b, 0);
+          this.calculatePrice(values);
         })
     );
 
@@ -91,6 +90,7 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe(({menu, seats}) => {
         this.menu = menu;
         this.seats = seats;
+        this.calculatePrice(this.reservation?.foods.map(food => food.id));
       })
   }
 
@@ -161,6 +161,18 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
       reservationStart: this.reservation?.reservationStart ?? '',
       reservationEnd: this.reservation?.reservationEnd ?? '',
     });
+  }
+
+  private calculatePrice(values?: string[]) {
+    if (!values || values.length < 1) {
+      this.totalCost = 0;
+      return;
+    }
+
+    this.totalCost = this.menu
+      .filter(food => values.includes(food.id))
+      .map(food => food.price)
+      .reduce((a, b) => a + b, 0);
   }
 
 }

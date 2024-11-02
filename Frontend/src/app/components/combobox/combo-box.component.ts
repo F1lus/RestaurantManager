@@ -38,6 +38,7 @@ export class ComboBoxComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   public hasValue = false;
 
   private sub = new Subscription();
+  private isChangeInternal = false;
 
   constructor(private readonly formBuilder: FormBuilder) {
   }
@@ -66,23 +67,21 @@ export class ComboBoxComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
           this.hasValue = value.length > 0 && this.filteredValues.length > 0
 
+          this.isChangeInternal = true;
           this.changes.emit(elements);
         })
     );
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (!changes['initialValue'].isFirstChange()) {
+  public ngOnChanges(changes: SimpleChanges) {
+    if (!changes['initialValue'].isFirstChange() && !this.isChangeInternal) {
       this.input.nativeElement.value = this.initialValue.join(", ");
     }
+    this.isChangeInternal = false;
   }
 
-  public handleChange(target: EventTarget | null) {
-    if (!target) {
-      return;
-    }
-
-    const element = target as HTMLInputElement;
+  public handleChange() {
+    const element = this.input.nativeElement;
     const array = element.value.split(",").map(value => value.trim());
     this.form.patchValue({
       elements: array

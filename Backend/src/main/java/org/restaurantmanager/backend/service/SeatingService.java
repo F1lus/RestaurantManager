@@ -53,7 +53,7 @@ public class SeatingService implements ISeatingService {
         boolean entityWasModified = false;
 
         if (modifySeatingRequest.getName() != null) {
-            validateName(modifySeatingRequest.getName());
+            validateName(modifySeatingRequest.getName(), id);
             seatingEntity.setName(modifySeatingRequest.getName());
             entityWasModified = true;
         }
@@ -78,6 +78,19 @@ public class SeatingService implements ISeatingService {
         if (isNameTaken) {
             throw new SeatingNameViolationException();
         }
+    }
+
+    private void validateName(final String name, final UUID id) {
+        val seatingEntityOptional = seatingRepository.findByName(name);
+        if (seatingEntityOptional.isEmpty()) {
+            return;
+        }
+        val seatingEntity = seatingEntityOptional.get();
+        if (seatingEntity.getId().equals(id)) {
+            return;
+        }
+
+        throw new SeatingNameViolationException();
     }
 
     private SeatingEntity getById(final UUID id) {

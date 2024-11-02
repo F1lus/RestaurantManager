@@ -78,10 +78,12 @@
     "modify": "Modify reservation",
     "seat_select": "Choose seats",
     "food_select": "Choose foods",
-    "startDate": "Start of the reservation",
-    "endDate": "End of the reservation",
+    "startDate": "Start of the reservation (30 minute splits)",
+    "endDate": "End of the reservation (30 minute splits)",
     "totalCost": "Paid on the spot",
-    "personCount": "people"
+    "personCount": "people",
+    "date-helper": "You cannot book on the actual day, min. 30 minutes, max. 4 hours",
+    "two-week-notice": "You can only reserve up to two weeks ahead ({{max}})"
   },
   "field_required": "This field cannot be empty",
   "email_format_invalid": "The email format is invalid",
