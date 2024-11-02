@@ -24,6 +24,7 @@ flyway {
     url = project.findProperty('flyway.url') ?: 'jdbc:postgresql://localhost:5432/restaurant_manager'
     user = 'postgres'
     password = 'root'
+    baselineOnMigrate = true
 }
 
 configurations {
@@ -45,13 +46,12 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-impl:0.12.6'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.6'
     implementation 'org.modelmapper:modelmapper:3.2.0'
-    implementation "org.flywaydb:flyway-database-postgresql"
 
     compileOnly 'org.projectlombok:lombok'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    implementation 'org.postgresql:postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
 
     annotationProcessor 'org.projectlombok:lombok'
 
