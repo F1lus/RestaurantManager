@@ -114,5 +114,10 @@
   "generalProfile": "Reserved by",
   "seating": "Seat",
   "foods": "Foods",
-  "reservation": "Duration"
+  "reservation": "Duration",
+  "greater_than_zero_input": "This should be an integer which is greater than zero",
+  "allergens_helper": "Allergen1, Allergen2, ...",
+  "seat_placeholder": "The seat's name",
+  "food_name_placeholder": "The food's name",
+  "food_description_placeholder": "Type here the food's main features"
 }

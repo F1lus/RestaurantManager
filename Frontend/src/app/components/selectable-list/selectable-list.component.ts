@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
+import {Component, Input, TemplateRef} from '@angular/core';
 import {NgClass, NgTemplateOutlet} from "@angular/common";
 import {ArrayPipe} from "../../pipes/array.pipe";
 import {TranslateModule} from "@ngx-translate/core";
@@ -22,18 +22,5 @@ export class SelectableListComponent<T extends Record<any, any>> {
 
   @Input({required: true}) public displayColumns!: readonly string[];
   @Input({required: true}) public listOfElements!: T[];
-
-  @Output() public readonly selected = new EventEmitter<number>();
-
-  protected selectedRow?: number;
-
-  public onRowSelect(index: number) {
-    if (!this.isSelectionEnabled) {
-      return;
-    }
-
-    this.selectedRow = index;
-    this.selected.emit(index);
-  }
 
 }

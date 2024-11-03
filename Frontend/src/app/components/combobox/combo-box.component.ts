@@ -1,29 +1,32 @@
 import {
   AfterViewInit,
   Component,
+  DestroyRef,
   ElementRef,
   EventEmitter,
   Input,
   OnChanges,
-  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {Subscription} from "rxjs";
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {NgClass} from "@angular/common";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-combobox',
   standalone: true,
   imports: [
-    NgClass
+    NgClass,
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './combo-box.component.html',
 })
-export class ComboBoxComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class ComboBoxComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input({required: true}) public autoCompletes: string[] = [];
   @Input() public initialValue: string[] = [];
@@ -37,10 +40,12 @@ export class ComboBoxComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
   public hasValue = false;
 
-  private sub = new Subscription();
   private isChangeInternal = false;
 
-  constructor(private readonly formBuilder: FormBuilder) {
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly destroyRef: DestroyRef
+  ) {
   }
 
   public ngOnInit(): void {
@@ -48,29 +53,28 @@ export class ComboBoxComponent implements OnInit, OnChanges, AfterViewInit, OnDe
       elements: this.formBuilder.nonNullable.control<string[]>([]),
     });
 
-    this.sub.add(
-      this.form.valueChanges
-        .subscribe(() => {
-          const {elements} = this.form.value;
-          if (!elements || elements.length === 0) {
-            return;
+    this.form.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        const {elements} = this.form.value;
+        if (!elements || elements.length === 0) {
+          return;
+        }
+        const value = elements[elements.length - 1];
+
+        this.filteredValues = this.autoCompletes.filter(ac => {
+          if (ac.toLowerCase() === value.toLowerCase()) {
+            return false;
           }
-          const value = elements[elements.length - 1];
 
-          this.filteredValues = this.autoCompletes.filter(ac => {
-            if (ac.toLowerCase() === value.toLowerCase()) {
-              return false;
-            }
-
-            return !elements.includes(ac.toLowerCase()) && ac.toLowerCase().includes(value.toLowerCase());
-          })
-
-          this.hasValue = value.length > 0 && this.filteredValues.length > 0
-
-          this.isChangeInternal = true;
-          this.changes.emit(elements);
+          return !elements.includes(ac.toLowerCase()) && ac.toLowerCase().includes(value.toLowerCase());
         })
-    );
+
+        this.hasValue = value.length > 0 && this.filteredValues.length > 0
+
+        this.isChangeInternal = true;
+        this.changes.emit(elements);
+      })
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -96,10 +100,6 @@ export class ComboBoxComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
     this.input.nativeElement.value = this.form.value.elements.join(", ");
     this.input.nativeElement.dispatchEvent(new Event('input'));
-  }
-
-  public ngOnDestroy(): void {
-    this.sub.unsubscribe();
   }
 
   public ngAfterViewInit(): void {

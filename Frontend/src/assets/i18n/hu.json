@@ -115,5 +115,10 @@
   "generalProfile": "Felhasználó",
   "seating": "Ülőhely",
   "foods": "Ételek",
-  "reservation": "Időtartam"
+  "reservation": "Időtartam",
+  "greater_than_zero_input": "Az érték nullától nagyobb pozitív egész szám",
+  "allergens_helper": "Allergén1, Allergén2, ...",
+  "seat_placeholder": "Az ülőhely neve",
+  "food_name_placeholder": "Az étel neve",
+  "food_description_placeholder": "Írja ide az étel főbb jellemzőit"
 }

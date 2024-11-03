@@ -3,7 +3,7 @@
 }
 
 <table class="table-fixed w-[100%] max-h-[80vh] text-center overflow-x-auto border shadow rounded">
-  <thead>
+    <thead class="bg-gray-200">
   <tr class="border">
     @for (column of displayColumns; track displayColumns) {
       <th class="border">{{ column | translate }}</th>
@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     @for (element of listOfElements; track element['id']) {
-      <tr class="border" [ngClass]="{ 'bg-blue-300': selectedRow === $index }" (click)="onRowSelect($index)">
+        <tr class="border">
         @for (column of displayColumns; track column) {
           <td class="border">{{ element[column] | array: column }}</td>
         }

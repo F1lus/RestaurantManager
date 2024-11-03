@@ -21,6 +21,7 @@
           id="food_name"
           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
           formControlName="name"
+          [placeholder]="'food_name_placeholder' | translate"
           type="text"
         >
         @if (foodForm.controls.name.hasError('serverSide')) {
@@ -35,6 +36,7 @@
           id="food_description"
           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
           formControlName="description"
+          [placeholder]="'food_description_placeholder' | translate"
           rows="4"
         ></textarea>
         @if (foodForm.controls.description.hasError('serverSide')) {
@@ -56,6 +58,7 @@
             <b>{{ currency }}</b>
           </div>
         </div>
+        <p class="text-gray-500 m-0 p-0">{{ 'greater_than_zero_input' | translate }}</p>
         @if (foodForm.controls.price.hasError('serverSide')) {
           <div class="text-red-600">{{ foodForm.controls.price.errors | error | translate }}</div>
         }
