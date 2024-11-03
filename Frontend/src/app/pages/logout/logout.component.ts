@@ -5,7 +5,7 @@ import {LoggedInService} from "../../services/logged-in.service";
   selector: 'app-logout',
   standalone: true,
   imports: [],
-  templateUrl: './logout.component.html',
+  template: ''
 })
 export class LogoutComponent implements OnInit {
 
