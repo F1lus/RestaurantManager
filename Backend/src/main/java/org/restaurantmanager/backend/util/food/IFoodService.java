@@ -1,6 +1,5 @@
 package org.restaurantmanager.backend.util.food;
 
-import org.restaurantmanager.backend.datamodel.entity.FoodEntity;
 import org.restaurantmanager.backend.dto.food.CreateFoodRequest;
 import org.restaurantmanager.backend.dto.food.Food;
 import org.restaurantmanager.backend.dto.food.ModifyFoodRequest;
@@ -12,8 +11,6 @@ import java.util.UUID;
 public interface IFoodService {
 
     List<Food> getAllFoods();
-
-    List<FoodEntity> getAllFoodEntities(final List<UUID> ids);
 
     @PreAuthorize("hasAuthority('ADMIN')")
     void createFood(final CreateFoodRequest createFoodRequest);

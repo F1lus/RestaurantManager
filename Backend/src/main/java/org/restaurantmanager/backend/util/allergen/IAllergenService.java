@@ -1,6 +1,7 @@
 package org.restaurantmanager.backend.util.allergen;
 
 import org.restaurantmanager.backend.datamodel.entity.AllergenEntity;
+import org.restaurantmanager.backend.datamodel.entity.FoodEntity;
 import org.restaurantmanager.backend.dto.allergen.Allergen;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface IAllergenService {
     AllergenEntity createAllergen(final String name);
 
     Optional<AllergenEntity> findAllergenByName(final String name);
+
+    void foodDeletionHandler(final FoodEntity foodEntity);
 }

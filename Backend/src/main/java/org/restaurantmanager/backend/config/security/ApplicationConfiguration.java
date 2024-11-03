@@ -2,7 +2,6 @@ package org.restaurantmanager.backend.config.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.modelmapper.ModelMapper;
 import org.restaurantmanager.backend.datamodel.repository.ProfileRepository;
 import org.restaurantmanager.backend.exception.auth.IncorrectCredentialsException;
 import org.springframework.context.annotation.Bean;
@@ -45,11 +44,6 @@ public class ApplicationConfiguration {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 
         return daoAuthenticationProvider;
-    }
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
     }
 
 }

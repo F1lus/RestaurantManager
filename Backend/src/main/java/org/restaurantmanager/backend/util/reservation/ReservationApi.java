@@ -4,11 +4,9 @@ import jakarta.validation.Valid;
 import org.restaurantmanager.backend.dto.reservation.CreateReservationRequest;
 import org.restaurantmanager.backend.dto.reservation.ModifyReservationRequest;
 import org.restaurantmanager.backend.dto.reservation.Reservation;
-import org.restaurantmanager.backend.dto.reservation.ReservationQuery;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,7 +23,7 @@ public interface ReservationApi {
     String RESERVATION_PATH = "/api/reservation";
 
     @GetMapping
-    ResponseEntity<Iterable<Reservation>> getReservation(@ModelAttribute final ReservationQuery query);
+    ResponseEntity<Iterable<Reservation>> getReservations();
 
     @PostMapping
     ResponseEntity<Void> createReservation(

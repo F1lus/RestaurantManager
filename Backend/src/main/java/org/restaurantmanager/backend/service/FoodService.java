@@ -5,9 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.restaurantmanager.backend.datamodel.entity.AllergenEntity;
 import org.restaurantmanager.backend.datamodel.entity.FoodEntity;
-import org.restaurantmanager.backend.datamodel.repository.AllergenRepository;
 import org.restaurantmanager.backend.datamodel.repository.FoodRepository;
-import org.restaurantmanager.backend.datamodel.repository.ReservationRepository;
 import org.restaurantmanager.backend.dto.food.CreateFoodRequest;
 import org.restaurantmanager.backend.dto.food.Food;
 import org.restaurantmanager.backend.dto.food.ModifyFoodRequest;
@@ -15,6 +13,7 @@ import org.restaurantmanager.backend.exception.food.FoodNotFoundException;
 import org.restaurantmanager.backend.util.allergen.IAllergenService;
 import org.restaurantmanager.backend.util.food.FoodConverter;
 import org.restaurantmanager.backend.util.food.IFoodService;
+import org.restaurantmanager.backend.util.reservation.IReservationService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,9 +29,8 @@ import java.util.stream.Collectors;
 public class FoodService implements IFoodService {
 
     private final IAllergenService allergenService;
-    private final AllergenRepository allergenRepository;
     private final FoodRepository foodRepository;
-    private final ReservationRepository reservationRepository;
+    private final IReservationService reservationService;
 
     @Override
     public List<Food> getAllFoods() {
@@ -41,11 +39,6 @@ public class FoodService implements IFoodService {
                 .stream()
                 .map(FoodConverter::toResponse)
                 .toList();
-    }
-
-    @Override
-    public List<FoodEntity> getAllFoodEntities(final List<UUID> ids) {
-        return foodRepository.findAllByIdIn(ids);
     }
 
     @Override
@@ -81,24 +74,15 @@ public class FoodService implements IFoodService {
         }
 
         foodEntity.setAllergens(getAllergens(modifyFoodRequest.getAllergens()));
-
         foodRepository.save(foodEntity);
     }
 
     @Override
     public void deleteFood(final UUID id) {
         val foodEntity = getById(id);
-        foodEntity.getReservations().forEach(reservation -> reservation.getFoods().remove(foodEntity));
-        reservationRepository.saveAll(foodEntity.getReservations());
 
-        foodEntity.getAllergens().forEach(allergen -> allergen.getFoods().remove(foodEntity));
-
-        val emptyAllergens = foodEntity.getAllergens().stream()
-                .filter(allergen -> allergen.getFoods().isEmpty())
-                .toList();
-        if (!emptyAllergens.isEmpty()) {
-            allergenRepository.deleteAll(emptyAllergens);
-        }
+        reservationService.handleFoodDeletion(foodEntity);
+        allergenService.foodDeletionHandler(foodEntity);
 
         foodRepository.deleteById(id);
     }

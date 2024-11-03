@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApplicationException.class)
-    public ResponseEntity<String> handleApplicationException(ApplicationException exception) {
+    public ResponseEntity<String> handleApplicationException(final ApplicationException exception) {
         // No logs needed here since the ApplicationException class handles that already
         val errorStatus = exception.getApplicationError();
         return ResponseEntity.status(errorStatus.getHttpStatus())
@@ -31,7 +31,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(
+            final MethodArgumentNotValidException exception
+    ) {
         val validationErrors = exception.getFieldErrors()
                 .stream()
                 .filter(error -> error.getDefaultMessage() != null)

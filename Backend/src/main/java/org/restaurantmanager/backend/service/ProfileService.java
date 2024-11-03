@@ -50,7 +50,7 @@ public class ProfileService implements IProfileService {
     }
 
     @Override
-    public void updateProfileType(UUID id, UpdateProfileTypeRequest request) {
+    public void updateProfileType(final UUID id, final UpdateProfileTypeRequest request) {
         val searchedProfile = getProfileEntity(id);
         searchedProfile.setProfileType(ProfileType.valueOf(request.getProfileType()));
         profileRepository.save(searchedProfile);

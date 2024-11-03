@@ -50,22 +50,17 @@ public class SeatingService implements ISeatingService {
     @Override
     public void modifySeat(final UUID id, final ModifySeatingRequest modifySeatingRequest) {
         val seatingEntity = getById(id);
-        boolean entityWasModified = false;
 
         if (modifySeatingRequest.getName() != null) {
             validateName(modifySeatingRequest.getName(), id);
             seatingEntity.setName(modifySeatingRequest.getName());
-            entityWasModified = true;
         }
 
         if (modifySeatingRequest.getPersonCount() != null) {
             seatingEntity.setPersonCount(modifySeatingRequest.getPersonCount());
-            entityWasModified = true;
         }
 
-        if (entityWasModified) {
-            seatingRepository.save(seatingEntity);
-        }
+        seatingRepository.save(seatingEntity);
     }
 
     @Override

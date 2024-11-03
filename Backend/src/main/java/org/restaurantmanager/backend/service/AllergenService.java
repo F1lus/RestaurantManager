@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.restaurantmanager.backend.datamodel.entity.AllergenEntity;
+import org.restaurantmanager.backend.datamodel.entity.FoodEntity;
 import org.restaurantmanager.backend.datamodel.repository.AllergenRepository;
 import org.restaurantmanager.backend.dto.allergen.Allergen;
 import org.restaurantmanager.backend.exception.allergen.AllergenConstraintViolationException;
@@ -39,11 +40,11 @@ public class AllergenService implements IAllergenService {
         try {
             validateName(name);
 
-            val allergen = AllergenEntity.builder()
+            val allergenEntity = AllergenEntity.builder()
                     .name(name)
                     .build();
 
-            return allergenRepository.save(allergen);
+            return allergenRepository.save(allergenEntity);
         } catch (AllergenConstraintViolationException e) {
             return allergenRepository.findByNameIgnoreCase(name).orElseThrow();
         }
@@ -53,6 +54,18 @@ public class AllergenService implements IAllergenService {
     public Optional<AllergenEntity> findAllergenByName(final String name) {
         log.info("Finding allergen by name: {}", name);
         return allergenRepository.findByNameIgnoreCase(name);
+    }
+
+    @Override
+    public void foodDeletionHandler(final FoodEntity foodEntity) {
+        foodEntity.getAllergens().forEach(allergen -> allergen.getFoods().remove(foodEntity));
+
+        val emptyAllergens = foodEntity.getAllergens().stream()
+                .filter(allergen -> allergen.getFoods().isEmpty())
+                .toList();
+        if (!emptyAllergens.isEmpty()) {
+            allergenRepository.deleteAll(emptyAllergens);
+        }
     }
 
     private void validateName(final String name) {

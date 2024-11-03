@@ -6,6 +6,7 @@ import lombok.val;
 import org.restaurantmanager.backend.datamodel.entity.FoodEntity;
 import org.restaurantmanager.backend.datamodel.entity.ReservationEntity;
 import org.restaurantmanager.backend.datamodel.fieldtype.ProfileType;
+import org.restaurantmanager.backend.datamodel.repository.FoodRepository;
 import org.restaurantmanager.backend.datamodel.repository.ReservationRepository;
 import org.restaurantmanager.backend.dto.reservation.CreateReservationRequest;
 import org.restaurantmanager.backend.dto.reservation.ModifyReservationRequest;
@@ -13,11 +14,9 @@ import org.restaurantmanager.backend.dto.reservation.Reservation;
 import org.restaurantmanager.backend.exception.reservation.ReservationConflictException;
 import org.restaurantmanager.backend.exception.reservation.ReservationNotFoundException;
 import org.restaurantmanager.backend.exception.reservation.ReservationTimeInvalidException;
-import org.restaurantmanager.backend.util.food.IFoodService;
 import org.restaurantmanager.backend.util.profile.IProfileService;
 import org.restaurantmanager.backend.util.reservation.IReservationService;
 import org.restaurantmanager.backend.util.reservation.ReservationConverter;
-import org.restaurantmanager.backend.util.reservation.ReservationFilter;
 import org.restaurantmanager.backend.util.seat.ISeatingService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,14 +33,14 @@ import java.util.UUID;
 @Transactional
 public class ReservationService implements IReservationService {
 
-    private final IFoodService foodService;
     private final ISeatingService seatingService;
     private final IProfileService profileService;
     private final ReservationRepository reservationRepository;
+    private final FoodRepository foodRepository;
 
     @Override
-    public List<Reservation> getReservations(final ReservationFilter reservationFilter) {
-        log.info("Getting reservations by the filter criteria");
+    public List<Reservation> getReservations() {
+        log.info("Getting reservations...");
         val currentDate = LocalDateTime.now();
         val profileEntity = profileService.getCurrentUser();
         if (profileEntity.getProfileType() == ProfileType.USER) {
@@ -107,6 +106,12 @@ public class ReservationService implements IReservationService {
         reservationRepository.deleteById(id);
     }
 
+    @Override
+    public void handleFoodDeletion(final FoodEntity foodEntity) {
+        foodEntity.getReservations().forEach(reservation -> reservation.getFoods().remove(foodEntity));
+        reservationRepository.saveAll(foodEntity.getReservations());
+    }
+
     private ReservationEntity getReservationEntityById(final UUID id) {
         return reservationRepository.findById(id)
                 .orElseThrow(ReservationNotFoundException::new);
@@ -117,7 +122,7 @@ public class ReservationService implements IReservationService {
             return Collections.emptyList();
         }
 
-        return foodService.getAllFoodEntities(foodIds);
+        return foodRepository.findAllByIdIn(foodIds);
     }
 
     private void validateReservationTime(
