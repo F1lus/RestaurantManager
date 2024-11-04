@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {LoginParams, LoginResponse, RegisterParams} from "../model/auth";
+import {LoginRequest, LoginResponse, ProfileRequest} from "../model/auth";
 import {map, Observable, tap} from "rxjs";
 import {ProfileService} from "./profile.service";
 
@@ -42,7 +42,7 @@ export class AuthService {
       )
   }
 
-  public login(params: LoginParams) {
+  public login(params: LoginRequest) {
     const {email, password} = params;
     return this.http.post<LoginResponse>(`${this.baseUrl}/login`, {email, password})
       .pipe(
@@ -50,7 +50,7 @@ export class AuthService {
       )
   }
 
-  public register(params: RegisterParams) {
+  public register(params: ProfileRequest) {
     const {
       email,
       firstName,

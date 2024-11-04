@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TranslateModule} from "@ngx-translate/core";
 import {AuthService} from "../../../services/auth.service";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {RegisterForm} from "../../../model/auth";
+import {ProfileForm} from "../../../model/auth";
 import {Router, RouterLink} from "@angular/router";
 import {serverSideValidator} from "../../../util/ServerSideValidation";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -23,7 +23,7 @@ import {ErrorPipe} from "../../../pipes/error.pipe";
 })
 export class RegisterComponent implements OnInit {
 
-  public registerForm!: FormGroup<RegisterForm>;
+  public registerForm!: FormGroup<ProfileForm>;
   public formError?: string;
 
   constructor(
@@ -36,11 +36,11 @@ export class RegisterComponent implements OnInit {
   public ngOnInit() {
     this.registerForm = this.formBuilder.group({
       email: this.formBuilder.nonNullable.control('', [Validators.required, Validators.email]),
-      password: this.formBuilder.nonNullable.control('', [Validators.required, Validators.min(8)]),
+      password: this.formBuilder.nonNullable.control('', [Validators.required, Validators.minLength(8)]),
       firstName: this.formBuilder.nonNullable.control('', [Validators.required]),
       lastName: this.formBuilder.nonNullable.control('', [Validators.required]),
       phoneNumber: this.formBuilder.nonNullable.control('', [Validators.required]),
-      passwordRepeat: this.formBuilder.nonNullable.control('', [Validators.required, Validators.min(8)]),
+      passwordRepeat: this.formBuilder.nonNullable.control('', [Validators.required, Validators.minLength(8)]),
     });
   }
 

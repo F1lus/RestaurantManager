@@ -35,13 +35,12 @@ public interface ReservationRepository extends CrudRepository<ReservationEntity,
             @Param("seatIds") List<UUID> seatId
     );
 
-    @Query("select r from ReservationEntity r where r.reservationStart >= :start")
-    List<ReservationEntity> findReservations(@Param("start") LocalDateTime reservationStart);
+    @Query("select r from ReservationEntity r")
+    List<ReservationEntity> findReservations();
 
-    @Query("select r from ReservationEntity r where r.reservedBy.id = :reservedBy and r.reservationStart >= :start")
+    @Query("select r from ReservationEntity r where r.reservedBy.id = :reservedBy")
     List<ReservationEntity> findAllByReservedBy(
-            @Param("reservedBy") UUID reservedById,
-            @Param("start") LocalDateTime reservationStart
+            @Param("reservedBy") UUID reservedById
     );
 
 }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {GeneralProfile, ProfileType} from "../model/auth";
+import {GeneralProfile, LoginResponse, ProfileRequest, ProfileType} from "../model/auth";
 import {catchError, of} from "rxjs";
 
 @Injectable({
@@ -24,5 +24,23 @@ export class ProfileService {
 
   public modifyUserAuthority(id: string, profileType: ProfileType) {
     return this.http.put<void>(`${this.baseUrl}/${id}`, {profileType});
+  }
+
+  public updateProfile(id: string, request: ProfileRequest) {
+    const {
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      password,
+      passwordRepeat
+    } = request;
+    return this.http.put<LoginResponse>(`${this.baseUrl}/edit/${id}`, {
+      email,
+      fullName: `${firstName} ${lastName}`,
+      phoneNumber,
+      password,
+      passwordRepeat
+    })
   }
 }

@@ -120,5 +120,6 @@
   "allergens_helper": "Allergén1, Allergén2, ...",
   "seat_placeholder": "Az ülőhely neve",
   "food_name_placeholder": "Az étel neve",
-  "food_description_placeholder": "Írja ide az étel főbb jellemzőit"
+  "food_description_placeholder": "Írja ide az étel főbb jellemzőit",
+  "edit_profile": "Profil szerkesztése"
 }

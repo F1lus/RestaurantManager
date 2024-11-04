@@ -8,7 +8,7 @@ import org.restaurantmanager.backend.datamodel.entity.ProfileEntity;
 import org.restaurantmanager.backend.datamodel.fieldtype.ProfileType;
 import org.restaurantmanager.backend.datamodel.repository.ProfileRepository;
 import org.restaurantmanager.backend.dto.auth.LoginRequest;
-import org.restaurantmanager.backend.dto.auth.RegisterRequest;
+import org.restaurantmanager.backend.dto.auth.ProfileRequest;
 import org.restaurantmanager.backend.exception.auth.IncorrectCredentialsException;
 import org.restaurantmanager.backend.exception.auth.PasswordConfirmException;
 import org.restaurantmanager.backend.exception.profile.ProfileEmailViolationException;
@@ -47,25 +47,25 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public void register(final RegisterRequest registerRequest) {
-        log.info("Registration started for user: {}", registerRequest.getEmail());
-        if (!registerRequest.getPassword().equals(registerRequest.getPasswordRepeat())) {
+    public void register(final ProfileRequest profileRequest) {
+        log.info("Registration started for user: {}", profileRequest.getEmail());
+        if (!profileRequest.getPassword().equals(profileRequest.getPasswordRepeat())) {
             throw new PasswordConfirmException();
         }
 
-        checkEmail(registerRequest.getEmail());
-        checkPhoneNumber(registerRequest.getPhoneNumber());
+        checkEmail(profileRequest.getEmail());
+        checkPhoneNumber(profileRequest.getPhoneNumber());
 
         val profileEntity = ProfileEntity.builder()
-                .email(registerRequest.getEmail())
-                .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .fullName(registerRequest.getFullName())
-                .phoneNumber(registerRequest.getPhoneNumber())
+                .email(profileRequest.getEmail())
+                .password(passwordEncoder.encode(profileRequest.getPassword()))
+                .fullName(profileRequest.getFullName())
+                .phoneNumber(profileRequest.getPhoneNumber())
                 .profileType(ProfileType.USER)
                 .build();
 
         profileRepository.save(profileEntity);
-        log.info("Registration finished for user: {}", registerRequest.getEmail());
+        log.info("Registration finished for user: {}", profileRequest.getEmail());
     }
 
     private void checkEmail(final String email) {

@@ -16,6 +16,7 @@ import {allergensResolver} from "./resolvers/allergens.resolver";
 import {seatsResolver} from "./resolvers/seats.resolver";
 import {reservationResolver} from "./resolvers/reservation.resolver";
 import {LogoutComponent} from "./pages/logout/logout.component";
+import {currentProfileResolver} from "./resolvers/currentProfile.resolver";
 
 export const routes: Routes = [
   {
@@ -51,7 +52,12 @@ export const routes: Routes = [
   {
     path: 'overview',
     component: OverviewComponent,
-    resolve: {reservations: reservationResolver, menu: menuResolver, seats: seatsResolver},
+    resolve: {
+      reservations: reservationResolver,
+      menu: menuResolver,
+      seats: seatsResolver,
+      profile: currentProfileResolver
+    },
     canActivate: [loggedInGuard],
   },
   {

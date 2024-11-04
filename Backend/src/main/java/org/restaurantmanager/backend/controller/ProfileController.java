@@ -1,9 +1,11 @@
 package org.restaurantmanager.backend.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.restaurantmanager.backend.dto.auth.ProfileRequest;
+import org.restaurantmanager.backend.dto.auth.TokenResponse;
 import org.restaurantmanager.backend.dto.profile.GeneralProfile;
 import org.restaurantmanager.backend.dto.profile.UpdateProfileTypeRequest;
-import org.restaurantmanager.backend.service.ProfileService;
+import org.restaurantmanager.backend.util.profile.IProfileService;
 import org.restaurantmanager.backend.util.profile.ProfileApi;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProfileController implements ProfileApi {
 
-    private final ProfileService profileService;
+    private final IProfileService profileService;
 
     @Override
     public ResponseEntity<GeneralProfile> getCurrentProfile() {
@@ -30,5 +32,14 @@ public class ProfileController implements ProfileApi {
     public ResponseEntity<Void> updateProfileType(UUID id, UpdateProfileTypeRequest request) {
         profileService.updateProfileType(id, request);
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<TokenResponse> updateProfile(UUID id, ProfileRequest request) {
+        return ResponseEntity.ok(
+                new TokenResponse(
+                        profileService.updateProfile(id, request)
+                )
+        );
     }
 }

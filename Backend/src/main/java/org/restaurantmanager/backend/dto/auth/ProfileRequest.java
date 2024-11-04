@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public final class RegisterRequest implements AuthValidation {
+public final class ProfileRequest implements AuthValidation {
 
     @NotNull(message = FIELD_REQUIRED)
     @NotBlank(message = FIELD_REQUIRED)

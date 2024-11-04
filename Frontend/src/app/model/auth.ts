@@ -20,7 +20,7 @@ export interface GeneralProfile {
   profileTypes: ProfileType[];
 }
 
-export interface LoginParams {
+export interface LoginRequest {
   email: string;
   password: string;
 }
@@ -30,14 +30,14 @@ export interface LoginForm {
   password: FormControl<string>;
 }
 
-export interface RegisterParams extends LoginParams {
+export interface ProfileRequest extends LoginRequest {
   firstName: string;
   lastName: string;
   phoneNumber: string;
   passwordRepeat: string;
 }
 
-export interface RegisterForm extends LoginForm {
+export interface ProfileForm extends LoginForm {
   firstName: FormControl<string>;
   lastName: FormControl<string>;
   phoneNumber: FormControl<string>;

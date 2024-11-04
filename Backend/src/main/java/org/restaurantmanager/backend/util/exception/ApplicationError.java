@@ -18,6 +18,10 @@ public enum ApplicationError {
     PROFILE_EMAIL_DUPLICATE("The profile email constraint is violated", HttpStatus.CONFLICT),
     PROFILE_PHONE_NUMBER_DUPLICATE("The profile phone number constraint is violated", HttpStatus.CONFLICT),
     PROFILE_NOT_FOUND("The profile does not exist", HttpStatus.NOT_FOUND),
+    PROFILE_EDIT_DENIED(
+            "The profile edit denied because the current user is not the owner of the profile",
+            HttpStatus.BAD_REQUEST
+    ),
     // endregion
 
     // region Seating errors

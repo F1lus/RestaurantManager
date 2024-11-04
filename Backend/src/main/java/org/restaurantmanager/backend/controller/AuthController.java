@@ -2,7 +2,7 @@ package org.restaurantmanager.backend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.backend.dto.auth.LoginRequest;
-import org.restaurantmanager.backend.dto.auth.RegisterRequest;
+import org.restaurantmanager.backend.dto.auth.ProfileRequest;
 import org.restaurantmanager.backend.dto.auth.TokenResponse;
 import org.restaurantmanager.backend.util.auth.AuthApi;
 import org.restaurantmanager.backend.util.auth.IAuthService;
@@ -26,8 +26,8 @@ public class AuthController implements AuthApi {
     }
 
     @Override
-    public ResponseEntity<String> register(final RegisterRequest registerRequest) {
-        authService.register(registerRequest);
+    public ResponseEntity<String> register(final ProfileRequest profileRequest) {
+        authService.register(profileRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

@@ -4,11 +4,13 @@ import {Reservation} from "../../model/common";
 import {ActivatedRoute} from "@angular/router";
 import {ReservationService} from "../../services/reservation.service";
 import {map, take} from "rxjs";
-import {DatePipe, NgOptimizedImage} from "@angular/common";
+import {DatePipe, NgClass, NgOptimizedImage} from "@angular/common";
 import {ArrayPipe} from "../../pipes/array.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {ReserveFormComponent} from "../../components/reserve-form/reserve-form.component";
 import {DateTime} from "luxon";
+import {GeneralProfile} from "../../model/auth";
+import {EditProfileFormComponent} from "../../components/edit-profile-form/edit-profile-form.component";
 
 @Component({
   selector: 'app-overview',
@@ -19,7 +21,9 @@ import {DateTime} from "luxon";
     TranslateModule,
     DatePipe,
     NgOptimizedImage,
-    ReserveFormComponent
+    ReserveFormComponent,
+    EditProfileFormComponent,
+    NgClass
   ],
   templateUrl: './overview.component.html',
 })
@@ -27,7 +31,10 @@ export class OverviewComponent implements OnInit {
 
   public readonly displayColumns = ['generalProfile', 'seating', 'foods', 'reservation', 'operations'] as const;
   public reservations: Reservation[] = [];
+  public profile!: GeneralProfile;
   public selectedReservation?: Reservation;
+
+  public readonly NOW = DateTime.now();
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -39,10 +46,14 @@ export class OverviewComponent implements OnInit {
     this.route.data
       .pipe(
         take(1),
-        map(data => data['reservations'] as Reservation[]),
+        map(data => ({
+          reservations: data['reservations'] as Reservation[],
+          profile: data['profile'] as GeneralProfile,
+        })),
       )
-      .subscribe(reservations => {
+      .subscribe(({reservations, profile}) => {
         this.reservations = reservations;
+        this.profile = profile;
       });
   }
 
@@ -75,10 +86,17 @@ export class OverviewComponent implements OnInit {
       })
   }
 
-  public areOperationsEnabled(endDate: string) {
-    const end = DateTime.fromISO(endDate);
-    const diff = end.diffNow(['minutes', 'hours']);
+  public areOperationsEnabled(startDate: string) {
+    const start = DateTime.fromISO(startDate);
+    const now = DateTime.now();
+    const diff = start.diffNow(['minutes', 'hours']);
+    return !(diff.hours === 0 && diff.minutes <= 30) && start.toMillis() > now.toMillis();
+  }
 
-    return !(diff.hours === 0 && diff.minutes <= 30);
+  public isReservationInactive(endDate: string) {
+    const now = DateTime.now();
+    const end = DateTime.fromISO(endDate);
+
+    return end.toMillis() <= now.toMillis();
   }
 }

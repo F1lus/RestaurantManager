@@ -41,16 +41,15 @@ public class ReservationService implements IReservationService {
     @Override
     public List<Reservation> getReservations() {
         log.info("Getting reservations...");
-        val currentDate = LocalDateTime.now();
         val profileEntity = profileService.getCurrentUser();
         if (profileEntity.getProfileType() == ProfileType.USER) {
-            return reservationRepository.findAllByReservedBy(profileEntity.getId(), currentDate)
+            return reservationRepository.findAllByReservedBy(profileEntity.getId())
                     .stream()
                     .map(ReservationConverter::toResponse)
                     .toList();
         }
 
-        return reservationRepository.findReservations(currentDate)
+        return reservationRepository.findReservations()
                 .stream()
                 .map(ReservationConverter::toResponse)
                 .toList();
