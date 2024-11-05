@@ -1,12 +1,13 @@
 <section class="mt-10 px-10">
 
-  <div class="grid grid-cols-1 md:grid-cols-2">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <app-edit-profile-form
       [profile]="profile"
     ></app-edit-profile-form>
-    <div>
-
-    </div>
+    <app-reserve-filter
+      (filter)="handleFilter($event)"
+    >
+    </app-reserve-filter>
   </div>
 
   <table class="table-fixed w-[100%] max-h-[80vh] text-center overflow-x-auto border shadow rounded">
@@ -18,7 +19,7 @@
     </tr>
     </thead>
     <tbody>
-      @for (element of reservations; track element.id) {
+      @for (element of displayReservations; track element.id) {
         <tr class="border" [ngClass]="{ 'bg-gray-100': isReservationInactive(element.reservationEnd) }">
           <td class="border">{{ element.generalProfile.fullName }}</td>
           <td class="border">{{ element.seats | array: 'name' }}</td>

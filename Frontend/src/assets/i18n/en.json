@@ -2,7 +2,8 @@
   "general": {
     "submit": "Submit",
     "cancel": "Cancel",
-    "add_new": "Add new entry"
+    "add_new": "Add new entry",
+    "filter": "Apply filters"
   },
   "app_title": "Restaurant Manager",
   "link": {
@@ -78,12 +79,15 @@
     "modify": "Modify reservation",
     "seat_select": "Choose seats",
     "food_select": "Choose foods",
-    "startDate": "Start of the reservation (30 minute splits)",
-    "endDate": "End of the reservation (30 minute splits)",
+    "startDate": "Start time (30 minute splits)",
+    "endDate": "End time (30 minute splits)",
     "totalCost": "Paid on the spot",
     "personCount": "people",
     "date-helper": "You cannot book on the actual day, min. 30 minutes, max. 4 hours",
-    "two-week-notice": "You can only reserve up to two weeks ahead ({{max}})"
+    "two-week-notice": "You can only reserve up to two weeks ahead ({{max}})",
+    "filter": "Filter reservations",
+    "reserved_by": "Reserved by",
+    "reserved_by_placeholder": "Start writing the name of the guest"
   },
   "field_required": "This field cannot be empty",
   "email_format_invalid": "The email format is invalid",

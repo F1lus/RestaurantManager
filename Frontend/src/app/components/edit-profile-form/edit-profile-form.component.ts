@@ -73,6 +73,7 @@ export class EditProfileFormComponent implements OnInit {
           password: '',
           passwordRepeat: '',
         })
+        this.formError = undefined;
       },
       error: (err: HttpErrorResponse) => {
         this.profileEditForm.enable();

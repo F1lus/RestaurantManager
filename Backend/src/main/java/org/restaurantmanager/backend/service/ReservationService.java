@@ -12,6 +12,7 @@ import org.restaurantmanager.backend.dto.reservation.CreateReservationRequest;
 import org.restaurantmanager.backend.dto.reservation.ModifyReservationRequest;
 import org.restaurantmanager.backend.dto.reservation.Reservation;
 import org.restaurantmanager.backend.exception.reservation.ReservationConflictException;
+import org.restaurantmanager.backend.exception.reservation.ReservationDeleteDeniedException;
 import org.restaurantmanager.backend.exception.reservation.ReservationNotFoundException;
 import org.restaurantmanager.backend.exception.reservation.ReservationTimeInvalidException;
 import org.restaurantmanager.backend.util.profile.IProfileService;
@@ -102,6 +103,18 @@ public class ReservationService implements IReservationService {
 
     @Override
     public void deleteReservation(final UUID id) {
+        val currentUser = profileService.getCurrentUser();
+        val reservationEntity = getReservationEntityById(id);
+        val now = LocalDateTime.now();
+
+        if (currentUser.getProfileType() == ProfileType.USER && now.plusDays(1).isAfter(reservationEntity.getReservationStart())) {
+            throw new ReservationDeleteDeniedException();
+        }
+
+        if (currentUser.getProfileType() != ProfileType.USER && now.isAfter(reservationEntity.getReservationEnd())) {
+            throw new ReservationDeleteDeniedException();
+        }
+
         reservationRepository.deleteById(id);
     }
 
@@ -180,7 +193,10 @@ public class ReservationService implements IReservationService {
     }
 
     private boolean isReservationValid(final LocalDateTime reservationStart, final LocalDateTime reservationEnd) {
-        return reservationEnd.isBefore(reservationStart)
+        val now = LocalDateTime.now();
+        return reservationEnd.isBefore(now)
+                || reservationStart.isBefore(now)
+                || reservationEnd.isBefore(reservationStart)
                 || reservationStart.isAfter(reservationEnd)
                 || reservationEnd.isEqual(reservationStart)
                 || reservationStart.plusMinutes(30).isAfter(reservationEnd)

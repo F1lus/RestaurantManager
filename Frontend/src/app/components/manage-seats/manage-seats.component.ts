@@ -57,6 +57,10 @@ export class ManageSeatsComponent implements OnInit {
     this.seatingService.deleteSeat(seatId)
       .subscribe(() => {
         this.seats.splice(index, 1);
+
+        if (this.selectedSeat?.id === seatId) {
+          this.selectedSeat = undefined;
+        }
       })
   }
 

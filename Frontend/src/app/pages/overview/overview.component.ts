@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SelectableListComponent} from "../../components/selectable-list/selectable-list.component";
-import {Reservation} from "../../model/common";
+import {Reservation, ReservationFilter} from "../../model/common";
 import {ActivatedRoute} from "@angular/router";
 import {ReservationService} from "../../services/reservation.service";
 import {map, take} from "rxjs";
@@ -11,6 +11,7 @@ import {ReserveFormComponent} from "../../components/reserve-form/reserve-form.c
 import {DateTime} from "luxon";
 import {GeneralProfile} from "../../model/auth";
 import {EditProfileFormComponent} from "../../components/edit-profile-form/edit-profile-form.component";
+import {ReserveFilterComponent} from "../../components/reserve-filter/reserve-filter.component";
 
 @Component({
   selector: 'app-overview',
@@ -23,18 +24,18 @@ import {EditProfileFormComponent} from "../../components/edit-profile-form/edit-
     NgOptimizedImage,
     ReserveFormComponent,
     EditProfileFormComponent,
-    NgClass
+    NgClass,
+    ReserveFilterComponent
   ],
   templateUrl: './overview.component.html',
 })
 export class OverviewComponent implements OnInit {
 
   public readonly displayColumns = ['generalProfile', 'seating', 'foods', 'reservation', 'operations'] as const;
-  public reservations: Reservation[] = [];
+  public displayReservations: Reservation[] = [];
   public profile!: GeneralProfile;
   public selectedReservation?: Reservation;
-
-  public readonly NOW = DateTime.now();
+  private reservations: Reservation[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -52,7 +53,13 @@ export class OverviewComponent implements OnInit {
         })),
       )
       .subscribe(({reservations, profile}) => {
-        this.reservations = reservations;
+        this.reservations = reservations.sort((a, b) => {
+          const endA = DateTime.fromISO(a.reservationEnd)
+          const endB = DateTime.fromISO(b.reservationEnd)
+
+          return endB.toMillis() - endA.toMillis()
+        });
+        this.displayReservations = this.reservations;
         this.profile = profile;
       });
   }
@@ -72,6 +79,11 @@ export class OverviewComponent implements OnInit {
 
     this.reservationService.deleteReservation(reservationId).subscribe(() => {
       this.reservations.splice(index, 1);
+      this.displayReservations = this.reservations;
+
+      if (this.selectedReservation?.id === reservationId) {
+        this.selectedReservation = undefined;
+      }
     })
   }
 
@@ -82,7 +94,13 @@ export class OverviewComponent implements OnInit {
   public handleEdit() {
     this.reservationService.getReservations()
       .subscribe(reservations => {
-        this.reservations = reservations;
+        this.reservations = reservations.sort((a, b) => {
+          const endA = DateTime.fromISO(a.reservationEnd)
+          const endB = DateTime.fromISO(b.reservationEnd)
+
+          return endA.toMillis() - endB.toMillis()
+        });
+        this.displayReservations = this.reservations;
       })
   }
 
@@ -98,5 +116,14 @@ export class OverviewComponent implements OnInit {
     const end = DateTime.fromISO(endDate);
 
     return end.toMillis() <= now.toMillis();
+  }
+
+  public handleFilter(filter: ReservationFilter) {
+    this.displayReservations = this.reservations
+      .filter(reservation => reservation.generalProfile.fullName.toLowerCase().includes(filter.reservedBy))
+      .filter(reservation => filter.seatIds.length === 0 ? true : reservation.seats.map(seat => seat.id).some(seatId => filter.seatIds.includes(seatId)))
+      .filter(reservation => filter.foodIds.length === 0 ? true : reservation.foods.map(food => food.id).some(foodId => filter.foodIds.includes(foodId)))
+      .filter(reservation => !filter.reservationStart ? true : DateTime.fromISO(reservation.reservationStart).toMillis() >= filter.reservationStart.toMillis())
+      .filter(reservation => !filter.reservationEnd ? true : DateTime.fromISO(reservation.reservationEnd).toMillis() <= filter.reservationEnd.toMillis())
   }
 }

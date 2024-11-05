@@ -40,6 +40,7 @@ public enum ApplicationError {
     // region Reservation errors
     RESERVATION_TIME_INVALID("The reservation time is invalid", HttpStatus.BAD_REQUEST),
     RESERVATION_CONFLICT("The reservation is conflicting with another", HttpStatus.CONFLICT),
+    RESERVATION_DELETE_DENIED("The reservation delete was denied", HttpStatus.BAD_REQUEST),
     RESERVATION_NOT_FOUND("The reservation could not be found", HttpStatus.NOT_FOUND);
     // endregion
 

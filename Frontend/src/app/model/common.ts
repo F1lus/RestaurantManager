@@ -1,5 +1,6 @@
 import {FormControl} from "@angular/forms";
 import {GeneralProfile} from "./auth";
+import {DateTime} from "luxon";
 
 export interface Allergen {
   id: string;
@@ -52,6 +53,18 @@ export interface ReserveForm {
   foodIds: FormControl<string[]>;
   reservationStart: FormControl<string>;
   reservationEnd: FormControl<string>;
+}
+
+export interface ReserveFilterForm extends ReserveForm {
+  reservedBy: FormControl<string>;
+}
+
+export interface ReservationFilter {
+  reservedBy: string;
+  seatIds: string[],
+  foodIds: string[],
+  reservationStart: DateTime | null,
+  reservationEnd: DateTime | null,
 }
 
 export interface ReservationRequest {

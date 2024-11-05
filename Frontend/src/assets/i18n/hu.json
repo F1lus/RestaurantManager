@@ -2,7 +2,8 @@
   "general": {
     "submit": "Kész",
     "cancel": "Mégse",
-    "add_new": "Új elem hozzáadása"
+    "add_new": "Új elem hozzáadása",
+    "filter": "Szűrők alkalmazása"
   },
   "app_title": "Restaurant Manager",
   "mandatory_fields": "A csillaggal jelölt mezők kitöltése kötelező",
@@ -79,12 +80,15 @@
     "modify": "Foglalás módosítása",
     "seat_select": "Ülőhelyek kiválasztása",
     "food_select": "Ételek kiválasztása",
-    "startDate": "Foglalás kezdete (30 perces felosztás)",
-    "endDate": "Foglalás vége (30 perces felosztás)",
+    "startDate": "Kezdés ekkor (30 perces felosztás)",
+    "endDate": "Vége ekkor (30 perces felosztás)",
     "totalCost": "A helyszínen fizetendő",
     "personCount": "fő",
     "date-helper": "Megkezdett napra nem lehet foglalni, min. 30 perc, max. 4 óra",
-    "two-week-notice": "Foglalás maximum két héttel előre lehetséges ({{max}})"
+    "two-week-notice": "Foglalás maximum két héttel előre lehetséges ({{max}})",
+    "filter": "Foglalások szűrése",
+    "reserved_by": "Vendég neve",
+    "reserved_by_placeholder": "Írja ide a vendég nevét"
   },
   "field_required": "Ez a mező nem lehet üres",
   "email_format_invalid": "Az email formátuma nem megfelelő",

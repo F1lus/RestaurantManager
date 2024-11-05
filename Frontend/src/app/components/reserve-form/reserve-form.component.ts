@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, DestroyRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Food, Reservation, ReservationRequest, ReserveForm, Seating} from "../../model/common";
 import {DateTime} from "luxon";
-import {map, Subscription, take} from "rxjs";
+import {map, take} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ReservationService} from "../../services/reservation.service";
 import {reservationTimeValidation} from "../../util/ReservationTimeValidation";
@@ -12,6 +12,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {serverSideValidator} from "../../util/ServerSideValidation";
 import {ErrorPipe} from "../../pipes/error.pipe";
 import {DatePipe} from "@angular/common";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-reserve-form',
@@ -25,7 +26,7 @@ import {DatePipe} from "@angular/common";
   ],
   templateUrl: './reserve-form.component.html',
 })
-export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
+export class ReserveFormComponent implements OnInit, OnChanges {
 
   @Input() public reservation?: Reservation;
   @Input() public isEditing = false;
@@ -43,13 +44,12 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
   public readonly minDate = DateTime.now().set({minute: 0, hour: 0}).plus({day: 1}).toISO().substring(0, 16);
   public readonly maxDate = DateTime.now().plus({week: 2}).toISO().substring(0, 16);
 
-  private readonly subscription = new Subscription();
-
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly formBuilder: FormBuilder,
     private readonly reservationService: ReservationService,
+    private readonly destroyRef: DestroyRef
   ) {
   }
 
@@ -70,14 +70,13 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
 
     this.updateForm();
 
-    this.subscription.add(
-      this.reserveForm.controls
-        .foodIds
-        .valueChanges
-        .subscribe(values => {
-          this.calculatePrice(values);
-        })
-    );
+    this.reserveForm.controls
+      .foodIds
+      .valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(values => {
+        this.calculatePrice(values);
+      })
 
     this.route.data
       .pipe(
@@ -98,10 +97,6 @@ export class ReserveFormComponent implements OnInit, OnChanges, OnDestroy {
     if (!changes['reservation'].isFirstChange()) {
       this.updateForm();
     }
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   public handleSubmit() {

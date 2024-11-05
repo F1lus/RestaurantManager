@@ -48,6 +48,9 @@ export class ManageMenuComponent implements OnInit {
     this.foodService.removeFood(foodId)
       .subscribe(() => {
         this.menu.splice(index, 1);
+        if (this.selectedFood?.id === foodId) {
+          this.selectedFood = undefined;
+        }
       })
   }
 
