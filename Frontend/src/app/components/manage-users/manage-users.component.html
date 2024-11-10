@@ -1,11 +1,13 @@
+<app-user-filter (filter)="handleFilter($event)"></app-user-filter>
+
 <app-selectable-list
   [controlsTemplate]="controls"
   [displayColumns]="displayedColumns"
-  [listOfElements]="profiles"
+  [listOfElements]="displayedProfiles"
 ></app-selectable-list>
 
 <ng-template #controls let-index="index">
-  @if (profiles[index].profileTypes.includes(ProfileType.WAITER)) {
+  @if (displayedProfiles[index].profileTypes.includes(ProfileType.WAITER)) {
     <button class="bg-red-500 p-2 rounded" (click)="demoteUser(index)">
       <img ngSrc="assets/images/common/arrow_down.png" alt="demote" width="15" height="15">
     </button>

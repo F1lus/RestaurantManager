@@ -15,6 +15,12 @@ export interface Food {
   allergens: Allergen[];
 }
 
+export interface FoodFilter {
+  name: string;
+  price: number;
+  allergens: string[];
+}
+
 export enum DashboardState {
   MODIFY_USER = 'MODIFY_USER',
   MODIFY_SEAT = 'MODIFY_SEAT',
@@ -26,6 +32,12 @@ export enum DashboardState {
 export interface FoodForm {
   name: FormControl<string>;
   description: FormControl<string>;
+  price: FormControl<number>;
+  allergens: FormControl<string[]>;
+}
+
+export interface FoodFilterForm {
+  name: FormControl<string>;
   price: FormControl<number>;
   allergens: FormControl<string[]>;
 }
@@ -65,6 +77,20 @@ export interface ReservationFilter {
   foodIds: string[],
   reservationStart: DateTime | null,
   reservationEnd: DateTime | null,
+}
+
+export interface UserFilterForm {
+  fullName: FormControl<string>;
+  email: FormControl<string>;
+  phoneNumber: FormControl<string>;
+  waitersOnly: FormControl<boolean>;
+}
+
+export interface UserFilter {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  waitersOnly: boolean;
 }
 
 export interface ReservationRequest {

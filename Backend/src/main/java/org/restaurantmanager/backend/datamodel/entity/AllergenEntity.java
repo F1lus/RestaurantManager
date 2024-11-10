@@ -29,7 +29,7 @@ public class AllergenEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, columnDefinition = "TEXT COLLATE \"hu_HU.UTF-8\"")
     private String name;
 
     @ManyToMany(mappedBy = "allergens")

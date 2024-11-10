@@ -1,3 +1,5 @@
+<app-seat-filter (filter)="handleFilter($event)"></app-seat-filter>
+
 <section class="flex justify-end mb-3">
   <button
     [queryParamsHandling]="'merge'"
@@ -12,7 +14,7 @@
 <app-selectable-list
   [controlsTemplate]="controls"
   [displayColumns]="displayedColumns"
-  [listOfElements]="seats"
+  [listOfElements]="displaySeats"
 >
 </app-selectable-list>
 

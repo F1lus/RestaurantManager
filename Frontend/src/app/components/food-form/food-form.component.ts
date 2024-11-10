@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Allergen, CreateFoodRequest, DashboardState, Food, FoodForm} from "../../model/common";
+import {CreateFoodRequest, DashboardState, Food, FoodForm} from "../../model/common";
 import {ErrorPipe} from "../../pipes/error.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {environment} from "../../../environments/environment";
 import {ComboBoxComponent} from "../combobox/combo-box.component";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {map} from "rxjs";
 import {FoodService} from "../../services/food.service";
 import {serverSideValidator} from "../../util/ServerSideValidation";
@@ -38,9 +38,8 @@ export class FoodFormComponent implements OnInit, OnChanges {
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly route: ActivatedRoute,
     private readonly foodService: FoodService,
-    private readonly router: Router
+    private readonly router: Router,
   ) {
   }
 
@@ -54,9 +53,8 @@ export class FoodFormComponent implements OnInit, OnChanges {
 
     this.updateFoodForm();
 
-    this.route.data
+    this.foodService.getAllergens()
       .pipe(
-        map(data => data['allergens'] as Allergen[]),
         map(allergens => allergens.map(allergen => allergen.name))
       )
       .subscribe(allergens => this.allergens = allergens);

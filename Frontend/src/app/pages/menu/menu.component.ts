@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, DestroyRef, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from "@angular/router";
-import {Subscription} from "rxjs";
 import {Food} from "../../model/common";
 import {ArrayPipe} from "../../pipes/array.pipe";
 import {PricePipe} from "../../pipes/price.pipe";
 import {TranslateModule} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-menu',
@@ -19,26 +19,24 @@ import {NgIf} from "@angular/common";
   ],
   templateUrl: './menu.component.html',
 })
-export class MenuComponent implements OnInit, OnDestroy {
+export class MenuComponent implements OnInit {
 
   public menuItems: Food[] = [];
   public currentPage = 1;
-  private readonly subscription = new Subscription();
 
-  constructor(private readonly route: ActivatedRoute) {
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly destroyRef: DestroyRef
+  ) {
   }
 
   public ngOnInit() {
-    this.subscription.add(
-      this.route.data.subscribe(data => {
+    this.route.data
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
         this.menuItems = data['menu'].foods;
         this.currentPage = data['menu'].currentPage;
       })
-    )
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
 }

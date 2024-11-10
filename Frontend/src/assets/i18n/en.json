@@ -50,6 +50,27 @@
       "price": "Price"
     }
   },
+  "user": {
+    "filter": "Filter users",
+    "full_name": "Full name",
+    "email": "Email address",
+    "phone_number": "Phone number",
+    "waiters_only": "Show waiters only",
+    "full_name_placeholder": "Start writing the full name of the user",
+    "email_placeholder": "Start writing the email of the user",
+    "phone_number_placeholder": "Start writing the phone number of the user"
+  },
+  "seat": {
+    "filter": "Filter seats",
+    "name_placeholder": "Start typing the name of the seat",
+    "person_count_filter": "Minimum number of seats",
+    "person_count_placeholder": "Start typing the minimum number of seats here"
+  },
+  "food": {
+    "filter": "Filter foods",
+    "price": "Max price",
+    "name_placeholder": "Start typing the name of the food"
+  },
   "auth": {
     "email": "Email address",
     "email_placeholder": "Add your email address",
@@ -120,6 +141,7 @@
   "foods": "Foods",
   "reservation": "Duration",
   "greater_than_zero_input": "This should be an integer which is greater than zero",
+  "integer_input": "This value must be an integer (can be zero)",
   "allergens_helper": "Allergen1, Allergen2, ...",
   "seat_placeholder": "The seat's name",
   "food_name_placeholder": "The food's name",

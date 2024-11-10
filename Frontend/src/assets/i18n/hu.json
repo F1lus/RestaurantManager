@@ -51,6 +51,27 @@
       "price": "Ár"
     }
   },
+  "user": {
+    "filter": "Felhasználók szűrése",
+    "full_name": "Teljes név",
+    "email": "Email cím",
+    "phone_number": "Telefonszám",
+    "waiters_only": "Csak pincérek mutatása",
+    "full_name_placeholder": "Írja ide a felhasználó nevét",
+    "email_placeholder": "Írja ide a felhasználó email címét",
+    "phone_number_placeholder": "Írja ide a felhasználó telefonszámát"
+  },
+  "seat": {
+    "filter": "Asztalok szűrése",
+    "name_placeholder": "Írja ide az asztal nevét",
+    "person_count_filter": "Minimum férőhelyek száma",
+    "person_count_placeholder": "Írja ide, a minimum férőhelyek számát"
+  },
+  "food": {
+    "filter": "Ételek szűrése",
+    "price": "Max ár",
+    "name_placeholder": "Írja ide az étel nevét"
+  },
   "auth": {
     "email": "Email cím",
     "email_placeholder": "Add meg az email címed",
@@ -121,6 +142,7 @@
   "foods": "Ételek",
   "reservation": "Időtartam",
   "greater_than_zero_input": "Az érték nullától nagyobb pozitív egész szám",
+  "integer_input": "Az érték pozitív egész szám (lehet nulla is)",
   "allergens_helper": "Allergén1, Allergén2, ...",
   "seat_placeholder": "Az ülőhely neve",
   "food_name_placeholder": "Az étel neve",

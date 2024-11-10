@@ -1,3 +1,5 @@
+<app-food-filter (filter)="handleFilter($event)"></app-food-filter>
+
 <section class="flex justify-end mb-3">
   <button
     [queryParamsHandling]="'merge'"
@@ -11,7 +13,7 @@
 <app-selectable-list
         [controlsTemplate]="controls"
         [displayColumns]="displayedColumns"
-        [listOfElements]="menu"
+        [listOfElements]="displayMenu"
 ></app-selectable-list>
 
 @if (selectedFood) {
