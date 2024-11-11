@@ -1,9 +1,9 @@
 package org.restaurantmanager.backend.util.profile;
 
 import jakarta.validation.Valid;
-import org.restaurantmanager.backend.dto.auth.ProfileRequest;
 import org.restaurantmanager.backend.dto.auth.TokenResponse;
 import org.restaurantmanager.backend.dto.profile.GeneralProfile;
+import org.restaurantmanager.backend.dto.profile.UpdateProfileRequest;
 import org.restaurantmanager.backend.dto.profile.UpdateProfileTypeRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +39,6 @@ public interface ProfileApi {
     @PutMapping(PROFILE_EDIT)
     ResponseEntity<TokenResponse> updateProfile(
             @PathVariable("id") UUID id,
-            @Valid @RequestBody ProfileRequest request
+            @Valid @RequestBody UpdateProfileRequest request
     );
 }

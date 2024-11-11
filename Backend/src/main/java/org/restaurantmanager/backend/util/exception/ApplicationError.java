@@ -12,6 +12,7 @@ public enum ApplicationError {
     INCORRECT_CREDENTIALS("The credentials were incorrect", HttpStatus.UNAUTHORIZED),
     ACCESS_DENIED("Access denied", HttpStatus.UNAUTHORIZED),
     PASSWORD_CONFIRM_INVALID("The passwords are not the same", HttpStatus.BAD_REQUEST),
+    PASSWORD_FORMAT_INVALID("The password format is invalid", HttpStatus.BAD_REQUEST),
     // endregion
 
     // region Profile errors

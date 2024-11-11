@@ -1,9 +1,9 @@
 package org.restaurantmanager.backend.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.restaurantmanager.backend.dto.auth.ProfileRequest;
 import org.restaurantmanager.backend.dto.auth.TokenResponse;
 import org.restaurantmanager.backend.dto.profile.GeneralProfile;
+import org.restaurantmanager.backend.dto.profile.UpdateProfileRequest;
 import org.restaurantmanager.backend.dto.profile.UpdateProfileTypeRequest;
 import org.restaurantmanager.backend.util.profile.IProfileService;
 import org.restaurantmanager.backend.util.profile.ProfileApi;
@@ -35,7 +35,7 @@ public class ProfileController implements ProfileApi {
     }
 
     @Override
-    public ResponseEntity<TokenResponse> updateProfile(UUID id, ProfileRequest request) {
+    public ResponseEntity<TokenResponse> updateProfile(UUID id, UpdateProfileRequest request) {
         return ResponseEntity.ok(
                 new TokenResponse(
                         profileService.updateProfile(id, request)

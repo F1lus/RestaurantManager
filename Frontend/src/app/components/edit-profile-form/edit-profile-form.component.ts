@@ -39,11 +39,11 @@ export class EditProfileFormComponent implements OnInit {
   public ngOnInit() {
     this.profileEditForm = this.formBuilder.group({
       email: this.formBuilder.nonNullable.control('', [Validators.required, Validators.email]),
-      password: this.formBuilder.nonNullable.control('', [Validators.required, Validators.minLength(8)]),
+      password: this.formBuilder.nonNullable.control(''),
       firstName: this.formBuilder.nonNullable.control('', [Validators.required]),
       lastName: this.formBuilder.nonNullable.control('', [Validators.required]),
       phoneNumber: this.formBuilder.nonNullable.control('', [Validators.required]),
-      passwordRepeat: this.formBuilder.nonNullable.control('', [Validators.required, Validators.minLength(8)]),
+      passwordRepeat: this.formBuilder.nonNullable.control(''),
     });
 
     this.updateForm();

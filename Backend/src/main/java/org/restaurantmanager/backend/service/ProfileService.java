@@ -7,10 +7,12 @@ import org.restaurantmanager.backend.config.authentication.JwtService;
 import org.restaurantmanager.backend.datamodel.entity.ProfileEntity;
 import org.restaurantmanager.backend.datamodel.fieldtype.ProfileType;
 import org.restaurantmanager.backend.datamodel.repository.ProfileRepository;
-import org.restaurantmanager.backend.dto.auth.ProfileRequest;
+import org.restaurantmanager.backend.dto.auth.AuthValidation;
 import org.restaurantmanager.backend.dto.profile.GeneralProfile;
+import org.restaurantmanager.backend.dto.profile.UpdateProfileRequest;
 import org.restaurantmanager.backend.dto.profile.UpdateProfileTypeRequest;
 import org.restaurantmanager.backend.exception.auth.PasswordConfirmException;
+import org.restaurantmanager.backend.exception.profile.PasswordFormatInvalidException;
 import org.restaurantmanager.backend.exception.profile.ProfileEditDeniedException;
 import org.restaurantmanager.backend.exception.profile.ProfileEmailViolationException;
 import org.restaurantmanager.backend.exception.profile.ProfileNotFoundException;
@@ -21,6 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.UUID;
@@ -66,14 +69,22 @@ public class ProfileService implements IProfileService {
     }
 
     @Override
-    public String updateProfile(final UUID id, final ProfileRequest request) {
+    public String updateProfile(final UUID id, final UpdateProfileRequest request) {
         val currentUser = getCurrentUser();
         if (!currentUser.getId().equals(id)) {
             throw new ProfileEditDeniedException();
         }
 
-        if (!request.getPassword().equals(request.getPasswordRepeat())) {
-            throw new PasswordConfirmException();
+        if (StringUtils.hasText(request.getPassword())) {
+            if (!request.getPassword().equals(request.getPasswordRepeat())) {
+                throw new PasswordConfirmException();
+            }
+
+            if (!request.getPassword().matches(AuthValidation.PASSWORD_REGEX)) {
+                throw new PasswordFormatInvalidException();
+            }
+
+            currentUser.setPassword(passwordEncoder.encode(request.getPassword()));
         }
 
         checkEmail(id, request.getEmail());
@@ -82,7 +93,6 @@ public class ProfileService implements IProfileService {
         currentUser.setFullName(request.getFullName());
         currentUser.setEmail(request.getEmail());
         currentUser.setPhoneNumber(request.getPhoneNumber());
-        currentUser.setPassword(passwordEncoder.encode(request.getPassword()));
 
         val updatedProfile = profileRepository.save(currentUser);
 
