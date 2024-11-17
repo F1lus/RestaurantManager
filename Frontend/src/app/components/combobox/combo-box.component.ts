@@ -67,7 +67,8 @@ export class ComboBoxComponent implements OnInit, OnChanges, AfterViewInit {
             return false;
           }
 
-          return !elements.includes(ac.toLowerCase()) && ac.toLowerCase().includes(value.toLowerCase());
+          return !elements.map(element => element.toLowerCase()).includes(ac.toLowerCase())
+            && ac.toLowerCase().includes(value.toLowerCase());
         })
 
         this.hasValue = value.length > 0 && this.filteredValues.length > 0

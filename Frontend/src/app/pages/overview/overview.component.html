@@ -1,4 +1,4 @@
-<section class="mt-10 px-10">
+<section class="mt-10 px-10 mb-4">
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <app-edit-profile-form
@@ -10,38 +10,40 @@
     </app-reserve-filter>
   </div>
 
-  <table class="table-fixed w-[100%] max-h-[80vh] text-center overflow-x-auto border shadow rounded">
-    <thead class="bg-gray-200">
-    <tr class="border">
-      @for (column of displayColumns; track displayColumns) {
-        <th class="border">{{ column | translate }}</th>
-      }
-    </tr>
-    </thead>
-    <tbody>
-      @for (element of displayReservations; track element.id) {
-        <tr class="border" [ngClass]="{ 'bg-gray-100': isReservationInactive(element.reservationEnd) }">
-          <td class="border">{{ element.generalProfile.fullName }}</td>
-          <td class="border">{{ element.seats | array: 'name' }}</td>
-          <td class="border">{{ element.foods | array: 'name' }}</td>
-          <td class="border">
-            {{ element.reservationStart | date: 'YYYY.MM.dd HH:mm' }}
-            - {{ element.reservationEnd | date: 'YYYY.MM.dd HH:mm' }}
-          </td>
-          <td class="border">
-            @if (areOperationsEnabled(element.reservationStart)) {
-              <button (click)="edit($index)" class="bg-gray-200 p-2 rounded border mx-2">
-                <img alt="edit" height="15" ngSrc="assets/images/common/edit.png" width="15">
-              </button>
-              <button (click)="remove($index)" class="bg-red-500 p-2 rounded border mx-2">
-                <img alt="delete" height="15" ngSrc="assets/images/common/delete.png" width="15">
-              </button>
-            }
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
+  <div class="w-[100%] max-h-[40vh] overflow-y-scroll border">
+    <table class="table-fixed w-[100%] text-center border shadow rounded">
+      <thead class="bg-gray-200">
+      <tr class="border">
+        @for (column of displayColumns; track displayColumns) {
+          <th class="border">{{ column | translate }}</th>
+        }
+      </tr>
+      </thead>
+      <tbody>
+        @for (element of displayReservations; track element.id) {
+          <tr class="border" [ngClass]="{ 'bg-gray-100': isReservationInactive(element.reservationEnd) }">
+            <td class="border">{{ element.generalProfile.fullName }}</td>
+            <td class="border">{{ element.seats | array: 'name' }}</td>
+            <td class="border">{{ element.foods | array: 'name' }}</td>
+            <td class="border">
+              {{ element.reservationStart | date: 'YYYY.MM.dd HH:mm' }}
+              - {{ element.reservationEnd | date: 'YYYY.MM.dd HH:mm' }}
+            </td>
+            <td class="border">
+              @if (areOperationsEnabled(element.reservationStart)) {
+                <button (click)="edit($index)" class="bg-gray-200 p-2 rounded border mx-2">
+                  <img alt="edit" height="15" ngSrc="assets/images/common/edit.png" width="15">
+                </button>
+                <button (click)="remove($index)" class="bg-red-500 p-2 rounded border mx-2">
+                  <img alt="delete" height="15" ngSrc="assets/images/common/delete.png" width="15">
+                </button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </section>
 
 @if (selectedReservation) {

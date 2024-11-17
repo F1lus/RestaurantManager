@@ -2,33 +2,35 @@
   <h3>{{ title }}</h3>
 }
 
-<table class="table-fixed w-[100%] max-h-[80vh] text-center overflow-x-auto border shadow rounded">
+<div class="w-[100%] max-h-[40vh] overflow-y-scroll border">
+  <table class="table-fixed w-[100%] text-center border shadow rounded">
     <thead class="bg-gray-200">
-  <tr class="border">
-    @for (column of displayColumns; track displayColumns) {
-      <th class="border">{{ column | translate }}</th>
-    }
-    @if (controlsTemplate) {
-      <th class="border">{{ 'operations' | translate }}</th>
-    }
-  </tr>
-  </thead>
-  <tbody>
-    @for (element of listOfElements; track element['id']) {
+    <tr class="border">
+      @for (column of displayColumns; track displayColumns) {
+        <th class="border">{{ column | translate }}</th>
+      }
+      @if (controlsTemplate) {
+        <th class="border">{{ 'operations' | translate }}</th>
+      }
+    </tr>
+    </thead>
+    <tbody>
+      @for (element of listOfElements; track element['id']) {
         <tr class="border">
-        @for (column of displayColumns; track column) {
-          <td class="border">{{ element[column] | array: column }}</td>
-        }
-        @if (controlsTemplate) {
-          <td class="border">
-            <ng-container
-              [ngTemplateOutlet]="controlsTemplate"
-              [ngTemplateOutletContext]="{ index: $index }"
-            >
-            </ng-container>
-          </td>
-        }
-      </tr>
-    }
-  </tbody>
-</table>
+          @for (column of displayColumns; track column) {
+            <td class="border">{{ element[column] | array: column }}</td>
+          }
+          @if (controlsTemplate) {
+            <td class="border">
+              <ng-container
+                [ngTemplateOutlet]="controlsTemplate"
+                [ngTemplateOutletContext]="{ index: $index }"
+              >
+              </ng-container>
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

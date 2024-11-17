@@ -69,7 +69,8 @@
   "food": {
     "filter": "Filter foods",
     "price": "Max price",
-    "name_placeholder": "Start typing the name of the food"
+    "name_placeholder": "Start typing the name of the food",
+    "price_placeholder": "Max price of the food"
   },
   "auth": {
     "email": "Email address",

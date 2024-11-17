@@ -42,4 +42,4 @@ RUN ./gradlew bootJar
 EXPOSE 8080
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "/app/build/libs/Backend-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/build/libs/Backend-1.0.0-PRODUCTION.jar"]

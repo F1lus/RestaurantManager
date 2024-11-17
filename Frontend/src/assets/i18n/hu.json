@@ -70,7 +70,8 @@
   "food": {
     "filter": "Ételek szűrése",
     "price": "Max ár",
-    "name_placeholder": "Írja ide az étel nevét"
+    "name_placeholder": "Írja ide az étel nevét",
+    "price_placeholder": "Az étel maximális ára"
   },
   "auth": {
     "email": "Email cím",
