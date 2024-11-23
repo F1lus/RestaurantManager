@@ -54,7 +54,6 @@ public class AllergenService implements IAllergenService {
     public Optional<AllergenEntity> findAllergenByName(final String name) {
         log.info("Finding allergen by name: {}", name);
 
-
         return allergenRepository.findByNameIgnoreCase(name);
     }
 
