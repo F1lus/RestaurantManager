@@ -69,7 +69,7 @@ class AllergenServiceUnitTest {
     }
 
     @Test
-    void shouldReturnNewAllergenIfDoesNotExists() {
+    void shouldCreateNewAllergenIfDoesNotExists() {
         when(allergenRepository.existsByNameIgnoreCase(NAME)).thenReturn(false);
 
         assertDoesNotThrow(() -> allergenService.createAllergen(NAME));
@@ -78,7 +78,7 @@ class AllergenServiceUnitTest {
     }
 
     @Test
-    void shouldNotFindAllergenByName() {
+    void shouldFindAllergenByName() {
         when(allergenRepository.findByNameIgnoreCase(NAME)).thenReturn(Optional.of(
                 AllergenEntity.builder().build()
         ));
@@ -101,7 +101,7 @@ class AllergenServiceUnitTest {
     }
 
     @Test
-    void deleteAllergenIfFoodHasAny() {
+    void deleteAllergenIfFoodHasAnyAndAllergenIsOrphan() {
         final var allergenEntity = AllergenEntity.builder()
                 .name(NAME)
                 .foods(Collections.emptySet())

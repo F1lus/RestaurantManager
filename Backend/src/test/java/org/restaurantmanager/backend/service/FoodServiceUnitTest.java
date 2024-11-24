@@ -55,7 +55,7 @@ class FoodServiceUnitTest {
     }
 
     @Test
-    void getAllFoods() {
+    void shouldGetAllFoods() {
         final var allergenEntity = AllergenEntity.builder()
                 .id(UUID.randomUUID())
                 .name("Gluten")
